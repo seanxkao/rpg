@@ -2,6 +2,7 @@
 #include "Bullet.h"
 #include "Button.h"
 #include "Controller.h"
+#include "Drawer.h"
 #include "Enemy.h"
 #include "Keyboard.h"
 #include "Map.h"
@@ -11,9 +12,8 @@
 #include "System.h"
 #include "Text.h"
 
+Drawer *drawer;
 ////////////////////////////////////////物件設定/////////////////////////////////////////////////////
-
-Drawer *drawer = new Drawer();
 
 class my_ship : public Body {
 public:
@@ -255,7 +255,7 @@ void training_start(){
 
 	TM = new TextManager(200);
 	map = new Map(0, 15, 15);
-	drawer->setCamera(SCREEN_WIDTH/3, SCREEN_HEIGHT/4, SCREEN_WIDTH*2/3, SCREEN_HEIGHT/2);
+	system->getDrawer()->setCamera(SCREEN_WIDTH/3, SCREEN_HEIGHT/4, SCREEN_WIDTH*2/3, SCREEN_HEIGHT/2);
 	
 	t_bar = new AnimeBlock;
 	t_bar -> setPosition(0,SCREEN_HEIGHT/2+70);
@@ -283,8 +283,8 @@ void training_running(){
 	if(TM!=NULL)TM->main();
 
 	//移動攝影機
-	drawer->setMapSize(map->getAllWidth(), map->getAllHeight());
-	drawer->moveCamera(MS->getX(), MS->getY());
+	system->getDrawer()->setMapSize(map->getAllWidth(), map->getAllHeight());
+	system->getDrawer()->moveCamera(MS->getX(), MS->getY());
 }
 
 void training_end(){
@@ -341,17 +341,15 @@ void collide(){
 		if(EB!=NULL){
 			if(Body::crash(MS , EB)){
 				int injure = EB->onDamaged(MS);
-
 				float EB_X = EB->getX();
 				float EB_Y = EB->getY();
 				float MS_X = MS->getX();
 				float MS_Y = MS->getY();
-
 				float P_X = random((MS_X*1 + EB_X*4)/5, 20);
 				float P_Y = random((MS_Y*1 + EB_Y*4)/5, 20);
 
 				PP->addParticle(4, 1, P_X, P_Y, 0, 0, 0, 0);
-
+				
 				stringstream ss;
 				ss<<injure;
 				string test=ss.str();
@@ -387,7 +385,8 @@ void collide(){
 	}
 
 
-	void draw(Drawer *drawer){
+	void draw(){
+		Drawer *drawer = system->getDrawer();
 		if(map!=NULL){
 			map->draw(drawer);
 		}
@@ -734,9 +733,8 @@ ShowWindow(hWnd,nCmdShow);
 UpdateWindow(hWnd);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-drawer = new Drawer();
-if(!drawer->initD3D(hWnd))return FALSE;
+drawer = game.system->getDrawer();
+if(!game.system->getDrawer()->initD3D(hWnd))return FALSE;
 
 timeNow = GetTickCount();
 timeLast = timeNow;
@@ -754,16 +752,15 @@ while(1){
 	if (timeNow - timeLast >= 16 ){
 
 		timeLast = timeNow;
-		drawer->clear();
+		game.system->getDrawer()->clear();
 		if(game.game_main()){
 			SendMessage(hWnd,WM_CLOSE,0,0);
 		}
-		game.draw(drawer);
-		drawer->drawAll();
+		game.draw();
+		game.system->getDrawer()->drawAll();
 	}
 }
 	
-delete drawer;
 return (int)msg.wParam ;
 }
 

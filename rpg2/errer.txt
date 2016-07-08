@@ -1,0 +1,1 @@
+g++ -w -mwindows  -I C:\Sean\DXSDK\Include -L C:\Sean\DXSDK\Lib\x86  RPG.cpp -ld3d9 -ld3dx9 -o RPG.exe

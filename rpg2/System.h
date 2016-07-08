@@ -13,12 +13,8 @@ using namespace std;
 
 class System{
 public:
-	//static const int COM_SIZE = 500;
-
-
-
-
 	System(int comSize, int ctrlComSize){
+		drawer = new Drawer();
 		this->comSize = comSize;
 		com = new Component*[comSize];
 		for(int i=0; i<comSize; i++){
@@ -31,6 +27,11 @@ public:
 		}
 	}
 	~System(){
+		delete drawer;
+	}
+	
+	Drawer* getDrawer(){
+		return drawer;
 	}
 
 	void addCtrlCom(ControlComponent *newCtrlCom){
@@ -108,6 +109,7 @@ protected:
 	list<Object*> runnables;
 	list<Object*> inputables;
 	list<Object*> drawables;
+	Drawer *drawer;
 
 	Component **com;
 	ControlComponent **ctrlCom;
