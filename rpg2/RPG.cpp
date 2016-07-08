@@ -1,8 +1,3 @@
-#pragma once
-
-#include "stdafx.h"
-
-#include "empty.h"
 #include "Bar.h"
 #include "Bullet.h"
 #include "Button.h"

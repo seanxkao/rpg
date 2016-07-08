@@ -1,7 +1,6 @@
 #pragma once
 
 #include "global.h"
-#include "stdafx.h"
 
 class Keyboard;
 class Drawer;
@@ -47,13 +46,11 @@ class Object	//the foundamental game object
 	}
 
 	void setAccel(float ax, float ay){
-		//設定加速度
 		this->ax = ax;
 		this->ay = ay;
 	}
 	
 	void setState(int nextState){
-		//切換狀態
 		this->nextState = nextState;
 	}
 	void setTarget(Object *parent, float parentX, float parentY){
@@ -106,15 +103,12 @@ class Object	//the foundamental game object
 	float speed;
 	float rad;
 	float rate;
-
 	int	state;
 	int	time;
 	int nextState;
-
 	Object *parent;
 	float parentX;
 	float parentY;
-
 	bool finished;
 
 	virtual void stateStart(){
@@ -124,13 +118,11 @@ class Object	//the foundamental game object
 	}
 
 	virtual void mainStart(){
-		//preprocess
-		//local coordinate
+		//use parent coordinate
 		if(parent != NULL){
 			x = parent->getX() + parentX;
 			y = parent->getY() + parentY;
 		}
-		//init
 		//change state
 		if(state != nextState){
 			stateEnd();
@@ -145,8 +137,6 @@ class Object	//the foundamental game object
 	}
 
 	virtual void mainEnd(){
-		//最後的處理
-		//處理加速度、速度和位移
 		mx += ax;
 		my += ay;
 		x += mx;

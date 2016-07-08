@@ -92,76 +92,76 @@ public:
 		}
 
 		//main menu
-		loadTexture(0, L"Image/buttom_mainmenu_start.bmp"); 	
-		loadTexture(1, L"Image/buttom_mainmenu_start_choosed.bmp"); 
-		loadTexture(2, L"Image/buttom_mainmenu_option.bmp"); 
-		loadTexture(3, L"Image/buttom_mainmenu_option_choosed.bmp"); 
-		loadTexture(4, L"Image/buttom_mainmenu_music.bmp"); 
-		loadTexture(5, L"Image/buttom_mainmenu_music_choosed.bmp"); 
-		loadTexture(6, L"Image/buttom_mainmenu_quit.bmp"); 
-		loadTexture(7, L"Image/buttom_mainmenu_quit_choosed.bmp"); 
+		loadTexture(0, L"image/buttom_mainmenu_start.bmp"); 	
+		loadTexture(1, L"image/buttom_mainmenu_start_choosed.bmp"); 
+		loadTexture(2, L"image/buttom_mainmenu_option.bmp"); 
+		loadTexture(3, L"image/buttom_mainmenu_option_choosed.bmp"); 
+		loadTexture(4, L"image/buttom_mainmenu_music.bmp"); 
+		loadTexture(5, L"image/buttom_mainmenu_music_choosed.bmp"); 
+		loadTexture(6, L"image/buttom_mainmenu_quit.bmp"); 
+		loadTexture(7, L"image/buttom_mainmenu_quit_choosed.bmp"); 
 		//start menu
-		loadTexture(20, L"Image/buttom_startmenu_training.bmp"); 
-		loadTexture(21, L"Image/buttom_startmenu_training_choosed.bmp"); 
-		loadTexture(22, L"Image/buttom_startmenu_battle.bmp"); 
-		loadTexture(23, L"Image/buttom_startmenu_battle_choosed.bmp"); 
-		loadTexture(24, L"Image/buttom_startmenu_stage.bmp"); 
-		loadTexture(25, L"Image/buttom_startmenu_stage_choosed.bmp"); 
-		loadTexture(26, L"Image/buttom_startmenu_status.bmp"); 
-		loadTexture(27, L"Image/buttom_startmenu_status_choosed.bmp"); 
-		loadTexture(28, L"Image/buttom_startmenu_return.bmp"); 
-		loadTexture(29, L"Image/buttom_startmenu_return_choosed.bmp"); 
+		loadTexture(20, L"image/buttom_startmenu_training.bmp"); 
+		loadTexture(21, L"image/buttom_startmenu_training_choosed.bmp"); 
+		loadTexture(22, L"image/buttom_startmenu_battle.bmp"); 
+		loadTexture(23, L"image/buttom_startmenu_battle_choosed.bmp"); 
+		loadTexture(24, L"image/buttom_startmenu_stage.bmp"); 
+		loadTexture(25, L"image/buttom_startmenu_stage_choosed.bmp"); 
+		loadTexture(26, L"image/buttom_startmenu_status.bmp"); 
+		loadTexture(27, L"image/buttom_startmenu_status_choosed.bmp"); 
+		loadTexture(28, L"image/buttom_startmenu_return.bmp"); 
+		loadTexture(29, L"image/buttom_startmenu_return_choosed.bmp"); 
 		//training menu
-		loadTexture(30, L"Image/buttom_training_menu_001.bmp"); 
-		loadTexture(31, L"Image/buttom_training_menu_001_choosed.bmp");
-		loadTexture(32, L"Image/buttom_training_menu_002.bmp"); 
-		loadTexture(33, L"Image/buttom_training_menu_002_choosed.bmp");
-		loadTexture(34, L"Image/buttom_training_menu_003.bmp"); 
-		loadTexture(35, L"Image/buttom_training_menu_003_choosed.bmp");
+		loadTexture(30, L"image/buttom_training_menu_001.bmp"); 
+		loadTexture(31, L"image/buttom_training_menu_001_choosed.bmp");
+		loadTexture(32, L"image/buttom_training_menu_002.bmp"); 
+		loadTexture(33, L"image/buttom_training_menu_002_choosed.bmp");
+		loadTexture(34, L"image/buttom_training_menu_003.bmp"); 
+		loadTexture(35, L"image/buttom_training_menu_003_choosed.bmp");
 		//title
-		loadTexture(100, L"Image/title.bmp");
+		loadTexture(100, L"image/title.bmp");
 		//background
-		loadTexture(200, L"Image/map_grass.bmp");
+		loadTexture(200, L"image/map_grass.bmp");
 		//interface
-		loadTexture(300, L"Image/gui_00.bmp");
+		loadTexture(300, L"image/gui_00.bmp");
 		//text
-		loadTexture(500, L"Image/text_bar_0.bmp");
+		loadTexture(500, L"image/text_bar_0.bmp");
 		//flash
-		loadTexture(800, L"Image/light_0.bmp");
-		//loadTexture(810, L"Image/hit_01.bmp");
-		loadTexture(810, L"Image/explode_0.bmp");
-		loadTexture(820, L"Image/effect_swordshadow_01.bmp");
+		loadTexture(800, L"image/light_0.bmp");
+		//loadTexture(810, L"image/hit_01.bmp");
+		loadTexture(810, L"image/explode_0.bmp");
+		loadTexture(820, L"image/effect_swordshadow_01.bmp");
 		//alley
-//		loadTexture(1000, L"Image/my_ship_0.bmp");
-//		loadTexture(1000, L"Image/character_medica.bmp");
-		loadTexture(1000, L"Image/character_literace_00.bmp");
-		loadTexture(1001, L"Image/character_literace_01.bmp");
-		loadTexture(1002, L"Image/character_literace_02.bmp");
-		loadTexture(1003, L"Image/character_literace_03.bmp");
-		loadTexture(1004, L"Image/character_literace_04.bmp");
-		loadTexture(1005, L"Image/character_literace_05.bmp");
-		loadTexture(1100, L"Image/hp_0.bmp");
-		loadTexture(1101, L"Image/hp_1.bmp");
-		loadTexture(1104, L"Image/exp_0.bmp");
-		loadTexture(1105, L"Image/exp_1.bmp");
+//		loadTexture(1000, L"image/my_ship_0.bmp");
+//		loadTexture(1000, L"image/character_medica.bmp");
+		loadTexture(1000, L"image/character_literace_00.bmp");
+		loadTexture(1001, L"image/character_literace_01.bmp");
+		loadTexture(1002, L"image/character_literace_02.bmp");
+		loadTexture(1003, L"image/character_literace_03.bmp");
+		loadTexture(1004, L"image/character_literace_04.bmp");
+		loadTexture(1005, L"image/character_literace_05.bmp");
+		loadTexture(1100, L"image/hp_0.bmp");
+		loadTexture(1101, L"image/hp_1.bmp");
+		loadTexture(1104, L"image/exp_0.bmp");
+		loadTexture(1105, L"image/exp_1.bmp");
 		//我方子彈
-//		loadTexture(2000, L"Image/my_bullet_0.bmp");
-		loadTexture(2000, L"Image/slash_1.bmp");
-		loadTexture(2001, L"Image/slash_2.bmp");
-		loadTexture(2002, L"Image/slash_3.bmp");
-		loadTexture(2003, L"Image/slash_4.bmp");
+//		loadTexture(2000, L"image/my_bullet_0.bmp");
+		loadTexture(2000, L"image/slash_1.bmp");
+		loadTexture(2001, L"image/slash_2.bmp");
+		loadTexture(2002, L"image/slash_3.bmp");
+		loadTexture(2003, L"image/slash_4.bmp");
 		//敵方角色
-		loadTexture(3000, L"Image/enemy_ship_0.bmp");
-		loadTexture(3001, L"Image/enemy_weak.bmp");
+		loadTexture(3000, L"image/enemy_ship_0.bmp");
+		loadTexture(3001, L"image/enemy_weak.bmp");
 		//敵方子彈
-		loadTexture(4000, L"Image/enemy_bullet_0.bmp"); 
-		loadTexture(4001, L"Image/enemy_bullet_1.bmp"); 
-		loadTexture(4002, L"Image/enemy_bullet_2.bmp"); 
-		loadTexture(4003, L"Image/enemy_bullet_3.bmp"); 
-		loadTexture(4004, L"Image/enemy_bullet_4.bmp"); 
-		loadTexture(4005, L"Image/enemy_bullet_5.bmp"); 
-		loadTexture(4006, L"Image/enemy_bullet_6.bmp"); 
-		loadTexture(4007, L"Image/enemy_bullet_7.bmp"); 
+		loadTexture(4000, L"image/enemy_bullet_0.bmp"); 
+		loadTexture(4001, L"image/enemy_bullet_1.bmp"); 
+		loadTexture(4002, L"image/enemy_bullet_2.bmp"); 
+		loadTexture(4003, L"image/enemy_bullet_3.bmp"); 
+		loadTexture(4004, L"image/enemy_bullet_4.bmp"); 
+		loadTexture(4005, L"image/enemy_bullet_5.bmp"); 
+		loadTexture(4006, L"image/enemy_bullet_6.bmp"); 
+		loadTexture(4007, L"image/enemy_bullet_7.bmp"); 
 		//text
 		//D3DXCreateFont(direct3DDevice, 20, 0, FW_BOLD, 0, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, TEXT("Arial"), &d_text);
 		return true;

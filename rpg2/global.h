@@ -1,8 +1,20 @@
 #pragma once
 
-#include "math.h"
-#include "Maths.h"
+//C
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include <time.h>
+#include <memory.h>
+#include <tchar.h>
+//C++
 #include <vector>
+#include <string>
+#include <sstream>
+//winapi
+#include <windows.h>
+//local
+#include "Maths.h"
 
 using namespace std;
 
@@ -10,10 +22,10 @@ using namespace std;
 
 //定義
 
-#define PLAYER1_LEFT	VK_LEFT	//左
-#define PLAYER1_RIGHT	VK_RIGHT//右
-#define PLAYER1_UP		VK_UP	//上
-#define PLAYER1_DOWN	VK_DOWN	//下
+#define PLAYER1_LEFT	VK_LEFT	
+#define PLAYER1_RIGHT	VK_RIGHT
+#define PLAYER1_UP		VK_UP	
+#define PLAYER1_DOWN	VK_DOWN
 #define PLAYER1_NATK	0x5A	//Z
 #define PLAYER1_SATK	0x58	//X
 #define PLAYER1_STAT	0x53	//S
@@ -29,7 +41,6 @@ const float H = GetSystemMetrics(SM_CYSCREEN);
 //#define FRAME_UP     U
 //#define FRAME_DOWN   D
 
-
 #define FRAME_LEFT   20
 #define FRAME_RIGHT  W - 20
 #define FRAME_UP     H + 50
@@ -42,13 +53,11 @@ const int R = W - 20;
 const int U = H - 50;
 const int D = 50;
 
-
 enum CONTROLER{
 	AUTO,	
 	PLAYER1,
 	PLAYER2 
 };
-
 
 struct Attack{
 	float rad;
@@ -59,10 +68,6 @@ struct Attack{
 	float knock;
 };
 
-
-////////////////////////////////////////函式定義/////////////////////////////////////////////////////
-
-
 void* new2d(int w, int h, int size){
 	void** p = (void**)(new char[w*h*size + w*sizeof(void*)]);
 	for(int i = 0; i < w; i++){
@@ -70,4 +75,5 @@ void* new2d(int w, int h, int size){
 	}
 	return p;
 } 
+
 #define new2D(W, H, TYPE) (TYPE**)(new2d(W, H, sizeof(TYPE)))

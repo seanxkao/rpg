@@ -1,6 +1,5 @@
 #pragma once
 
-#include "stdafx.h"
 #include "Object.h"
 #include "Drawer.h"
 #include "Status.h"
