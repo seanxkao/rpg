@@ -244,9 +244,9 @@ public:
 
 
 protected:
-	LPDIRECT3D9					direct3D; //DX物件宣告
-	LPDIRECT3DDEVICE9			direct3DDevice;
-	LPDIRECT3DTEXTURE9			*texture;
+	LPDIRECT3D9			direct3D; //DX物件宣告
+	LPDIRECT3DDEVICE9	direct3DDevice;
+	LPDIRECT3DTEXTURE9	*texture;
 	LPD3DXFONT d_text;
 
 	float cameraX;

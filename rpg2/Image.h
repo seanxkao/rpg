@@ -357,10 +357,8 @@ public:
 				}
 				break;
 			case STATE_ON:
-
 				setPosition(onX, onY);
 				setARGB(255);
-
 				if(onMode == 0){
 					if(time >= onTime){
 						setState(2);

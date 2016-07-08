@@ -120,7 +120,10 @@ HpBar::~HpBar(){
 
 class PlayerPanel : public Component{
 public:
-	PlayerPanel(Body *me){
+	PlayerPanel(Drawer *drawer, Body *me){
+		ID3DXFont *font;
+		D3DXCreateFont(drawer->getDevice(), 46, 0, FW_NORMAL, 1, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "Arial", &font);   
+	
 		show = true;
 		group = new Image(300);
 		group->setPosition(SCREEN_WIDTH/2, SCREEN_HEIGHT/10);
@@ -142,17 +145,20 @@ public:
 		level->setText(50, 20, 50, 20);
 		level->setTarget(group, 180, 15);
 		level->setFixed(true);
+		level->setFont(font);
 
 		
 		exp = new Text();
 		exp->setText(100, 10, 100, 10);
 		exp->setTarget(group, 200, -15);
 		exp->setFixed(true);
+		exp->setFont(font);
 
 		patk = new Text();
 		patk->setText(50, 10, 50, 10);
 		patk->setTarget(group, -200, 10);
 		patk->setFixed(true);
+		patk->setFont(font);
 	}
 	virtual ~PlayerPanel(){
 	}

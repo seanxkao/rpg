@@ -200,7 +200,6 @@ public:
 		TM = NULL;
 		keyboard = new Keyboard(20, 10);
 		system = new System(1000, 100);
-		
 		avatar = new Avatar();
 	}
 	~Game();
@@ -247,13 +246,16 @@ void training_start(){
 	MS_Bar = new HpBar(MS, MS);
 	MS_Bar->setTarget(0, 70);
 	MS_Bar->setBarSize(50, 10, 50, 10);
-
 	
-	PlayerPanel *playerPanel = new PlayerPanel(MS);
+	ID3DXFont *font;
+	D3DXCreateFont(system->getDrawer()->getDevice(), 46, 0, FW_NORMAL, 1, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "Arial", &font);   
+	TM = new TextManager(200, font);
+	
+	
+	PlayerPanel *playerPanel = new PlayerPanel(system->getDrawer(), MS);
 	playerPanel->setAvatar(avatar);
 	system->addCom(playerPanel);
 
-	TM = new TextManager(200);
 	map = new Map(0, 15, 15);
 	system->getDrawer()->setCamera(SCREEN_WIDTH/3, SCREEN_HEIGHT/4, SCREEN_WIDTH*2/3, SCREEN_HEIGHT/2);
 	

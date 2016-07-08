@@ -1,28 +1,22 @@
 #pragma once
 
-
 #include "Object.h"
 #include "Drawer.h"
 
 class Text : public Object{
 
 public:
-
 	Text(){
-		extern Drawer *drawer;
 		exist = false;
 		setFixed(false);
 		setWord("");
 		setARGB(255, 255, 255, 255);
-		D3DXCreateFont(drawer->getDevice() , 46, 0, FW_NORMAL, 1, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "Arial", &font);   
 	}
 	Text(string word, int colorA, int colorR, int colorG, int colorB){
-		extern Drawer *drawer;
 		exist = false;
 		setFixed(false);
 		setWord(word);
 		setARGB(colorA, colorR, colorG, colorB);
-		D3DXCreateFont(drawer->getDevice(), 46, 0, FW_NORMAL, 1, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, DEFAULT_PITCH|FF_DONTCARE,"Arial", &font);   
 	}
 	virtual ~Text(){
 	}
@@ -32,7 +26,9 @@ public:
 		STATE_ON,	//顯示 1
 		STATE_OUT	//消失 2
 	};
-
+	void setFont(ID3DXFont *font){
+		this->font = font;
+	}
 	void setFixed(bool fixed){
 		this->fixed = fixed;
 	}
@@ -95,11 +91,8 @@ public:
 			rectRight = (int)((x - textLeft + textWidth)-cameraX);
 			rectBottom = (int)(SCREEN_HEIGHT-(y - textTop + textHeight )+cameraY);
 		}
-		
 		SetRect(&rect, rectLeft, rectTop, rectRight, rectBottom);
-		font->DrawText(NULL, word,-1,&rect,DT_LEFT|DT_NOCLIP,D3DCOLOR_ARGB(colorA, colorR, colorG, colorB));
-
-
+		font->DrawText(NULL, word, -1, &rect, DT_LEFT|DT_NOCLIP, D3DCOLOR_ARGB(colorA, colorR, colorG, colorB));
 	}
 
 	virtual void mainProc(){
@@ -127,7 +120,6 @@ protected:
 	ID3DXFont *font;
 	LPCTSTR word;
 	string wordStr;
-
 };
 
 
@@ -141,8 +133,6 @@ public:
 	}
 	virtual ~AnimeText(){
 	}
-
-
 	
 	void setIn(int inTime,int inMode,float inX,float inY){
 		this->inTime = inTime;
@@ -179,7 +169,6 @@ public:
 			}
 			break;
 		case STATE_ON:
-
 			setPosition(onX, onY);
 			setARGB(255);
 
@@ -209,21 +198,16 @@ public:
 
 	}
 protected:
-
 	int inTime, inMode, inX, inY;
 	int onTime, onMode, onX, onY;
 	int outTime, outMode , outX, outY;
 };
 
 
-
-
-
-
 class TextManager{
-public:
-
-	TextManager(int size){
+public:	
+	TextManager(int size, ID3DXFont *font){
+		this->font = font;
 		this->size = size;
 		text = new AnimeText[size];
 		for(int i = 0; i < size; i++){
@@ -236,12 +220,10 @@ public:
 		delete []text;
 	}
 
-	int	size;
-	AnimeText *text;
-
 	void addText(string word, float left, float top, float width, float height, int colorA, int colorR, int colorG, int colorB, int inTime,int inMode,float inX,float inY, int onTime,int onMode,float onX,float onY, int outTime,int outMode,float outX,float outY){
 		for(int i = 0; i < size; i++){
 			if(!text[i].isExist()){
+				text[i].setFont(font);
 				text[i].setExist(true);
 				text[i].cleanState();
 				text[i].setText(left, top, width, height);
@@ -250,7 +232,6 @@ public:
 				text[i].setIn(inTime, inMode, inX, inY);
 				text[i].setOn(onTime, onMode, onX, onY);
 				text[i].setOut(outTime, outMode, outX, outY);
-
 				break;
 			}
 		}
@@ -271,5 +252,8 @@ public:
 			}
 		}
 	}
-
+protected:
+	int	size;
+	AnimeText *text;
+	ID3DXFont *font;
 };
