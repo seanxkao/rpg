@@ -237,8 +237,8 @@ public:
 		return direct3DDevice;
 	}
 
-	LPDIRECT3DTEXTURE9* getTexture(){
-		return texture;
+	LPDIRECT3DTEXTURE9* getTexture(int i){
+		return &texture[i];
 	}
 
 

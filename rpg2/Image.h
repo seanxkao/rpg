@@ -128,71 +128,78 @@ public:
 		return sizeof(D3DVERTEX)*4;
 	}
 
-	virtual void drawVertex(LPDIRECT3DDEVICE9 &direct3DDevice){
-		direct3DDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+	virtual void drawVertex(LPDIRECT3DDEVICE9 &device){
+		device->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
 	}
 
+	virtual void initVertex(LPDIRECT3DDEVICE9 device){
+		vertex = new D3DVERTEX[4];
+		device->CreateVertexBuffer(sizeof(D3DVERTEX)*4, D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX  , D3DPOOL_MANAGED ,  &vertexBuffer, NULL);
+	}
+	
 	virtual void draw(Drawer *drawer){
 		if(imgId == -1) return;
 
-		LPDIRECT3DDEVICE9 direct3DDevice = drawer->getDevice();
+		LPDIRECT3DDEVICE9 device = drawer->getDevice();
+		if(vertex == NULL)initVertex(device);
+		
 		float cameraX = drawer->getCameraX();
 		float cameraY = drawer->getCameraY();
-		LPDIRECT3DTEXTURE9 texture = *(drawer->getTexture()+imgId);
+		LPDIRECT3DTEXTURE9 *texture = drawer->getTexture(imgId);
 
 		setVertex(cameraX, cameraY);
 		
 		//將頂點複製到頂點緩衝區
 		void *pVertices = NULL;
-		vertexBuffer->Lock(0, 0, (void**)&pVertices, 0);
+		vertexBuffer->Lock(0, 0, &pVertices, 0);
 		memcpy(pVertices, vertex, vertexSize());
 		vertexBuffer->Unlock();
 		//繪製模式
 		if (blendMode == ALPHA_NORMAL){
-			direct3DDevice->SetRenderState(D3DRS_SRCBLEND , D3DBLEND_SRCALPHA );
-			direct3DDevice->SetRenderState(D3DRS_DESTBLEND , D3DBLEND_INVSRCALPHA );
-			direct3DDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
-			direct3DDevice->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-			direct3DDevice->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
-			direct3DDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
-			direct3DDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
-			direct3DDevice->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+			device->SetRenderState(D3DRS_SRCBLEND , D3DBLEND_SRCALPHA );
+			device->SetRenderState(D3DRS_DESTBLEND , D3DBLEND_INVSRCALPHA );
+			device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
+			device->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+			device->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+			device->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+			device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+			device->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
 		}
 		else if(blendMode == ALPHA_LIGHT){
-			direct3DDevice->SetRenderState(D3DRS_SRCBLEND , D3DBLEND_SRCALPHA );
-			direct3DDevice->SetRenderState(D3DRS_DESTBLEND , D3DBLEND_ONE );
-			direct3DDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
-			direct3DDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
-			direct3DDevice->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-			direct3DDevice->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_SPECULAR);
-			direct3DDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
-			direct3DDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
-			direct3DDevice->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+			device->SetRenderState(D3DRS_SRCBLEND , D3DBLEND_SRCALPHA );
+			device->SetRenderState(D3DRS_DESTBLEND , D3DBLEND_ONE );
+			device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
+			device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+			device->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+			device->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_SPECULAR);
+			device->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+			device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+			device->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
 		}
 		else if(blendMode == ALPHA_COLOR){
-			direct3DDevice->SetRenderState(D3DRS_SRCBLEND , D3DBLEND_SRCALPHA );
-			direct3DDevice->SetRenderState(D3DRS_DESTBLEND , D3DBLEND_INVSRCALPHA );
-			direct3DDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
-			direct3DDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
-			direct3DDevice->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-			direct3DDevice->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_SPECULAR);
-			direct3DDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
-			direct3DDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
-			direct3DDevice->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+			device->SetRenderState(D3DRS_SRCBLEND , D3DBLEND_SRCALPHA );
+			device->SetRenderState(D3DRS_DESTBLEND , D3DBLEND_INVSRCALPHA );
+			device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
+			device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+			device->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+			device->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_SPECULAR);
+			device->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+			device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+			device->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
 		}
 
-		direct3DDevice->SetStreamSource(0, vertexBuffer, 0, sizeof(D3DVERTEX));
-		direct3DDevice->SetTexture(0, texture);
+		device->SetStreamSource(0, vertexBuffer, 0, sizeof(D3DVERTEX));
+		device->SetTexture(0, *texture);
 		
-		direct3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
-		direct3DDevice->SetRenderState(D3DRS_ZENABLE, true);
-		direct3DDevice->BeginScene();	
+		device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+		device->SetRenderState(D3DRS_ZENABLE, true);
+		device->BeginScene();	
 		for(int i = 0; i < blendTimes; i++){
-			drawVertex(direct3DDevice);
+			drawVertex(device);
 		}
-		direct3DDevice->EndScene();
-		direct3DDevice->SetRenderState(D3DRS_ZENABLE, false);
-		direct3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
+		device->EndScene();
+		device->SetRenderState(D3DRS_ZENABLE, false);
+		device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 	}
 
 	protected:
@@ -270,32 +277,22 @@ public:
 	int colorB;
 	int blendMode;
 	int blendTimes;
-
 	bool fixed;
 	bool go_out;
-	
-	virtual void mainProc(){
-	}
 	
 
 private:
 	void init(){
-		go_out = false;
-
+		imgId = -1;
+		length = 4;
+		vertex = NULL;
 		setTexture();
 		setARGB(255, 255, 255, 255);
 		setBlend(ALPHA_NORMAL);
-
 		setTarget(NULL, 0, 0);
 		setFixed(false);
+		go_out = false;
 
-		imgId = -1;
-		//DirectX初始化
-		extern Drawer *drawer;
-		length = 4;
-		vertex = new D3DVERTEX[4];
-		LPDIRECT3DDEVICE9 device = drawer->getDevice();
-		device->CreateVertexBuffer(sizeof(D3DVERTEX)*4, D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX  , D3DPOOL_MANAGED ,  &vertexBuffer, NULL);
 	}
 };
 
@@ -427,6 +424,11 @@ public:
 		return sizeof(D3DVERTEX)*(length+1);
 	}
 
+	virtual void initVertex(LPDIRECT3DDEVICE9 device){
+		vertex = new D3DVERTEX[length+1];
+		device->CreateVertexBuffer( sizeof(D3DVERTEX)*(length+1), D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX  , D3DPOOL_MANAGED ,  &vertexBuffer, NULL);
+	}
+	
 	void setVertex(float cameraX, float cameraY){
 		vertex[0].x = (x - cameraX)/SCREEN_WIDTH*2 - 1;
 		vertex[0].y = (y - cameraY)/SCREEN_HEIGHT*2 - 1;
@@ -446,9 +448,9 @@ public:
 			vertex[i].diffuse= fan[i].getColor();
 		}
 	}
-
-	void drawVertex(LPDIRECT3DDEVICE9 &direct3DDevice){
-		direct3DDevice->DrawPrimitive(D3DPT_TRIANGLEFAN, 0, length-2 );
+	
+	void drawVertex(LPDIRECT3DDEVICE9 &device){
+		device->DrawPrimitive(D3DPT_TRIANGLEFAN, 0, length-2 );
 	}
 	
 protected:
@@ -456,18 +458,12 @@ protected:
 };
 
 ImageFan::ImageFan(int length){
-
+	this->length = length;
+	vertex = NULL;
+	fan = new Point[length+1];
 	setTexture();
 	setBlend(ALPHA_NORMAL);
-
-	extern Drawer *drawer;
-
-	this->length = length;
-	this->vertex = new D3DVERTEX[length+1];
-	this->fan = new Point[length+1];
-	LPDIRECT3DDEVICE9 device = drawer->getDevice();
-	device->CreateVertexBuffer( sizeof(D3DVERTEX)*(length+1), D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX  , D3DPOOL_MANAGED ,  &vertexBuffer, NULL);
-
+	
 	fan[0].x = 20*cosf(0);
 	fan[0].y = 20*sinf(0);
 	fan[0].colorA = 255;
@@ -496,9 +492,13 @@ public:
 	ImageStrip(int, float, float, float);
 	virtual ~ImageStrip();
 	
-
 	UINT vertexSize(){
 		return sizeof(D3DVERTEX)*(length*2+2);
+	}
+	
+	virtual void initVertex(LPDIRECT3DDEVICE9 device){
+		vertex = new D3DVERTEX[length*2+2];
+		device->CreateVertexBuffer( sizeof(D3DVERTEX)*(length*2+2), D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX  , D3DPOOL_MANAGED ,  &vertexBuffer, NULL);
 	}
 
 	void setVertex(float cameraX, float cameraY){
@@ -521,8 +521,8 @@ public:
 		}
 	}
 
-	void drawVertex(LPDIRECT3DDEVICE9 &direct3DDevice){
-		direct3DDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, length*2);
+	void drawVertex(LPDIRECT3DDEVICE9 &device){
+		device->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, length*2);
 	}
 
 
@@ -559,19 +559,13 @@ public:
 protected:
 	Point *strip;
 	Image *target;
-
 };
 
 ImageStrip::ImageStrip(int length, float len1, float len2, float rad){
-
-	setTexture();
-
-	extern Drawer *drawer;
 	this->length = length;
-	this->vertex = new D3DVERTEX[length*2+2];
-	this->strip = new Point[length*2+2];
-	LPDIRECT3DDEVICE9 device = drawer->getDevice();
-	device->CreateVertexBuffer( sizeof(D3DVERTEX)*(length*2+2), D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX  , D3DPOOL_MANAGED ,  &vertexBuffer, NULL);
+	vertex = NULL;
+	strip = new Point[length*2+2];
+	setTexture();
 };
 
 ImageStrip::~ImageStrip(){
