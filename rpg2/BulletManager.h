@@ -31,7 +31,7 @@ void addBullet(float x,float y,int z,float spd,float r,int wnum, int lnum, float
 			bullet[i].setSpeed( spd, r+ turn*(wnum-a*2-1)/2, 1);
 			bullet[i].setImgId(2000);
 			bullet[i].setImage(9,9,9,9,0,0);
-			bullet[i].setARGB(255);
+			bullet[i].setAlpha(255);
 			bullet[i].setBlend(0,1);
 			bullet[i].atk=atk;
 			bullet[i].kind=kind;

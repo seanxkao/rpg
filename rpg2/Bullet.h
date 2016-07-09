@@ -28,7 +28,7 @@ public:
 			}
 			else if (state == STATE_NORMAL){
 				setImage(100,100,100,100,0,rad);
-				setARGB(128);
+				setAlpha(128);
 				setBlend(ALPHA_LIGHT);
 
 				if(time==0)	setImgId(2003);
@@ -39,7 +39,7 @@ public:
 			else if (state == STATE_HIT){
 				setImgId(2000);
 				setImage(50,50,50,50,0,time*3);
-				setARGB(255 - time*64);
+				setAlpha(255-time*64);
 				setBlend(ALPHA_LIGHT);
 			}
 			else if (state == STATE_DISAPPEAR){
@@ -50,18 +50,18 @@ public:
 				if(time<5){
 					setImgId(imgIn);
 					setImage(29-time*4,29-time*4,29-time*4,29-time*4,0,0);
-					setARGB(time*51);
+					setAlpha(time*51);
 				}
 			}
 			else if (state == STATE_NORMAL){
 				setImgId(imgOn);
 				setImage(9,9,9,9,0,0);
-				setARGB(255);
+				setAlpha(255);
 			}
 			else if (state == STATE_HIT){
 				if(time<10){
 					setImage(9+time*3,9+time*3,9+time*3,9+time*3,0,time*2.1);
-					setARGB(255-time*25);
+					setAlpha(255-time*25);
 					setBlend(Image::ALPHA_LIGHT);
 				}
 			}
@@ -171,7 +171,7 @@ void addBullet(float x,float y,int z,float spd,float r,int wnum, int lnum, float
 			bullet[i].setSpeed( spd, r+ turn*(wnum-a*2-1)/2, 1);
 			bullet[i].setImgId(2000);
 			bullet[i].setImage(9,9,9,9,0,0);
-			bullet[i].setARGB(255);
+			bullet[i].setAlpha(255);
 			bullet[i].setBlend(0,1);
 			bullet[i].atk=atk;
 			bullet[i].kind=kind;

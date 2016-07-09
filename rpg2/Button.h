@@ -159,19 +159,19 @@ public:
 		switch(state){
 		case STATE_CREATE:
 			imgId = imgNormal;
-			setARGB(0);
+			setAlpha(0);
 			break;
 		case STATE_ACTIVE:
 			imgId = imgNormal;
 			if(time < 10){
-				setARGB(time * 25);
+				setAlpha(time*25);
 			}
 			else{
-				setARGB(255);
+				setAlpha(255);
 			}
 			break;
 		case STATE_NORMAL:
-			setARGB(255);
+			setAlpha(255);
 			if(choosed){
 				imgId = imgOn;
 			}
@@ -185,10 +185,10 @@ public:
 		case STATE_DISAPPEAR:
 			imgId = imgNormal;
 			if(time < 10){
-				setARGB(255 - time * 25);
+				setAlpha(255-time * 25);
 			}
 			else{
-				setARGB(0);
+				setAlpha(0);
 			}
 			break;
 		}

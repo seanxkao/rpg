@@ -73,13 +73,13 @@ public:
 				if(time<25){
 					hpBar->main(drawer);
 					imgRad+=17;
-					setARGB(255 - time*10);
+					setAlpha(255-time*10);
 					setImage(30 + time*7,30 + time*7,30 + time*7,30 + time*7, 0, imgRad);
 				}
 				else{
 					delete hpBar;
 					hpBar = NULL;
-					setARGB(0);
+					setAlpha(0);
 					setExist(false);
 				}
 			}
@@ -125,14 +125,14 @@ public:
 			else if(state==99){
 				if(time<25){
 					imgRad+=17;
-					setARGB(255 - time*10);
+					setAlpha(255 - time*10);
 					setImage(30 + time*7,30 + time*7,30 + time*7,30 + time*7, 0, imgRad);
 					hpBar->main(drawer);
 				}
 				else{
 					delete hpBar;
 					hpBar = NULL;
-					setARGB(0);
+					setAlpha(0);
 					setExist(false);
 				}
 			}
@@ -182,7 +182,7 @@ public:
 			case STATE_DISAPPEAR:
 				if(time<25){
 					imgRad+=17;
-					setARGB(255 - time*10);
+					setAlpha(255-time*10);
 					setImage(30 + time*7,30 + time*7,30 + time*7,30 + time*7, 0, imgRad);
 				}
 				break;

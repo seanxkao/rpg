@@ -5,7 +5,6 @@ class Status{
 public:
 	Status(int swordSkill){
 		setSwordSkill(swordSkill);
-		
 	}
 	virtual ~Status(){
 

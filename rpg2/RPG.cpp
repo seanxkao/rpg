@@ -75,18 +75,17 @@ public:
 				}
 				break;
 			case STATE_DAMAGED:
-				
 				setImage(50,50,50,50,0,0);
 				break;
 			case STATE_DISAPPEAR:
 				
 				if(time<25){
 					imgRad+=17;
-					setARGB(255-time * 10);
+					setAlpha(255-time*10);
 					setImage(30+time*7,30+time*7,30+time*7,30+time*7,0,imgRad);
 				}
 				else{
-					setARGB(0);
+					setAlpha(0);
 				}
 				break;
 		}

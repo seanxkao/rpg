@@ -4,10 +4,8 @@
 
 class Body;
 
-
 class BodyManager{
 public:
-
 	BodyManager(int size){
 		this->size = size;
 		body = new Body*[size];
@@ -49,12 +47,7 @@ public:
 protected:
 	int size;
 	Body **body;
-		
-
 };
-
-
-
 
 class Body : public Image{
 public:
@@ -66,13 +59,11 @@ public:
 		direction = 90;
 		swordShadow = new SwordShadow(200, 20, 80, 255);
 		swordShadow->setTarget(this, 0, 0);
-
 	}
 
 	virtual ~Body(){
 		delete swordShadow;
 	}
-
 
 	enum STATE {
 		STATE_NORMAL,			//0

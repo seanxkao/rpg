@@ -57,7 +57,7 @@ public:
 		else				this->colorB = colorB;
 	}
 
-	void setARGB(int colorA){
+	void setAlpha(int colorA){
 		setARGB(colorA, this->colorR, this->colorG, this->colorB);
 	}
 
@@ -121,7 +121,6 @@ public:
 		vertex[2].tv = vertex[3].tv = texHeight;
 		vertex[0].specular = vertex[1].specular = vertex[2].specular = vertex[3].specular = D3DCOLOR_ARGB(colorA, colorR, colorG, colorB);
 		vertex[0].diffuse  = vertex[1].diffuse  = vertex[2].diffuse  = vertex[3].diffuse  = D3DCOLOR_ARGB(colorA, colorR, colorG, colorB);
-
 	}
 
 	virtual UINT vertexSize(){
@@ -234,7 +233,7 @@ public:
 			else				this->colorB = colorB;
 		}
 
-		void setColor(int colorA){
+		void setAlpha(int colorA){
 			setColor(colorA, this->colorR, this->colorG, this->colorB);
 		}
 
@@ -346,7 +345,7 @@ public:
 					if(time < inTime){
 						float ratio = (float)time / (float)inTime;
 						setPosition(inX + (onX-inX) * ratio, inY + (onY-inY) * ratio);
-						setARGB((int)255*ratio);
+						setAlpha(255*ratio);
 					}
 					else{
 						setState(STATE_IN);
@@ -355,7 +354,7 @@ public:
 				break;
 			case STATE_ON:
 				setPosition(onX, onY);
-				setARGB(255);
+				setAlpha(255);
 				if(onMode == 0){
 					if(time >= onTime){
 						setState(2);
@@ -369,10 +368,10 @@ public:
 					if(time < outTime){
 						float ratio = (float)time / (float)outTime;
 						setPosition (onX + (outX-onX) * ratio, onY + (outY-onY) * ratio);
-						setARGB ((int)255 * (1 - ratio));
+						setAlpha(255*(1 - ratio));
 					}
 					else{
-						setARGB (0);
+						setAlpha(0);
 						finish();
 					}
 				}
@@ -573,14 +572,11 @@ ImageStrip::~ImageStrip(){
 
 class SwordShadow : public ImageStrip{
 public:
-	float swordLen1;
-	float swordLen2;
-	float swordRad;
-
 	SwordShadow(int length, float len1, float len2, float rad) :
 		ImageStrip(length, len1, len2, rad){
 		swordLen1 = len1;
 		swordLen2 = len2;
+		setAlpha(0);
 		setBlend(ALPHA_LIGHT, 3);
 		imgId = 820;
 	}
@@ -603,13 +599,14 @@ public:
 			addStrip(5, swordLen1, swordLen2, swordRad, 255);
 		}
 		for(int i = 0; i < length*2+2; i++){
-			strip[i].setColor(strip[i].colorA*0.85, strip[i].colorR*0.9, strip[i].colorG*0.9, strip[i].colorB);
-			//strip[i].setColor(strip[i].colorA*0.85, strip[i].colorR*3/4+rand()%64, strip[i].colorG*3/4+rand()%64, strip[i].colorB*3/4+rand()%64);
+			strip[i].setPoint(strip[i].len, strip[i].rad, strip[i].colorA*0.85, strip[i].colorR*0.9, strip[i].colorG*0.9, strip[i].colorB);
 		}
-		Image::mainProc();
 	}
 
 protected:
+	float swordLen1;
+	float swordLen2;
+	float swordRad;
 	float wieldStart;
 	float wieldEnd;
 	float wieldTime;
@@ -619,7 +616,7 @@ class AnimeBlock : public Image{
 public:
 	AnimeBlock() : Image(){
 		imgId = 500;
-		setARGB(192);
+		setAlpha(192);
 	}
 
 	virtual ~AnimeBlock(){
@@ -639,7 +636,7 @@ public:
 			setTexture((float)(time - 60)/20,0,1,1) ;
 		}
 		else {
-			setARGB(0);
+			setAlpha(0);
 		}
 
 		Image::mainProc();

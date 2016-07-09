@@ -54,7 +54,7 @@ public:
 		else				this->colorB = colorB;
 	}
 
-	void setARGB(int colorA){
+	void setAlpha(int colorA){
 		setARGB(colorA, this->colorR, this->colorG, this->colorB);
 	}
 
@@ -160,7 +160,7 @@ public:
 				if(time < inTime){
 					float ratio = (float)time / (float)inTime;
 					setPosition(inX + (onX-inX) * ratio, inY + (onY-inY) * ratio);
-					setARGB((int)255*ratio);
+					setAlpha(255*ratio);
 				}
 				else{
 					setState(1);
@@ -170,7 +170,7 @@ public:
 			break;
 		case STATE_ON:
 			setPosition(onX, onY);
-			setARGB(255);
+			setAlpha(255);
 
 			if(onMode == 0){
 				if(time >= onTime){
@@ -185,10 +185,10 @@ public:
 				if(time < outTime){
 					float ratio = (float)time / (float)outTime;
 					setPosition (onX + (outX-onX) * ratio, onY + (outY-onY) * ratio);
-					setARGB ((int)255 * (1 - ratio));
+					setAlpha(255*(1 - ratio));
 				}
 				else{
-					setARGB(0);
+					setAlpha(0);
 					setExist(false);
 				}
 			}
