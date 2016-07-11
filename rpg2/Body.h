@@ -129,17 +129,12 @@ public:
 	}
 
 	virtual int onDamaged(Body *enemy){
-
 		float rad = vectorR(x, y, enemy->getX(), enemy->getY());
 		float len = enemy->getAttack().knock;
-
 		setSpeed(len, rad, 2);
-
 		setState(10);
-
 		int damage = enemy->getAttack().damage;
 		this->hp -= damage;
-
 		return damage;
 	}
 
@@ -165,11 +160,9 @@ protected:
 	BodyManager *manager;
 	
 	float direction;
-
 	int bdyKind;
 	float bdyRad;
 	bool bdyEnable;
-	
 	Attack attack;
 	bool atkEnable;
 	
@@ -181,9 +174,7 @@ protected:
 	Status *status;	
 	
 	virtual void mainProc(){
-		
 		swordShadow->main();
-		Image::mainProc();
 	}
 };
 

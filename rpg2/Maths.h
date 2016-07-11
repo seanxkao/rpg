@@ -43,14 +43,12 @@ T bound(T value, T min, T max){
 
 float randomRange(float min, float max)
 {
-	//隨機函數 basic期望值 range變動率 
-	return min+(((float)(rand()%100))/100)*(max-min);
+	return min+((float)rand()/(float)RAND_MAX)*(max-min);
 }
 
-float random(float basic, float range)
+float random(float exp, float range)
 {
-	//隨機函數 basic期望值 range變動率 
-	return basic+(0.5-((float)(rand()%100))/100)*range;
+	return exp+(0.5-(float)rand()/(float)RAND_MAX)*range;
 }
 
 //二維向量
@@ -97,7 +95,6 @@ public:
 protected:
 	float x;
 	float y;
-
 };
 
 Vector2D::Vector2D(){

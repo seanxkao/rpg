@@ -83,7 +83,6 @@ public:
 			rectTop = (int)(SCREEN_HEIGHT-(y - textTop));
 			rectRight = (int)((x - textLeft + textWidth));
 			rectBottom = (int)(SCREEN_HEIGHT-(y - textTop + textHeight));
-		
 		}
 		else{
 			rectLeft = (int)((x - textLeft)-cameraX);
@@ -98,9 +97,6 @@ public:
 	virtual void mainProc(){
 	}
 
-	virtual void main(){
-		Object::main();
-	}
 protected:
 	bool exist;
 	bool fixed;

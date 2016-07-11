@@ -1,18 +1,13 @@
 #pragma once
 
-
 #include "Bar.h"
 #include "Bullet.h"
 #include "Image.h"
 #include "Maths.h"
 
-
-
-
 class Enemy : public Body{
 public:
-	Enemy(BodyManager *manager) : 
-		Body(manager){
+	Enemy(BodyManager *manager):Body(manager){
 		setImage(15, 15, 30, 30, 0, 0);
 		setImgId(1000);
 		setHp(100, 100);
@@ -20,9 +15,6 @@ public:
 	}
 	virtual ~Enemy(){
 	}
-
-	int kind;
-	bool exist;
 
 	int getExp(){
 		return exp;
@@ -144,23 +136,18 @@ public:
 */
 protected:
 	int exp;
-
+	int kind;
+	bool exist;
 
 	virtual void normal(){};
-	virtual void damaged(){
-	};
-
-	virtual void disappear(){
-
-	}
-
+	virtual void damaged(){};
+	virtual void disappear(){};
 };
 
 
 class EnemySoldier : public Enemy{
 public:
-	EnemySoldier(BodyManager *manager) :
-		Enemy(manager){
+	EnemySoldier(BodyManager *manager):Enemy(manager){
 		setImgId(3001);
 		setHp(30, 30);
 		exp = 10;
@@ -191,11 +178,6 @@ public:
 	}
 
 protected:
-
-	void stateStart(){
-
-	}
-
 	virtual void normal(){
 		setBody(BDY_NORMAL, 20);
 
@@ -214,23 +196,15 @@ protected:
 				setAttack(atk, 0, 4, 100, direction-45, direction+45);
 			}
 		}
-		Enemy::normal();
 	}
 	virtual void damaged(){
-		Enemy::damaged();
 	}
 	virtual void disappear(){
 		if(time>=25){
 			finish();
 		}
-		Enemy::disappear();
 	}
-
-
-protected:
-
 };
-
 
 class BodySystem : public BodyManager{
 public:
@@ -289,8 +263,6 @@ public:
 			}
 		}
 	}
-
-
 
 protected:
 };

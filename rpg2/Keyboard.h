@@ -88,7 +88,7 @@ protected:
 
 class Inputable{
 public:
-	virtual void onInput(Keyboard *keyboard) = 0;
+	//virtual void onInput(Keyboard *keyboard) = 0;
 };
 
 class ControlComponent : public Component, public Inputable{

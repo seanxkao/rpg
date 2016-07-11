@@ -6,14 +6,18 @@
 
 class Menu : public ControlComponent{
 public:
+	
 	Menu(float, float, int);
 	virtual ~Menu();
 
-	static const int STATE_CREATE = 0;
-	static const int STATE_NORMAL = 1;
-	static const int STATE_PRESSED = 2;
-	static const int STATE_DISAPPEAR = 3;
-
+	static const int COOL_DOWN = 10;
+	
+	enum STATE{
+		STATE_CREATE,	
+		STATE_NORMAL,	
+		STATE_PRESSED,	
+		STATE_DISAPPEAR	
+	};
 	int getPressed(){
 		return btnPressed;
 	}
@@ -28,25 +32,25 @@ public:
 		if(cooldown == 0){
 			if(keyboard->isPressed(Keyboard::KEY_LEFT)){
 				if(btnNow != btnNow->getBtnLeft()){
-					cooldown  = 10;
+					cooldown  = COOL_DOWN;
 					btnNow = btnNow->getBtnLeft();
 				}
 			}
 			if(keyboard->isPressed(Keyboard::KEY_RIGHT)){
 				if(btnNow != btnNow->getBtnRight()){
-					cooldown  = 10;
+					cooldown  = COOL_DOWN;
 					btnNow = btnNow->getBtnRight();
 				}
 			}
 			if(keyboard->isPressed(Keyboard::KEY_UP)){
 				if(btnNow != btnNow->getBtnUp()){
-					cooldown  = 10;
+					cooldown  = COOL_DOWN;
 					btnNow = btnNow->getBtnUp();
 				}
 			}
 			if(keyboard->isPressed(Keyboard::KEY_DOWN)){
 				if(btnNow != btnNow->getBtnDown()){
-					cooldown  = 10;
+					cooldown  = COOL_DOWN;
 					btnNow = btnNow->getBtnDown();
 				}
 			}
@@ -81,24 +85,25 @@ public:
 		}
 		else if(state == STATE_DISAPPEAR){
 			disappear();
-			for(vector<Image*>::iterator it = image.begin(); it != image.end(); ++it){
-				(*it)->setState(Anime::STATE_OUT);
+			for(auto it = image.begin();it!=image.end();++it){
+				Image *imgNow = *it;
+				imgNow->setState(Anime::STATE_OUT);
 			}
 		}	
 		for(int i = 0; i < size; i++){
 			button[i].main();
 		}
-		for(vector<Image*>::iterator it = image.begin(); it != image.end(); ++it){
-			(*it)->main();
+		for(auto it = image.begin();it!=image.end();++it){
+			Image *imgNow = *it;
+			imgNow->main();
 		}
-	
 		if(cooldown > 0) cooldown--;
 	}
 protected:
-	int cooldown;
 	int		size;
-	Button *button;
-	Button  *btnNow;
+	int 	cooldown;
+	Button	*button;
+	Button	*btnNow;
 	int		btnPressed;
 
 	vector<Image*>  image;
@@ -108,7 +113,6 @@ protected:
 	virtual void normal(){};
 	virtual void pressed(){};
 	virtual void disappear(){};
-
 };
 
 Menu::Menu(float x,float y, int size){
@@ -132,7 +136,7 @@ Menu::~Menu(){
 class ListMenu : public Menu{
 public:
 
-	ListMenu(float,float, float,float,int,float,float,bool);
+	ListMenu(float, float, float, float, int, float, float, bool);
 	virtual ~ListMenu();
 
 	static const bool HORIZONTAL = true;
@@ -143,11 +147,11 @@ public:
 			button[time/3].setState(Button::STATE_ACTIVE);
 		}
 		for(int i=0;i<size;i++){
-			if(time >= i * 3  && time < i*3 +10 ){
+			if(time >= i*3 && time < i*3+10){
 				if(orientation == HORIZONTAL){
-					button[i].setPosition(button[i].getX() ,y - distance + (time-i*3) * distance / 10 ); 
+					button[i].setPosition(button[i].getX(), y - distance + (time-i*3) * distance / 10 ); 
 				}else {
-					button[i].setPosition( x - distance + (time-i*3) * distance / 10,button[i].getY() ); 
+					button[i].setPosition(x - distance + (time-i*3)*distance/10, button[i].getY()); 
 				}
 			}
 		}

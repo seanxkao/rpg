@@ -27,9 +27,9 @@ public:
 			if(state == STATE_CREATE){
 			}
 			else if (state == STATE_NORMAL){
-				setImage(100,100,100,100,0,rad);
+				setImage(100, 100, 100, 100, 0, rad);
 				setAlpha(128);
-				setBlend(ALPHA_LIGHT);
+				setBlendMode(ALPHA_LIGHT);
 
 				if(time==0)	setImgId(2003);
 				if(time==1)	setImgId(2001);
@@ -40,7 +40,7 @@ public:
 				setImgId(2000);
 				setImage(50,50,50,50,0,time*3);
 				setAlpha(255-time*64);
-				setBlend(ALPHA_LIGHT);
+				setBlendMode(ALPHA_LIGHT);
 			}
 			else if (state == STATE_DISAPPEAR){
 			}
@@ -62,7 +62,7 @@ public:
 				if(time<10){
 					setImage(9+time*3,9+time*3,9+time*3,9+time*3,0,time*2.1);
 					setAlpha(255-time*25);
-					setBlend(Image::ALPHA_LIGHT);
+					setBlendMode(Image::ALPHA_LIGHT);
 				}
 			}
 			else if (state == STATE_DISAPPEAR){
@@ -125,11 +125,9 @@ protected:
 		}
 		Body::mainProc();
 	}
-
 };
 
-Bullet::Bullet(BodyManager *manager) :
-	Body(manager){
+Bullet::Bullet(BodyManager *manager):Body(manager){
 	imgIn = 4000;
 	imgOn = 4000;
 	imgOut = 4000;
@@ -172,7 +170,7 @@ void addBullet(float x,float y,int z,float spd,float r,int wnum, int lnum, float
 			bullet[i].setImgId(2000);
 			bullet[i].setImage(9,9,9,9,0,0);
 			bullet[i].setAlpha(255);
-			bullet[i].setBlend(0,1);
+			bullet[i].setBlendMode(Image::ALPHA_NORMAL);
 			bullet[i].atk=atk;
 			bullet[i].kind=kind;
 			a++;

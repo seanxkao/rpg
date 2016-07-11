@@ -33,7 +33,7 @@ public:
 					float si = 2+80*rate;
 
 					setImage(si,si,si,si,0,0);
-					setBlend(ALPHA_LIGHT);
+					setBlendMode(ALPHA_LIGHT);
 				}
 				//fire
 				/*
@@ -43,7 +43,7 @@ public:
 					float si = 60-40*rate;
 
 					setImage(si,si,si,si,0,0);
-					setBlend(1,1);
+					setBlendMode(ALPHA_LIGHT);
 				}
 				*/
 
@@ -60,7 +60,7 @@ public:
 					setARGB(255* (1-rate),255,255,255);
 					float si = 50 + 100*rate;
 					setImage(si,si,si,si,0,0);
-					setBlend(ALPHA_LIGHT);
+					setBlendMode(ALPHA_LIGHT);
 				}
 			}
 			else if (state==99){
@@ -85,14 +85,14 @@ public:
 					float si = 10+40*(float)time/life;
 
 					setImage(si,si,si,si,0,0);
-					setBlend(1,1);
+					setBlendMode(ALPHA_LIGHT);
 				}
 				else if(time<life){
 					setARGB(255 - 255*((float)time-life/2)/(life/2),180,180,255);
 					float si = 10+40*(float)time/life;
 
 					setImage(si,si,si,si,0,0);
-					setBlend(1,1);
+					setBlendMode(ALPHA_LIGHT);
 				}
 				else{
 					setState(99);

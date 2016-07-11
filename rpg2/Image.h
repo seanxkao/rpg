@@ -5,21 +5,35 @@
 #include "Status.h"
 
 class Image : public Object{
-public:
-	Image();
-	Image(int);
-	virtual ~Image();
-
+public:	
 	enum STATE{
-		STATE_IN,	//出現 0
-		STATE_ON,	//顯示 1
-		STATE_OUT	//消失 2
+		STATE_IN,	//appear 0
+		STATE_ON,	//display 1
+		STATE_OUT	//disappear 2
 	};
 
 	enum ALPHABLENDING{
-		ALPHA_NORMAL,	//普通 0
-		ALPHA_LIGHT,	//發光 1
-		ALPHA_COLOR		//變色 2
+		ALPHA_NORMAL,	//0
+		ALPHA_LIGHT,	//1
+		ALPHA_COLOR		//2
+	};
+	
+	Image(int imgId):Object(){
+		this->imgId = imgId;
+		length = 4;
+		vertex = NULL;
+		setTexture(0, 0, 1, 1);
+		setARGB(255, 255, 255, 255);
+		setBlendMode(ALPHA_NORMAL);
+		setTarget(NULL, 0, 0);
+		setFixed(false);
+		go_out = false;
+	};
+
+	Image():Image(-1){
+	};
+
+	virtual ~Image(){
 	};
 
 	void setTexture(float texLeft,float texTop, float texWidth, float texHeight){
@@ -27,10 +41,6 @@ public:
 		this->texTop = texTop;
 		this->texWidth = texWidth;
 		this->texHeight = texHeight;
-	}
-	
-	void setTexture(){
-		setTexture(0, 0, 1, 1);
 	}
 
 	void setImage(float imgLeft,float imgTop,float imgWidth,float imgHeight,float imgZ,float imgRad){
@@ -70,9 +80,10 @@ public:
 			this->blendTimes = blendTimes;
 		}
 	}
-
-	void setBlend(int blendMode){
-		setBlend(blendMode, 1);
+	
+	void setBlendMode(int blendMode){
+		this->blendMode = blendMode;
+		this->blendTimes = 1;
 	}
 
 	void setImgId(int imgId){
@@ -91,6 +102,16 @@ public:
 		this->fixed= fixed;
 	}
 
+
+	virtual UINT vertexSize(){
+		return sizeof(D3DVERTEX)*4;
+	}
+	
+	virtual void initVertex(LPDIRECT3DDEVICE9 device){
+		vertex = new D3DVERTEX[4];
+		device->CreateVertexBuffer(sizeof(D3DVERTEX)*4, D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX  , D3DPOOL_MANAGED ,  &vertexBuffer, NULL);
+	}
+	
 	virtual void setVertex(float cameraX, float cameraY){
 		float vcos = cosf((float)(imgRad/180*3.14));
 		float vsin = sinf((float)(imgRad/180*3.14));
@@ -123,17 +144,8 @@ public:
 		vertex[0].diffuse  = vertex[1].diffuse  = vertex[2].diffuse  = vertex[3].diffuse  = D3DCOLOR_ARGB(colorA, colorR, colorG, colorB);
 	}
 
-	virtual UINT vertexSize(){
-		return sizeof(D3DVERTEX)*4;
-	}
-
 	virtual void drawVertex(LPDIRECT3DDEVICE9 &device){
 		device->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
-	}
-
-	virtual void initVertex(LPDIRECT3DDEVICE9 device){
-		vertex = new D3DVERTEX[4];
-		device->CreateVertexBuffer(sizeof(D3DVERTEX)*4, D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX  , D3DPOOL_MANAGED ,  &vertexBuffer, NULL);
 	}
 	
 	virtual void draw(Drawer *drawer){
@@ -189,11 +201,10 @@ public:
 
 		device->SetStreamSource(0, vertexBuffer, 0, sizeof(D3DVERTEX));
 		device->SetTexture(0, *texture);
-		
 		device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
 		device->SetRenderState(D3DRS_ZENABLE, true);
 		device->BeginScene();	
-		for(int i = 0; i < blendTimes; i++){
+		for(int i=0;i<blendTimes;i++){
 			drawVertex(device);
 		}
 		device->EndScene();
@@ -201,14 +212,35 @@ public:
 		device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 	}
 
-	protected:
+protected:
+	int length;
+	D3DVERTEX *vertex;
+	LPDIRECT3DVERTEXBUFFER9	vertexBuffer;
+
+	float imgLeft;
+	float imgTop;
+	float imgWidth;
+	float imgHeight;
+	float imgZ;
+	float imgRad;
+	int   imgId;
+	float texLeft;
+	float texTop;
+	float texWidth;
+	float texHeight;
+	int colorA;
+	int colorR;
+	int colorG;
+	int colorB;
+	int blendMode;
+	int blendTimes;
+	bool fixed;
+	bool go_out;
 
 	class Point{
 	public:
-		Point(){
-		};
+		Point(){};
 		virtual ~Point(){};
-
 		float x;
 		float y;
 		float len;
@@ -238,12 +270,11 @@ public:
 		}
 
 		void setPoint(float len, float rad, int colorA, int colorR, int colorG, int colorB){
-			
 			setColor(colorA, colorR, colorG, colorB);
 			this->len = len;
 			this->rad = rad;
-			x = len*cosf(rad/180*3.14);
-			y = len*sinf(rad/180*3.14);
+			x = vectorX(len, rad);
+			y = vectorY(len, rad);
 		}
 
 		void setPoint(float len, float rad, int colorA){
@@ -255,69 +286,20 @@ public:
 		}
 	};
 
-	int length;
-	D3DVERTEX *vertex;
-	LPDIRECT3DVERTEXBUFFER9	vertexBuffer;
-
-	float imgLeft;
-	float imgTop;
-	float imgWidth;
-	float imgHeight;
-	float imgZ;
-	float imgRad;
-	int   imgId;
-	float texLeft;
-	float texTop;
-	float texWidth;
-	float texHeight;
-	int colorA;
-	int colorR;
-	int colorG;
-	int colorB;
-	int blendMode;
-	int blendTimes;
-	bool fixed;
-	bool go_out;
-	
-
-private:
-	void init(){
-		imgId = -1;
-		length = 4;
-		vertex = NULL;
-		setTexture();
-		setARGB(255, 255, 255, 255);
-		setBlend(ALPHA_NORMAL);
-		setTarget(NULL, 0, 0);
-		setFixed(false);
-		go_out = false;
-
-	}
-};
-
-Image::Image() :
-	Object(){
-	init();
-};
-
-Image::Image(int imgId) :
-	Object(){
-	init();
-	this->imgId = imgId;
-};
-
-Image::~Image(){
 };
 
 class Anime : public Image {
 
 public:
-
-	Anime();
-	Anime(int);
-	virtual ~Anime();
-
 	static const int IN_MODE_FADE = 0;
+	
+	Anime():Image(){
+	};
+	Anime(int imgId):Image(imgId){
+	};
+
+	virtual ~Anime(){
+	};
 	
 	void setIn(int inTime,int inMode,float inX,float inY){
 		this->inTime = inTime;
@@ -377,24 +359,12 @@ public:
 				}
 				break;
 		}
-		Image::mainProc();
 	}
 
 protected:
 	int inTime, inMode, inX, inY;
 	int onTime, onMode, onX, onY;
 	int outTime, outMode , outX, outY;
-};
-
-Anime::Anime(): 
-	Image(){
-	
-};
-Anime::Anime(int imgId): 
-	Image(imgId){
-};
-
-Anime::~Anime(){
 };
 
 class ThemeAnime : public Anime{
@@ -406,7 +376,7 @@ public:
 ThemeAnime::ThemeAnime() :
 	Anime(100){
 	setIn (30 ,0 ,SCREEN_WIDTH/2 ,SCREEN_HEIGHT/2+270);
-	setOn (0  ,1 ,SCREEN_WIDTH/2 ,SCREEN_HEIGHT/2+200);
+	setOn (0 ,1 ,SCREEN_WIDTH/2 ,SCREEN_HEIGHT/2+200);
 	setOut(30 ,0 ,SCREEN_WIDTH/2 ,SCREEN_HEIGHT/2+130);
 	setImage(400,100,400,100,0,0);
 };
@@ -460,8 +430,8 @@ ImageFan::ImageFan(int length){
 	this->length = length;
 	vertex = NULL;
 	fan = new Point[length+1];
-	setTexture();
-	setBlend(ALPHA_NORMAL);
+	setTexture(0, 0, 1, 1);
+	setBlendMode(ALPHA_NORMAL);
 	
 	fan[0].x = 20*cosf(0);
 	fan[0].y = 20*sinf(0);
@@ -472,8 +442,8 @@ ImageFan::ImageFan(int length){
 
 	for(int i = 1; i < length+1; i++){
 		float r = -(float)i*1;
-		fan[i].x = 300*cosf((float)r/180*3.14);
-		fan[i].y = 300*sinf((float)r/180*3.14);
+		fan[i].x = vectorX(300, r);
+		fan[i].y = vectorY(300, r);
 		fan[i].colorA = 255;
 		fan[i].colorR = 255;
 		fan[i].colorG = 255;
@@ -497,7 +467,7 @@ public:
 	
 	virtual void initVertex(LPDIRECT3DDEVICE9 device){
 		vertex = new D3DVERTEX[length*2+2];
-		device->CreateVertexBuffer( sizeof(D3DVERTEX)*(length*2+2), D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX  , D3DPOOL_MANAGED ,  &vertexBuffer, NULL);
+		device->CreateVertexBuffer(sizeof(D3DVERTEX)*(length*2+2), D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX  , D3DPOOL_MANAGED ,  &vertexBuffer, NULL);
 	}
 
 	void setVertex(float cameraX, float cameraY){
@@ -509,7 +479,6 @@ public:
 			vertex[i].tv = texHeight;
 			vertex[i].specular = strip[i].getColor();
 			vertex[i].diffuse= strip[i].getColor();
-			
 			vertex[i+1].x = (strip[i+1].x + x - cameraX)/SCREEN_WIDTH*2 - 1;
 			vertex[i+1].y = (strip[i+1].y + y - cameraY)/SCREEN_HEIGHT*2 - 1;
 			vertex[i+1].z = 0.5;
@@ -524,7 +493,6 @@ public:
 		device->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, length*2);
 	}
 
-
 	void setAllStrip(float len1, float len2, float rad, int alpha){
 		for(int i=0;i<length*2+2;i+=2){
 			strip[i].setPoint(len1, rad, alpha);
@@ -533,23 +501,15 @@ public:
 	}
 
 	void addStrip(int num, float len1, float len2, float rad, int alpha){
-		
 		float dLen1 = (len1 - strip[0].len)/num;
 		float dLen2 = (len2 - strip[1].len)/num;
 		float dRad = (rad - strip[0].rad)/num;
 		float dAlpha = (alpha - strip[0].colorA)/num;
 		
-		/*
-		float dLen1 = 0;
-		float dLen2 = 0;
-		float dRad = 6;
-		float dAlpha = 5;
-		*/
-		for(int i = length*2+1; i>=num*2; i--){
+		for(int i = length*2+1;i>=num*2;i--){
 			strip[i].setPoint (strip[i-num*2].len, strip[i-num*2].rad, strip[i-num*2].colorA, strip[i-num*2].colorR, strip[i-num*2].colorG, strip[i-num*2].colorB);
 		}
-
-		for(int i = num*2-1; i >= 0; i-=2){
+		for(int i = num*2-1;i>=0;i-=2){
 			strip[i-1].setPoint(strip[i+1].len + dLen1, strip[i+1].rad + dRad, strip[i+1].colorA + dAlpha, 255, 255, 255);
 			strip[i].setPoint(strip[i+2].len + dLen2, strip[i+2].rad + dRad, strip[i+2].colorA + dAlpha, 255, 255, 255);
 		}
@@ -564,7 +524,7 @@ ImageStrip::ImageStrip(int length, float len1, float len2, float rad){
 	this->length = length;
 	vertex = NULL;
 	strip = new Point[length*2+2];
-	setTexture();
+	setTexture(0, 0, 1, 1);
 };
 
 ImageStrip::~ImageStrip(){
@@ -576,8 +536,8 @@ public:
 		ImageStrip(length, len1, len2, rad){
 		swordLen1 = len1;
 		swordLen2 = len2;
-		setAlpha(0);
 		setBlend(ALPHA_LIGHT, 3);
+		setAllStrip(swordLen1, swordLen2, 0, 0);
 		imgId = 820;
 	}
 	virtual ~SwordShadow(){
@@ -599,7 +559,12 @@ public:
 			addStrip(5, swordLen1, swordLen2, swordRad, 255);
 		}
 		for(int i = 0; i < length*2+2; i++){
-			strip[i].setPoint(strip[i].len, strip[i].rad, strip[i].colorA*0.85, strip[i].colorR*0.9, strip[i].colorG*0.9, strip[i].colorB);
+			//if(strip[i].colorA<64){
+			//	strip[i].setPoint(strip[i].len, strip[i].rad, strip[i].colorA-3, strip[i].colorR*0.9, strip[i].colorG*0.9, strip[i].colorB);
+			//}
+			//else{
+				strip[i].setPoint(strip[i].len, strip[i].rad, strip[i].colorA*0.85, strip[i].colorR*0.9, strip[i].colorG*0.9, strip[i].colorB);
+			//}
 		}
 	}
 
@@ -624,26 +589,23 @@ public:
 
 	void mainProc(){
 		if(time<20){
-			setImage(0,64,(float)time / 20 * SCREEN_WIDTH,64,0,0);
-			setTexture(0,0,(float)time / 20,1);
+			setImage(0, 64, (float)time/20*SCREEN_WIDTH, 64, 0, 0);
+			setTexture(0, 0, (float)time/20, 1);
 		}
 		else if (time<60){
 			setImage(0, 64, SCREEN_WIDTH ,64 ,0 ,0);
 			setTexture(0, 0, 1, 1) ;
 		}
 		else if (time<80){
-			setImage( -((float)time - 60)/20 * SCREEN_WIDTH ,64,SCREEN_WIDTH,64,0,0);
-			setTexture((float)(time - 60)/20,0,1,1) ;
+			setImage(-((float)time - 60)/20*SCREEN_WIDTH, 64, SCREEN_WIDTH, 64, 0, 0);
+			setTexture((float)(time - 60)/20, 0, 1, 1) ;
 		}
 		else {
 			setAlpha(0);
 		}
-
-		Image::mainProc();
 	}
 
 };
-
 
 class Component : public Object, public Drawable{
 };

@@ -1,14 +1,13 @@
 #pragma once
 
 #include "global.h"
+#include "Maths.h"
 
 class Keyboard;
 class Drawer;
 
-class Object	//the foundamental game object
-{
-	public:
-
+class Object{	//the foundamental game object
+public:
 	Object(){
 		cleanState();
 		setSpeed(0, 0, 0);
@@ -86,12 +85,10 @@ class Object	//the foundamental game object
 		mainProc();
 		mainEnd();
 	}
-/*
-	virtual void draw(Drawer *drawer){
-	};
-	virtual void onInput(Keyboard *keyboard){
-	};
-*/
+
+	virtual void draw(Drawer *drawer){};
+	virtual void onInput(Keyboard *keyboard){};
+
 	protected:
 
 	float x;

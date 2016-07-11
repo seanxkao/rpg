@@ -7,6 +7,8 @@
 #include "Keyboard.h"
 #include "Drawer.h"
 
+#include <stdio.h>
+
 using namespace std;
 
 //singleton
@@ -15,6 +17,7 @@ class System{
 public:
 	System(int comSize, int ctrlComSize){
 		drawer = new Drawer();
+		keyboard= new Keyboard(20, 10);
 		this->comSize = comSize;
 		com = new Component*[comSize];
 		for(int i=0; i<comSize; i++){
@@ -28,10 +31,14 @@ public:
 	}
 	~System(){
 		delete drawer;
+		delete keyboard;
 	}
 	
 	Drawer* getDrawer(){
 		return drawer;
+	}
+	Keyboard* getKeyboard(){
+		return keyboard;
 	}
 
 	void addCtrlCom(ControlComponent *newCtrlCom){
@@ -51,8 +58,47 @@ public:
 			}
 		}
 	}
+	
+	Bar* createBar(int type, Body *refer, Object *target){
+		Bar *bar;
+		if(type==0){
+			bar = (Bar*)(new HpBar(refer, target)); 
+		}
+		runnables.push_back((Object*)bar);
+		drawables.push_back((Object*)bar);
+		return bar;
+	}
+	Menu* createMenu(int type){
+		Menu *menu;
+		if(type==0){
+			menu = (Menu*)(new MainMenu()); 
+		}
+		else if(type==1){
+			menu = (Menu*)(new StartMenu()); 
+		}
+		else if(type==2){
+			menu = (Menu*)(new TrainingMenu()); 
+		}
+		runnables.push_back((Object*)menu);
+		drawables.push_back((Object*)menu);
+		inputables.push_back((Object*)menu);
+		return menu;
+	}
 
-	virtual void onInput(Keyboard *keyboard){
+	virtual void onInput(){
+		keyboard->main();
+		auto it = inputables.begin();
+		while(it!=inputables.end()){
+			Object *inputable = *it;
+			if(!inputable->isFinished()){
+				inputable->onInput(keyboard);
+				it++;
+			}
+			else{
+				inputables.erase(it++);
+			}
+		}
+		
 		for(int i=0;i<ctrlComSize;i++){
 			if(ctrlCom[i]!=NULL){
 				ctrlCom[i]->onInput(keyboard);
@@ -60,7 +106,19 @@ public:
 		}
 	}
 
-	virtual void draw(Drawer *drawer){
+	virtual void draw(){
+		auto it = drawables.begin();
+		while(it!=drawables.end()){
+			Object *drawable = *it;
+			if(!drawable->isFinished()){
+				drawable->draw(drawer);
+				it++;
+			}
+			else{
+				drawables.erase(it++);
+			}
+		}
+		
 		for(int i=0;i<comSize;i++){
 			if(com[i]!=NULL){
 				com[i]->draw(drawer);
@@ -74,6 +132,19 @@ public:
 	}
 
 	virtual void main(){
+		auto it = runnables.begin();
+		while(it!=runnables.end()){
+			Object *runnable = *it;
+			if(!runnable->isFinished()){
+				runnable->main();
+				it++;
+			}
+			else{
+				delete runnable;
+				runnables.erase(it++);
+			}
+		}
+		
 		for(int i=0;i<comSize;i++){
 			if(com[i]!=NULL){
 				com[i]->main();
@@ -110,7 +181,8 @@ protected:
 	list<Object*> inputables;
 	list<Object*> drawables;
 	Drawer *drawer;
-
+	Keyboard *keyboard;
+	
 	Component **com;
 	ControlComponent **ctrlCom;
 	int comSize;

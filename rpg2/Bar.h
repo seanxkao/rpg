@@ -8,7 +8,6 @@ typedef int (Body::*BodyFP)();
 
 class Bar : public Component{
 public:
-
 	Bar(Body*, Object*);
 	virtual ~Bar();
 
@@ -41,25 +40,20 @@ public:
 	}
 
 	virtual void draw(Drawer *drawer){
-		
 		float valWidth = bound((barWidth+barLeft)*(value/max) - barLeft, -barLeft, barWidth);
 		bar->setImage(barLeft, barTop, valWidth, barHeight, 0, 0);
 		frame->setImage(barLeft, barTop, barWidth, barHeight, 0, 0);
-
 		bar->draw(drawer);
 		frame->draw(drawer);
 	}
 
 
 protected:
-	
 	Body *refer;
-
 	float barLeft;
 	float barTop;
 	float barWidth;
 	float barHeight;
-
 	float value;
 	float max;
 
@@ -68,9 +62,7 @@ protected:
 	BodyFP getValue;
 	BodyFP getMax;
 
-	
 	virtual void mainProc(){
-
 		if(refer!=NULL){
 			value = (float)(refer->*getValue)();
 			max = (float)(refer->*getMax)();
@@ -82,7 +74,6 @@ protected:
 		}
 		bar->main();
 		frame->main();
-		
 	}
 };
 
@@ -114,9 +105,6 @@ HpBar::HpBar(Body *refer, Object *target) :
 }
 HpBar::~HpBar(){
 }
-
-
-
 
 class PlayerPanel : public Component{
 public:
