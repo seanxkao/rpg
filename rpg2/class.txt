@@ -1,0 +1,52 @@
+System
+Game
+
+TextManager
+Status
+Controller
+	->MyController
+Point
+Drawable
+Drawer
+Keyboard
+Inputable
+Vector2D
+Pool
+Avatar
+BodyManager
+	->BodySystem
+BulletManager
+
+Object
+	->Map
+	->Image
+		->Anime
+			->ThemeAnime
+		->ImageFan
+		->ImageStrip
+			->SwordShadow
+		->AnimeBlock
+		->Button
+			->MainButton
+		->MapChip
+		->Particle
+		->Body
+			->my_ship
+			->Enemy
+				->EnemySoldier
+			->Bullet
+	->Component(Object&Drawable)
+		->Bar(*)
+			->HpBar(*)
+		->PlayerPanel
+		->ControlComponent(Component&Inputable)
+			->Menu
+				->ListMenu
+					->MainMenu
+					->StartMenu
+					->TrainingMenu		
+	->Text
+		->AnimeText
+
+
+

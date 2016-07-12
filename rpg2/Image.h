@@ -373,12 +373,12 @@ public:
 	~ThemeAnime();
 };
 
-ThemeAnime::ThemeAnime() :
-	Anime(100){
-	setIn (30 ,0 ,SCREEN_WIDTH/2 ,SCREEN_HEIGHT/2+270);
-	setOn (0 ,1 ,SCREEN_WIDTH/2 ,SCREEN_HEIGHT/2+200);
-	setOut(30 ,0 ,SCREEN_WIDTH/2 ,SCREEN_HEIGHT/2+130);
-	setImage(400,100,400,100,0,0);
+ThemeAnime::ThemeAnime(): Anime(100){
+	setIn(30, 0, SCREEN_WIDTH/2, SCREEN_HEIGHT/2+270);
+	setOn(0, 1, SCREEN_WIDTH/2, SCREEN_HEIGHT/2+200);
+	setOut(30, 0, SCREEN_WIDTH/2, SCREEN_HEIGHT/2+130);
+	setImage(400, 100, 400, 100, 0, 0);
+	onFlag(RUNNABLE | DRAWABLE);
 };
 ThemeAnime::~ThemeAnime(){
 };

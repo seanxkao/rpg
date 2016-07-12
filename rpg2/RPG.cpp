@@ -14,8 +14,7 @@
 
 ////////////////////////////////////////物件設定/////////////////////////////////////////////////////
 
-
-list<Object*> Object::allObject;
+list<Object*> *Object::allObject = new list<Object*>;
 
 class my_ship : public Body {
 public:
@@ -212,7 +211,6 @@ public:
 	TextManager		*TM;
 	Map				*map;
 	void training_start(){
-
 		myController = new MyController();
 		MS = new my_ship(NULL, myController);
 		MS->setAvatar(avatar);
@@ -227,7 +225,6 @@ public:
 		PlayerPanel *playerPanel = new PlayerPanel(system->getDrawer(), MS);
 		playerPanel->setAvatar(avatar);
 		system->addCom(playerPanel);
-
 		system->getDrawer()->setCamera(SCREEN_WIDTH/3, SCREEN_HEIGHT/4, SCREEN_WIDTH*2/3, SCREEN_HEIGHT/2);
 		
 		t_bar = new AnimeBlock;
@@ -323,12 +320,10 @@ public:
 				
 				if(Body::crash(EB, MS)){
 					int injure = MS->onDamaged(EB);
-
 					float EB_X = EB->getX();
 					float EB_Y = EB->getY();
 					float MS_X = MS->getX();
 					float MS_Y = MS->getY();
-
 					float P_X = random((MS_X*4 + EB_X*1)/5, 20);
 					float P_Y = random((MS_Y*4 + EB_Y*1)/5, 20);
 					pool->addParticle(4, 1, P_X, P_Y, 0, 0, 0, 0);
@@ -341,7 +336,6 @@ public:
 				}
 			}
 		}
-
 	}
 
 	void change_state(int state){
@@ -396,7 +390,6 @@ public:
 	}
 	void stateEnd(){
 	}
-
 	void mainStart(){
 		if(state != nextState){
 			stateEnd();
@@ -407,7 +400,6 @@ public:
 			stateStart();
 		}
 	}
-
 	bool mainProc(){
 		bool end = false;
 		if(system!=NULL){
@@ -418,9 +410,10 @@ public:
 			const int BTN_OPTION = 1;
 			const int BTN_MUSIC = 2;
 			const int BTN_QUIT = 3;
-
-			if(currMenu->isFinished()){
+			if(currMenu!=NULL&&currMenu->isFinished()){
 				int pressed = currMenu->getPressed();
+				//delete currMenu;
+				currMenu = NULL;
 				if(pressed==0){
 					change_state(1);
 				}
@@ -431,15 +424,16 @@ public:
 					change_state(999);
 				}
 			}
-
 		}
 		else if(state == STATE_STARTMENU){
 			//start menu
 			static const int BTN_TRAINING = 0;
 			static const int BTN_BATTLE = 1;
-
-			if(currMenu->isFinished()){
+			
+			if(currMenu!=NULL&&currMenu->isFinished()){
 				int pressed = currMenu->getPressed();
+				//delete currMenu;
+				currMenu = NULL;
 				if(pressed==0){
 					change_state(10);
 				}
@@ -451,11 +445,11 @@ public:
 				}
 			}
 		}
-		
 		else if(state == STATE_TRAINMENU){
-
-			if(currMenu->isFinished()){
+			if(currMenu!=NULL&&currMenu->isFinished()){
 				int pressed = currMenu->getPressed();
+				//delete currMenu;
+				currMenu = NULL;
 				if(pressed==0){
 					change_state(100);
 				}
@@ -473,7 +467,6 @@ public:
 				}
 			}
 		}
-
 		else if(state==100){
 			myController->onInput(system->getKeyboard());
 			if (time%35==0){
@@ -503,10 +496,7 @@ public:
 				float a = random(s/60,s/40);
 				pool->addParticle(30,0, SCREEN_WIDTH/2 + vectorX(l,r) ,  SCREEN_HEIGHT/2 + vectorY(l,r),vectorX(s,r+rr) ,vectorY(s,r+rr),vectorX(a,r+180+rr) ,vectorY(a,r+180+rr));
 				*/
-
 			}
-				
-			
 
 /*
 			if(time>100 && time<400){
@@ -530,11 +520,9 @@ public:
 */
 			collide();
 			training_running();
-
 		}
 
 		else if(state==101){
-
 			if(time<300){
 				if(time%20==0){
 					//EBM->addBullet(SCREEN_WIDTH/2,SCREEN_HEIGHT-200,0, 7,time*7.3, 36 , 1 , 10 , 0 ,1,100);
@@ -543,7 +531,6 @@ public:
 			else if(time==300){
 				//EBM->clear();
 			}
-			
 			else if(time==400){
 				training_end();
 				change_state(10);
@@ -554,16 +541,11 @@ public:
 
 		else if(state==102){
 			if(time==0){
-
 				training_start();
-				
 				MS->setPosition(SCREEN_WIDTH/2,FRAME_DOWN+50);
-
 				t_bar = new AnimeBlock;
 				t_bar -> setPosition(0,SCREEN_HEIGHT/2+70);
 			}
-
-
 			if(time>100 && time<400){
 				if(time%3==0){
 					//EBM->addBullet(SCREEN_WIDTH/2,SCREEN_HEIGHT/2,0,16,MS,3,1,20,0,1,100);
@@ -598,7 +580,6 @@ public:
 		if(system!=NULL){
 			system->main();
 		}
-		system->garbageCollect();
 
 		if(state == nextState){
 			time++;
@@ -608,6 +589,8 @@ public:
 		return end;
 	}
 	void mainEnd(){
+		draw();
+		system->garbageCollect();
 	}
 
 
@@ -700,7 +683,6 @@ while(1){
 		bool isFinished;
 		game.system->getDrawer()->clear();
 		isFinished = game.game_main();
-		game.draw();
 		if(isFinished)SendMessage(hWnd, WM_CLOSE, 0, 0);
 	}
 }

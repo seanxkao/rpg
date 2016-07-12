@@ -216,7 +216,7 @@ public:
 
 	void release(int i){
 		if(body[i]->isFinished()){
-			delete body[i];
+			//delete body[i];
 			body[i] = NULL;
 		}
 	}

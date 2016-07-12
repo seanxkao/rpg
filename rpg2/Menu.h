@@ -67,12 +67,15 @@ public:
 		for(int i = 0; i < size; i++){
 			button[i].draw(drawer);
 		}
-		for(vector<Image*>::iterator it = image.begin(); it != image.end(); ++it){
-			(*it)->draw(drawer);
-		}
-
 	}
-
+	virtual void stateStart(){
+		if(state == STATE_DISAPPEAR){
+			for(vector<Image*>::iterator it = image.begin();it!=image.end();++it){
+				Image *imgNow = *it;
+				imgNow->setState(Anime::STATE_OUT);
+			}
+		}
+	}
 	virtual void mainProc(){
 		if(state == STATE_CREATE){
 			create();
@@ -85,17 +88,9 @@ public:
 		}
 		else if(state == STATE_DISAPPEAR){
 			disappear();
-			for(auto it = image.begin();it!=image.end();++it){
-				Image *imgNow = *it;
-				imgNow->setState(Anime::STATE_OUT);
-			}
 		}	
 		for(int i = 0; i < size; i++){
 			button[i].main();
-		}
-		for(auto it = image.begin();it!=image.end();++it){
-			Image *imgNow = *it;
-			imgNow->main();
 		}
 		if(cooldown > 0) cooldown--;
 	}
@@ -116,17 +111,17 @@ protected:
 };
 
 Menu::Menu(float x,float y, int size){
-	finished = false;
 	btnPressed = -1;
 	this->x = x;
 	this->y = y;
 	this->size = size;
+	//onFlag(RUNNABLE | DRAWABLE | INPUTABLE | ZOMBIE);
+	onFlag(RUNNABLE | DRAWABLE | INPUTABLE);
 };
 
 
 Menu::~Menu(){
 	if(button != NULL){
-		//delete [] button;
 		button = NULL;
 	}
 };
@@ -175,7 +170,7 @@ public:
 		}
 		else{
 			setState(3);
-			btnNow=NULL;
+			btnNow = NULL;
 		}
 	}
 	virtual void disappear(){
@@ -209,8 +204,8 @@ ListMenu::ListMenu(float x,float y,float width,float height, int size,float spac
 	this->orientation = orientation;
 	this->distance = distance;
 
-	button  = new MainButton[size];
-	btnNow	= NULL;
+	button = new MainButton[size];
+	btnNow = NULL;
 
 	for(int i=0;i<size;i++){
 		button[i].setBtnId(i);

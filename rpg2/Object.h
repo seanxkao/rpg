@@ -11,10 +11,11 @@ using namespace std;
 
 class Object{	//the foundamental game object
 public:
-	static list<Object*> allObject;
+	static list<Object*> *allObject;
 	static const unsigned int RUNNABLE = 1;
 	static const unsigned int DRAWABLE = 2;
 	static const unsigned int INPUTABLE = 4;
+	static const unsigned int ZOMBIE = 8;
 	Object(){
 		init();
 		setSpeed(0, 0, 0);
@@ -22,7 +23,7 @@ public:
 		parent = NULL;
 		finished = false;
 		flag = 0;
-		Object::allObject.push_back(this);
+		Object::allObject->push_back(this);
 	}
 
 	virtual ~Object(){
@@ -98,6 +99,9 @@ public:
 	}
 	int isInputable(){
 		return flag&INPUTABLE;
+	}
+	int isZombie(){
+		return flag&ZOMBIE;
 	}
 	void onFlag(unsigned int on){
 		flag |= on;

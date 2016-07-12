@@ -1,389 +1,2197 @@
-after game
-after game
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 0
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
-draw size = 1
+create menu
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+create menu
+System input
+System main
+menu tick 0
+System draw
+System input
+System main
+menu tick 1
+System draw
+System input
+System main
+menu tick 2
+System draw
+System input
+System main
+menu tick 3
+System draw
+System input
+System main
+menu tick 4
+System draw
+System input
+System main
+menu tick 5
+System draw
+System input
+System main
+menu tick 6
+System draw
+System input
+System main
+menu tick 7
+System draw
+System input
+System main
+menu tick 8
+System draw
+System input
+System main
+menu tick 9
+System draw
+System input
+System main
+menu tick 10
+System draw
+System input
+System main
+menu tick 11
+System draw
+System input
+System main
+menu tick 12
+System draw
+System input
+System main
+menu tick 13
+System draw
+System input
+System main
+menu tick 14
+System draw
+System input
+System main
+menu tick 15
+System draw
+System input
+System main
+menu tick 16
+System draw
+System input
+System main
+menu tick 17
+System draw
+System input
+System main
+menu tick 18
+System draw
+System input
+System main
+menu tick 19
+System draw
+System input
+System main
+menu tick 20
+System draw
+System input
+System main
+menu tick 21
+System draw
+System input
+System main
+menu tick 22
+System draw
+System input
+System main
+menu tick 23
+System draw
+System input
+System main
+menu tick 0
+System draw
+System input
+System main
+menu tick 1
+System draw
+System input
+System main
+menu tick 2
+System draw
+System input
+System main
+menu tick 3
+System draw
+System input
+System main
+menu tick 4
+System draw
+System input
+System main
+menu tick 5
+System draw
+System input
+System main
+menu tick 6
+System draw
+System input
+System main
+menu tick 7
+System draw
+System input
+System main
+menu tick 8
+System draw
+System input
+System main
+menu tick 9
+System draw
+System input
+System main
+menu tick 10
+System draw
+System input
+System main
+menu tick 11
+System draw
+System input
+System main
+menu tick 12
+System draw
+System input
+System main
+menu tick 13
+System draw
+System input
+System main
+menu tick 14
+System draw
+System input
+System main
+menu tick 15
+System draw
+System input
+System main
+menu tick 16
+System draw
+System input
+System main
+menu tick 17
+System draw
+System input
+System main
+menu tick 18
+System draw
+System input
+System main
+menu tick 19
+System draw
+System input
+System main
+menu tick 20
+System draw
+System input
+System main
+menu tick 21
+System draw
+System input
+System main
+menu tick 0
+System draw
+System input
+System main
+menu tick 1
+System draw
+System input
+System main
+menu tick 2
+System draw
+System input
+System main
+menu tick 3
+System draw
+System input
+System main
+menu tick 4
+System draw
+System input
+System main
+menu tick 5
+System draw
+System input
+System main
+menu tick 6
+System draw
+System input
+System main
+menu tick 7
+System draw
+System input
+System main
+menu tick 8
+System draw
+System input
+System main
+menu tick 9
+System draw
+System input
+System main
+menu tick 10
+System draw
+System input
+System main
+menu tick 11
+System draw
+System input
+System main
+menu tick 12
+System draw
+System input
+System main
+menu tick 13
+System draw
+System input
+System main
+menu tick 14
+System draw
+System input
+System main
+menu tick 15
+System draw
+System input
+System main
+menu tick 16
+System draw
+System input
+System main
+menu tick 17
+System draw
+System input
+System main
+menu tick 18
+System draw
+System input
+System main
+menu tick 19
+System draw
+System input
+System main
+menu tick 20
+System draw
+System input
+System main
+menu tick 0
+System draw
+System input
+System main
+menu tick 1
+System draw
+System input
+System main
+menu tick 2
+System draw
+System input
+System main
+menu tick 3
+System draw
+System input
+System main
+menu tick 4
+System draw
+System input
+System main
+menu tick 5
+System draw
+System input
+System main
+menu tick 6
+System draw
+System input
+System main
+menu tick 7
+System draw
+System input
+System main
+menu tick 8
+System draw
+System input
+System main
+menu tick 9
+System draw
+System input
+System main
+menu tick 10
+btn finish
+System draw
+Delete an object
+System input
+System main
+menu tick 11
+System draw
+System input
+System main
+menu tick 12
+System draw
+System input
+System main
+menu tick 13
+btn finish
+System draw
+Delete an object
+System input
+System main
+menu tick 14
+System draw
+System input
+System main
+menu tick 15
+System draw
+System input
+System main
+menu tick 16
+btn finish
+System draw
+Delete an object
+System input
+System main
+menu tick 17
+System draw
+System input
+System main
+menu tick 18
+System draw
+System input
+System main
+menu tick 19
+btn finish
+System draw
+Delete an object
+System input
+System main
+menu tick 20
+System draw
+System input
+System main
+menu tick 21
+System draw
+System input
+System main
+menu tick 22
+System draw
+System input
+System main
+menu tick 23
+System draw
+System input
+System main
+System draw
+create menu
+System input
+System main
+menu tick 0
+System draw
+System input
+System main
+menu tick 1
+System draw
+System input
+System main
+menu tick 2
+System draw
+System input
+System main
+menu tick 3
+System draw
+System input
+System main
+menu tick 4
+System draw
+System input
+System main
+menu tick 5
+System draw
+In themeanime
+Delete an object
+System input
+System main
+menu tick 6
+System draw
+System input
+System main
+menu tick 7
+System draw
+System input
+System main
+menu tick 8
+System draw
+System input
+System main
+menu tick 9
+System draw
+System input
+System main
+menu tick 10
+System draw
+System input
+System main
+menu tick 11
+System draw
+System input
+System main
+menu tick 12
+System draw
+System input
+System main
+menu tick 13
+System draw
+System input
+System main
+menu tick 14
+System draw
+System input
+System main
+menu tick 15
+System draw
+System input
+System main
+menu tick 16
+System draw
+System input
+System main
+menu tick 17
+System draw
+System input
+System main
+menu tick 18
+System draw
+System input
+System main
+menu tick 19
+System draw
+System input
+System main
+menu tick 20
+System draw
+System input
+System main
+menu tick 21
+System draw
+System input
+System main
+menu tick 22
+System draw
+System input
+System main
+menu tick 23
+System draw
+System input
+System main
+menu tick 24
+System draw
+System input
+System main
+menu tick 25
+System draw
+System input
+System main
+menu tick 26
+System draw
+System input
+System main
+menu tick 0
+System draw
+System input
+System main
+menu tick 1
+System draw
+System input
+System main
+menu tick 2
+System draw
+System input
+System main
+menu tick 3
+System draw
+System input
+System main
+menu tick 4
+System draw
+System input
+System main
+menu tick 5
+System draw
+System input
+System main
+menu tick 6
+System draw
+System input
+System main
+menu tick 7
+System draw
+System input
+System main
+menu tick 8
+System draw
+System input
+System main
+menu tick 9
+System draw
+System input
+System main
+menu tick 10
+System draw
+System input
+System main
+menu tick 11
+System draw
+System input
+System main
+menu tick 12
+System draw
+System input
+System main
+menu tick 13
+System draw
+System input
+System main
+menu tick 14
+System draw
+System input
+System main
+menu tick 15
+System draw
+System input
+System main
+menu tick 16
+System draw
+System input
+System main
+menu tick 17
+System draw
+System input
+System main
+menu tick 18
+System draw
+System input
+System main
+menu tick 19
+System draw
+System input
+System main
+menu tick 20
+System draw
+System input
+System main
+menu tick 21
+System draw
+System input
+System main
+menu tick 22
+System draw
+System input
+System main
+menu tick 23
+System draw
+System input
+System main
+menu tick 24
+System draw
+System input
+System main
+menu tick 25
+System draw
+System input
+System main
+menu tick 26
+System draw
+System input
+System main
+menu tick 27
+System draw
+System input
+System main
+menu tick 28
+System draw
+System input
+System main
+menu tick 29
+System draw
+System input
+System main
+menu tick 30
+System draw
+System input
+System main
+menu tick 31
+System draw
+System input
+System main
+menu tick 32
+System draw
+System input
+System main
+menu tick 33
+System draw
+System input
+System main
+menu tick 34
+System draw
+System input
+System main
+menu tick 35
+System draw
+System input
+System main
+menu tick 36
+System draw
+System input
+System main
+menu tick 37
+System draw
+System input
+System main
+menu tick 38
+System draw
+System input
+System main
+menu tick 39
+System draw
+System input
+System main
+menu tick 40
+System draw
+System input
+System main
+menu tick 41
+System draw
+System input
+System main
+menu tick 42
+System draw
+System input
+System main
+menu tick 43
+System draw
+System input
+System main
+menu tick 44
+System draw
+System input
+System main
+menu tick 45
+System draw
+System input
+System main
+menu tick 46
+System draw
+System input
+System main
+menu tick 47
+System draw
+System input
+System main
+menu tick 48
+System draw
+System input
+System main
+menu tick 49
+System draw
+System input
+System main
+menu tick 50
+System draw
+System input
+System main
+menu tick 51
+System draw
+System input
+System main
+menu tick 52
+System draw
+System input
+System main
+menu tick 53
+System draw
+System input
+System main
+menu tick 54
+System draw
+System input
+System main
+menu tick 55
+System draw
+System input
+System main
+menu tick 56
+System draw
+System input
+System main
+menu tick 57
+System draw
+System input
+System main
+menu tick 58
+System draw
+System input
+System main
+menu tick 59
+System draw
+System input
+System main
+menu tick 60
+System draw
+System input
+System main
+menu tick 61
+System draw
+System input
+System main
+menu tick 62
+System draw
+System input
+System main
+menu tick 63
+System draw
+System input
+System main
+menu tick 64
+System draw
+System input
+System main
+menu tick 65
+System draw
+System input
+System main
+menu tick 66
+System draw
+System input
+System main
+menu tick 67
+System draw
+System input
+System main
+menu tick 68
+System draw
+System input
+System main
+menu tick 69
+System draw
+System input
+System main
+menu tick 70
+System draw
+System input
+System main
+menu tick 71
+System draw
+System input
+System main
+menu tick 72
+System draw
+System input
+System main
+menu tick 73
+System draw
+System input
+System main
+menu tick 74
+System draw
+System input
+System main
+menu tick 75
+System draw
+System input
+System main
+menu tick 76
+System draw
+System input
+System main
+menu tick 77
+System draw
+System input
+System main
+menu tick 78
+System draw
+System input
+System main
+menu tick 79
+System draw
+System input
+System main
+menu tick 0
+System draw
+System input
+System main
+menu tick 1
+System draw
+System input
+System main
+menu tick 2
+System draw
+System input
+System main
+menu tick 3
+System draw
+System input
+System main
+menu tick 4
+System draw
+System input
+System main
+menu tick 5
+System draw
+System input
+System main
+menu tick 6
+System draw
+System input
+System main
+menu tick 7
+System draw
+System input
+System main
+menu tick 8
+System draw
+System input
+System main
+menu tick 9
+System draw
+System input
+System main
+menu tick 10
+System draw
+System input
+System main
+menu tick 11
+System draw
+System input
+System main
+menu tick 12
+System draw
+System input
+System main
+menu tick 13
+System draw
+System input
+System main
+menu tick 14
+System draw
+System input
+System main
+menu tick 15
+System draw
+System input
+System main
+menu tick 16
+System draw
+System input
+System main
+menu tick 17
+System draw
+System input
+System main
+menu tick 18
+System draw
+System input
+System main
+menu tick 19
+System draw
+System input
+System main
+menu tick 20
+System draw
+System input
+System main
+menu tick 0
+System draw
+System input
+System main
+menu tick 1
+System draw
+System input
+System main
+menu tick 2
+System draw
+System input
+System main
+menu tick 3
+System draw
+System input
+System main
+menu tick 4
+System draw
+System input
+System main
+menu tick 5
+System draw
+System input
+System main
+menu tick 6
+System draw
+System input
+System main
+menu tick 7
+System draw
+System input
+System main
+menu tick 8
+System draw
+System input
+System main
+menu tick 9
+System draw
+System input
+System main
+menu tick 10
+btn finish
+System draw
+Delete an object
+System input
+System main
+menu tick 11
+System draw
+System input
+System main
+menu tick 12
+System draw
+System input
+System main
+menu tick 13
+btn finish
+System draw
+Delete an object
+System input
+System main
+menu tick 14
+System draw
+System input
+System main
+menu tick 15
+System draw
+System input
+System main
+menu tick 16
+btn finish
+System draw
+Delete an object
+System input
+System main
+menu tick 17
+System draw
+System input
+System main
+menu tick 18
+System draw
+System input
+System main
+menu tick 19
+btn finish
+System draw
+Delete an object
+System input
+System main
+menu tick 20
+System draw
+System input
+System main
+menu tick 21
+System draw
+System input
+System main
+menu tick 22
+btn finish
+System draw
+Delete an object
+System input
+System main
+menu tick 23
+System draw
+System input
+System main
+menu tick 24
+System draw
+System input
+System main
+menu tick 25
+System draw
+System input
+System main
+menu tick 26
+System draw
+System input
+System main
+System draw
+create menu
+System input
+System main
+menu tick 0
+System draw
+System input
+System main
+menu tick 1
+System draw
+System input
+System main
+menu tick 2
+System draw
+System input
+System main
+menu tick 3
+System draw
+System input
+System main
+menu tick 4
+System draw
+System input
+System main
+menu tick 5
+System draw
+System input
+System main
+menu tick 6
+System draw
+System input
+System main
+menu tick 7
+System draw
+System input
+System main
+menu tick 8
+System draw
+System input
+System main
+menu tick 9
+System draw
+System input
+System main
+menu tick 10
+System draw
+System input
+System main
+menu tick 11
+System draw
+System input
+System main
+menu tick 12
+System draw
+System input
+System main
+menu tick 13
+System draw
+System input
+System main
+menu tick 14
+System draw
+System input
+System main
+menu tick 15
+System draw
+System input
+System main
+menu tick 16
+System draw
+System input
+System main
+menu tick 17
+System draw
+System input
+System main
+menu tick 18
+System draw
+System input
+System main
+menu tick 19
+System draw
+System input
+System main
+menu tick 20
+System draw
+System input
+System main
+menu tick 21
+System draw
+System input
+System main
+menu tick 22
+System draw
+System input
+System main
+menu tick 23
+System draw
+System input
+System main
+menu tick 24
+System draw
+System input
+System main
+menu tick 25
+System draw
+System input
+System main
+menu tick 26
+System draw
+System input
+System main
+menu tick 0
+System draw
+System input
+System main
+menu tick 1
+System draw
+System input
+System main
+menu tick 2
+System draw
+System input
+System main
+menu tick 3
+System draw
+System input
+System main
+menu tick 4
+System draw
+System input
+System main
+menu tick 5
+System draw
+System input
+System main
+menu tick 6
+System draw
+System input
+System main
+menu tick 7
+System draw
+System input
+System main
+menu tick 8
+System draw
+System input
+System main
+menu tick 9
+System draw
+System input
+System main
+menu tick 10
+System draw
+System input
+System main
+menu tick 11
+System draw
+System input
+System main
+menu tick 0
+System draw
+System input
+System main
+menu tick 1
+System draw
+System input
+System main
+menu tick 2
+System draw
+System input
+System main
+menu tick 3
+System draw
+System input
+System main
+menu tick 4
+System draw
+System input
+System main
+menu tick 5
+System draw
+System input
+System main
+menu tick 6
+System draw
+System input
+System main
+menu tick 7
+System draw
+System input
+System main
+menu tick 8
+System draw
+System input
+System main
+menu tick 9
+System draw
+System input
+System main
+menu tick 10
+System draw
+System input
+System main
+menu tick 11
+System draw
+System input
+System main
+menu tick 12
+System draw
+System input
+System main
+menu tick 13
+System draw
+System input
+System main
+menu tick 14
+System draw
+System input
+System main
+menu tick 15
+System draw
+System input
+System main
+menu tick 16
+System draw
+System input
+System main
+menu tick 17
+System draw
+System input
+System main
+menu tick 18
+System draw
+System input
+System main
+menu tick 19
+System draw
+System input
+System main
+menu tick 20
+System draw
+System input
+System main
+menu tick 0
+System draw
+System input
+System main
+menu tick 1
+System draw
+System input
+System main
+menu tick 2
+System draw
+System input
+System main
+menu tick 3
+System draw
+System input
+System main
+menu tick 4
+System draw
+System input
+System main
+menu tick 5
+System draw
+System input
+System main
+menu tick 6
+System draw
+System input
+System main
+menu tick 7
+System draw
+System input
+System main
+menu tick 8
+System draw
+System input
+System main
+menu tick 9
+System draw
+System input
+System main
+menu tick 10
+btn finish
+System draw
+Delete an object
+System input
+System main
+menu tick 11
+System draw
+System input
+System main
+menu tick 12
+System draw
+System input
+System main
+menu tick 13
+btn finish
+System draw
+Delete an object
+System input
+System main
+menu tick 14
+System draw
+System input
+System main
+menu tick 15
+System draw
+System input
+System main
+menu tick 16
+btn finish
+System draw
+Delete an object
+System input
+System main
+menu tick 17
+System draw
+System input
+System main
+menu tick 18
+System draw
+System input
+System main
+menu tick 19
+btn finish
+System draw
+Delete an object
+System input
+System main
+menu tick 20
+System draw
+System input
+System main
+menu tick 21
+System draw
+System input
+System main
+menu tick 22
+btn finish
+System draw
+Delete an object
+System input
+System main
+menu tick 23
+System draw
+System input
+System main
+menu tick 24
+System draw
+System input
+System main
+menu tick 25
+System draw
+System input
+System main
+menu tick 26
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw
+System input
+System main
+System draw

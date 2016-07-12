@@ -28,6 +28,7 @@ public:
 		for(int i=0; i<ctrlComSize; i++){
 			ctrlCom[i] = NULL;
 		}
+		allObject = Object::allObject;
 	}
 	~System(){
 		delete drawer;
@@ -79,9 +80,9 @@ public:
 		else if(type==2){
 			menu = (Menu*)(new TrainingMenu()); 
 		}
-		runnables.push_back((Object*)menu);
-		drawables.push_back((Object*)menu);
-		inputables.push_back((Object*)menu);
+		//runnables.push_back((Object*)menu);
+		//drawables.push_back((Object*)menu);
+		//inputables.push_back((Object*)menu);
 		return menu;
 	}
 
@@ -102,6 +103,12 @@ public:
 		for(int i=0;i<ctrlComSize;i++){
 			if(ctrlCom[i]!=NULL){
 				ctrlCom[i]->onInput(keyboard);
+			}
+		}
+		
+		for(auto inputable: *allObject){
+			if(inputable->isInputable()){
+				inputable->onInput(keyboard);
 			}
 		}
 		
@@ -130,10 +137,10 @@ public:
 				ctrlCom[i]->draw(drawer);
 			}
 		}
-		list<Object*> allObject = Object::allObject;
-		for(list<Object*>::iterator it = allObject.begin();it!=allObject.end();++it){
-			if((*it)->isDrawable()){
-				(*it)->draw(drawer);
+		
+		for(auto drawable: *allObject){
+			if(drawable->isDrawable()){
+				drawable->draw(drawer);
 			}
 		}
 	}
@@ -163,10 +170,9 @@ public:
 			}
 		}
 		
-		list<Object*> allObject = Object::allObject;
-		for(list<Object*>::iterator it = allObject.begin();it!=allObject.end();++it){
-			if((*it)->isRunnable()){
-				(*it)->main();
+		for(auto runnable: *allObject){
+			if(runnable->isRunnable()){
+				runnable->main();
 			}
 		}
 	}
@@ -188,20 +194,21 @@ public:
 				}
 			}
 		}
-		list<Object*> allObject = Object::allObject;
-		list<Object*>::iterator it = allObject.begin();
-		while(it!=allObject.end()){
+		for(auto it = allObject->begin();it!=allObject->end();){
 			if((*it)->isFinished()){
-				//delete (*it);
-				allObject.erase(it++);
+				if(!(*it)->isZombie()){
+					delete (*it);
+				}
+				it = allObject->erase(it);
 			}
 			else{
-				it++;
+				++it;
 			}
 		}
 	}
 
 protected:
+	list<Object*> *allObject;
 	list<Object*> runnables;
 	list<Object*> inputables;
 	list<Object*> drawables;

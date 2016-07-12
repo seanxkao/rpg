@@ -16,15 +16,11 @@ public:
 	virtual bool getNormalAtk(){
 		return normalAtk;
 	}
-	virtual bool getStat(){
-		return status;
-	}
 
 
 protected:
 	float direction;
 	bool normalAtk;
-	bool status;
 };
 
 class MyController : public Controller{
@@ -64,6 +60,5 @@ public:
 			direction = -1;
 		}
 		normalAtk = keyboard->isDown(Keyboard::KEY_NATK);
-		status = keyboard->isDown(Keyboard::KEY_STAT);
 	}
 };

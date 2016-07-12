@@ -70,6 +70,7 @@ protected:
 		if(refer!=NULL){
 			if(refer->isFinished()){
 				finish();
+				return;
 			}
 		}
 		bar->main();
@@ -87,7 +88,7 @@ Bar::Bar(Body *refer, Object *target) :
 	frame->setParent(this, 0, 0);
 	bar->setParent(this, 0, 0);
 	setParent(target, 0, 0);
-	//onFlag(RUNNABLE | DRAWABLE);
+	onFlag(RUNNABLE | DRAWABLE);
 };
 
 Bar::~Bar(){
@@ -154,8 +155,8 @@ public:
 
 	virtual void draw(Drawer *drawer){
 		group->draw(drawer);
-		hpBar->draw(drawer);
-		expBar->draw(drawer);
+		//hpBar->draw(drawer);
+		//expBar->draw(drawer);
 		level->draw(drawer);
 		exp->draw(drawer);
 		patk->draw(drawer);
@@ -187,9 +188,9 @@ protected:
 		}
 
 		group->main();
-		hpBar->main();
+		//hpBar->main();
 		expBar->setBarValue(avatar->getExp(), avatar->getMaxExp());
-		expBar->main();
+		//expBar->main();
 
 		stringstream ss;
 
