@@ -58,7 +58,7 @@ public:
 		atkEnable = false;
 		direction = 90;
 		swordShadow = new SwordShadow(200, 20, 80, 255);
-		swordShadow->setTarget(this, 0, 0);
+		swordShadow->setParent(this, 0, 0);
 	}
 
 	virtual ~Body(){

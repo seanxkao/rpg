@@ -25,7 +25,7 @@ public:
 		setTexture(0, 0, 1, 1);
 		setARGB(255, 255, 255, 255);
 		setBlendMode(ALPHA_NORMAL);
-		setTarget(NULL, 0, 0);
+		setParent(NULL, 0, 0);
 		setFixed(false);
 		go_out = false;
 	};

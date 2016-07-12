@@ -226,7 +226,7 @@ public:
 			if(body[i]==NULL){
 				Enemy *enemy = new Enemy(this);
 				body[i] = enemy;
-				body[i]->cleanState();
+				body[i]->init();
 				body[i]->setPosition(x, y);
 
 				return enemy;
@@ -239,7 +239,7 @@ public:
 			if(body[i]==NULL){
 				EnemySoldier *enemy = new EnemySoldier(this);
 				body[i] = enemy;
-				body[i]->cleanState();
+				body[i]->init();
 				body[i]->setPosition(x, y);
 					
 				return enemy;

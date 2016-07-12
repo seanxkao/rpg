@@ -1,0 +1,5 @@
+g++ -w -mwindows  -I C:\Sean\DXSDK\Include -L C:\Sean\DXSDK\Lib\x86 -l d3d9.lib -l d3dx9.lib   RPG.cpp -o RPG.exe
+c:/mingw/bin/../lib/gcc/mingw32/4.8.1/../../../../mingw32/bin/ld.exe: cannot find -ld3d9.lib
+c:/mingw/bin/../lib/gcc/mingw32/4.8.1/../../../../mingw32/bin/ld.exe: cannot find -ld3dx9.lib
+collect2.exe: error: ld returned 1 exit status
+make: *** [all] Error 1

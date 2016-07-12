@@ -2,24 +2,32 @@
 
 #include "global.h"
 #include "Maths.h"
+#include <list>
 
 class Keyboard;
 class Drawer;
 
+using namespace std;
+
 class Object{	//the foundamental game object
 public:
+	static list<Object*> allObjecct;
+	static const unsigned int RUNNABLE = 1;
+	static const unsigned int DRAWABLE = 2;
+	static const unsigned int INPUTABLE = 4;
 	Object(){
-		cleanState();
+		init();
 		setSpeed(0, 0, 0);
 		setAccel(0, 0);
 		parent = NULL;
 		finished = false;
+		flag = 0;
 	}
 
 	virtual ~Object(){
 	}
 
-	void cleanState(){
+	void init(){
 		time = 0;
 		state = 0;
 		nextState = 0;
@@ -52,13 +60,13 @@ public:
 	void setState(int nextState){
 		this->nextState = nextState;
 	}
-	void setTarget(Object *parent, float parentX, float parentY){
+	void setParent(Object *parent, float parentX, float parentY){
 		this->parent = parent;
 		this->parentX = parentX;
 		this->parentY = parentY;
 	}
-	void setTarget(float parentX, float parentY){
-		setTarget(parent, parentX, parentY);
+	void setParent(float parentX, float parentY){
+		setParent(parent, parentX, parentY);
 	}
 
 	float getX(){
@@ -80,6 +88,23 @@ public:
 	bool isFinished(){
 		return finished;
 	}
+	
+	int isRunnable(){
+		return flag&RUNNABLE;
+	}
+	int isDrawable(){
+		return flag&DRAWABLE;
+	}
+	int isInputable(){
+		return flag&INPUTABLE;
+	}
+	void onFlag(unsigned int on){
+		flag |= on;
+	}
+	void offFlag(unsigned int off){
+		flag &= ~off;
+	}
+	
 	virtual void main(){
 		mainStart();
 		mainProc();
@@ -107,6 +132,7 @@ public:
 	float parentX;
 	float parentY;
 	bool finished;
+	int flag;
 
 	virtual void stateStart(){
 	}
@@ -139,13 +165,6 @@ public:
 		x += mx;
 		y += my;
 		time++;
-	}
-
-	void init(){
-		cleanState();
-		setSpeed(0, 0, 0);
-		setAccel(0, 0);
-		finished = false;
 	}
 	
 };

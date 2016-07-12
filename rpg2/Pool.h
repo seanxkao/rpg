@@ -15,7 +15,7 @@ public:
 		for(int i = 0; i < size; i++){
 			if(!particle[i].alife()){
 				particle[i].setExist(true);
-				particle[i].cleanState();
+				particle[i].init();
 				particle[i].setParticle(kind, life);
 				particle[i].setPosition(x, y);
 				particle[i].setSpeed(mx, my);
@@ -47,7 +47,7 @@ Pool::Pool(int size){
 	particle = new Particle[size];
 	for(int i = 0; i < size; i++){
 		particle[i].setExist(false);
-		particle[i].cleanState();
+		particle[i].init();
 	}
 }
 

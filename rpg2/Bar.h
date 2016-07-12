@@ -84,10 +84,10 @@ Bar::Bar(Body *refer, Object *target) :
 
 	frame = new Image();
 	bar = new Image();
-	frame->setTarget(this, 0, 0);
-	bar->setTarget(this, 0, 0);
+	frame->setParent(this, 0, 0);
+	bar->setParent(this, 0, 0);
 
-	setTarget(target, 0, 0);
+	setParent(target, 0, 0);
 };
 
 Bar::~Bar(){
@@ -120,31 +120,31 @@ public:
 
 		hpBar = new HpBar(me, group);
 		hpBar->setBarSize(100, 10, 100, 10);
-		hpBar->setTarget(group, -200, 0);
+		hpBar->setParent(group, -200, 0);
 		hpBar->setFixed(true);
 		
 		expBar = new Bar(NULL, group);
 		expBar->setBarImg(1104, 1105);
 		expBar->setBarSize(100, 10, 100, 10);
-		expBar->setTarget(group, -200, -30);
+		expBar->setParent(group, -200, -30);
 		expBar->setFixed(true);
 
 		level = new Text();
 		level->setText(50, 20, 50, 20);
-		level->setTarget(group, 180, 15);
+		level->setParent(group, 180, 15);
 		level->setFixed(true);
 		level->setFont(font);
 
 		
 		exp = new Text();
 		exp->setText(100, 10, 100, 10);
-		exp->setTarget(group, 200, -15);
+		exp->setParent(group, 200, -15);
 		exp->setFixed(true);
 		exp->setFont(font);
 
 		patk = new Text();
 		patk->setText(50, 10, 50, 10);
-		patk->setTarget(group, -200, 10);
+		patk->setParent(group, -200, 10);
 		patk->setFixed(true);
 		patk->setFont(font);
 	}

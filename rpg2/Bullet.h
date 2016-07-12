@@ -164,7 +164,7 @@ void addBullet(float x,float y,int z,float spd,float r,int wnum, int lnum, float
 	for(int i = 0; i < 1000; i++){
 		if(!bullet[i].exist ){
 			bullet[i].exist = true;
-			bullet[i].cleanState();
+			bullet[i].init();
 			bullet[i].setPosition(x, y);
 			bullet[i].setSpeed( spd, r+ turn*(wnum-a*2-1)/2, 1);
 			bullet[i].setImgId(2000);

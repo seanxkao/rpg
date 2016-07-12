@@ -14,6 +14,9 @@
 
 ////////////////////////////////////////物件設定/////////////////////////////////////////////////////
 
+
+list<Object*> Object::allObjecct;
+
 class my_ship : public Body {
 public:
 	int revive;
@@ -214,7 +217,7 @@ public:
 		MS = new my_ship(NULL, myController);
 		MS->setAvatar(avatar);
 		Bar *MS_Bar = system->createBar(0, MS, MS);
-		MS_Bar->setTarget(0, 70);
+		MS_Bar->setParent(0, 70);
 		MS_Bar->setBarSize(50, 10, 50, 10);
 		
 		ID3DXFont *font;
@@ -476,7 +479,7 @@ public:
 			if (time%35==0){
 				Enemy *enemy = EBM->addEnemySoldier(SCREEN_WIDTH/2, SCREEN_WIDTH/2,0,0);
 				Bar *enemyHpBar = system->createBar(0, enemy, enemy);
-				enemyHpBar->setTarget(0, 70);
+				enemyHpBar->setParent(0, 70);
 				enemyHpBar->setBarSize(50, 10, 50, 10);
 			}
 			for(int i=0;i<20;i++){

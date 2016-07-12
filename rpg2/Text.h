@@ -208,7 +208,7 @@ public:
 		text = new AnimeText[size];
 		for(int i = 0; i < size; i++){
 			text[i].setExist(false);
-			text[i].cleanState();
+			text[i].init();
 		}
 	}
 
@@ -221,7 +221,7 @@ public:
 			if(!text[i].isExist()){
 				text[i].setFont(font);
 				text[i].setExist(true);
-				text[i].cleanState();
+				text[i].init();
 				text[i].setText(left, top, width, height);
 				text[i].setWord(word);
 				text[i].setARGB(colorA, colorR, colorG, colorB);
