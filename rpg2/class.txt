@@ -21,7 +21,7 @@ Object
 	->Map
 	->Image
 		->Anime
-			->ThemeAnime
+			->ThemeAnime(*)
 		->ImageFan
 		->ImageStrip
 			->SwordShadow

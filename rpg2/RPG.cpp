@@ -121,7 +121,7 @@ public:
 				int atk = randomRange(status->getMinPAtk(), status->getMaxPAtk());
 				setAttack(atk, 0, 10, 100, direction-60, direction+60);
 			}
-			else if(time > 4){
+			else if(time > 20){
 				setState(0);
 			}
 		}
@@ -565,7 +565,7 @@ public:
 
 
 		if(EBM!=NULL){
-			for(int i = 0; i < 100; i++){
+			for(int i=0;i<100;i++){
 				Enemy *EB = (Enemy*)EBM->getBody(i);
 				if(EB!=NULL){
 					if(EB->isFinished()){

@@ -542,7 +542,9 @@ public:
 	}
 	virtual ~SwordShadow(){
 	}
-
+	virtual void init(){
+		setAllStrip(swordLen1, swordLen2, 0, 0);
+	}
 	virtual void wield(int wieldTime, float wieldStart, float wieldEnd){
 		this->wieldTime = wieldTime;
 		this->wieldStart = wieldStart;

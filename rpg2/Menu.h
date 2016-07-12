@@ -115,7 +115,6 @@ Menu::Menu(float x,float y, int size){
 	this->x = x;
 	this->y = y;
 	this->size = size;
-	//onFlag(RUNNABLE | DRAWABLE | INPUTABLE | ZOMBIE);
 	onFlag(RUNNABLE | DRAWABLE | INPUTABLE);
 };
 

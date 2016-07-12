@@ -70,7 +70,7 @@ protected:
 		if(refer!=NULL){
 			if(refer->isFinished()){
 				finish();
-				return;
+				refer = NULL;
 			}
 		}
 		bar->main();
@@ -143,11 +143,6 @@ public:
 		exp->setFixed(true);
 		exp->setFont(font);
 
-		patk = new Text();
-		patk->setText(50, 10, 50, 10);
-		patk->setParent(group, -200, 10);
-		patk->setFixed(true);
-		patk->setFont(font);
 	}
 	virtual ~PlayerPanel(){
 	}
@@ -155,11 +150,8 @@ public:
 
 	virtual void draw(Drawer *drawer){
 		group->draw(drawer);
-		//hpBar->draw(drawer);
-		//expBar->draw(drawer);
 		level->draw(drawer);
 		exp->draw(drawer);
-		patk->draw(drawer);
 	}
 	virtual void setAvatar(Avatar *avatar){
 		this->avatar = avatar;
@@ -173,7 +165,6 @@ protected:
 	Bar *expBar;
 	Text *level;
 	Text *exp;
-	Text *patk;
 	Avatar *avatar;
 
 	virtual void mainProc(){
@@ -188,25 +179,16 @@ protected:
 		}
 
 		group->main();
-		//hpBar->main();
+		
 		expBar->setBarValue(avatar->getExp(), avatar->getMaxExp());
-		//expBar->main();
-
+		
 		stringstream ss;
-
 		ss<<"LV "<<avatar->getLevel()<<endl;
 		level->setWord(ss.str());
 		level->main();
-
 		ss.str("");
 		ss<<"EXP "<<avatar->getExp()<<"/"<<avatar->getMaxExp();
 		exp->setWord(ss.str());
 		exp->main();
-
-		//ss.clear();
-		//ss<<"PATK "<<avatar->get <<"/"<<avatar->getMaxExp();
-		//ss>>test;
-		//exp->setWord(test);
-		//patk->main();
 	}
 };

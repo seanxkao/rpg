@@ -172,7 +172,11 @@ protected:
 	int hp;
 	int maxHp;
 	Status *status;	
-	
+	virtual void stateStart(){
+		if(state==STATE_NORMAL){
+			swordShadow->init();
+		}
+	}
 	virtual void mainProc(){
 		swordShadow->main();
 	}

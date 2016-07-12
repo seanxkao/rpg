@@ -65,8 +65,6 @@ public:
 		if(type==0){
 			bar = (Bar*)(new HpBar(refer, target)); 
 		}
-		//runnables.push_back((Object*)bar);
-		//drawables.push_back((Object*)bar);
 		return bar;
 	}
 	Menu* createMenu(int type){
@@ -80,9 +78,6 @@ public:
 		else if(type==2){
 			menu = (Menu*)(new TrainingMenu()); 
 		}
-		//runnables.push_back((Object*)menu);
-		//drawables.push_back((Object*)menu);
-		//inputables.push_back((Object*)menu);
 		return menu;
 	}
 
