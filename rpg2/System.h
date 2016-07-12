@@ -64,8 +64,8 @@ public:
 		if(type==0){
 			bar = (Bar*)(new HpBar(refer, target)); 
 		}
-		runnables.push_back((Object*)bar);
-		drawables.push_back((Object*)bar);
+		//runnables.push_back((Object*)bar);
+		//drawables.push_back((Object*)bar);
 		return bar;
 	}
 	Menu* createMenu(int type){
@@ -104,6 +104,7 @@ public:
 				ctrlCom[i]->onInput(keyboard);
 			}
 		}
+		
 	}
 
 	virtual void draw(){
@@ -127,6 +128,12 @@ public:
 		for(int i=0;i<ctrlComSize;i++){
 			if(ctrlCom[i]!=NULL){
 				ctrlCom[i]->draw(drawer);
+			}
+		}
+		list<Object*> allObject = Object::allObject;
+		for(list<Object*>::iterator it = allObject.begin();it!=allObject.end();++it){
+			if((*it)->isDrawable()){
+				(*it)->draw(drawer);
 			}
 		}
 	}
@@ -155,6 +162,13 @@ public:
 				ctrlCom[i]->main();
 			}
 		}
+		
+		list<Object*> allObject = Object::allObject;
+		for(list<Object*>::iterator it = allObject.begin();it!=allObject.end();++it){
+			if((*it)->isRunnable()){
+				(*it)->main();
+			}
+		}
 	}
 
 	void garbageCollect(){
@@ -172,6 +186,17 @@ public:
 					delete ctrlCom[i];
 					ctrlCom[i] = NULL;
 				}
+			}
+		}
+		list<Object*> allObject = Object::allObject;
+		list<Object*>::iterator it = allObject.begin();
+		while(it!=allObject.end()){
+			if((*it)->isFinished()){
+				//delete (*it);
+				allObject.erase(it++);
+			}
+			else{
+				it++;
 			}
 		}
 	}

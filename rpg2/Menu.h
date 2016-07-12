@@ -126,7 +126,7 @@ Menu::Menu(float x,float y, int size){
 
 Menu::~Menu(){
 	if(button != NULL){
-		delete [] button;
+		//delete [] button;
 		button = NULL;
 	}
 };

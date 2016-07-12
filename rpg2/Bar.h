@@ -86,8 +86,8 @@ Bar::Bar(Body *refer, Object *target) :
 	bar = new Image();
 	frame->setParent(this, 0, 0);
 	bar->setParent(this, 0, 0);
-
 	setParent(target, 0, 0);
+	//onFlag(RUNNABLE | DRAWABLE);
 };
 
 Bar::~Bar(){

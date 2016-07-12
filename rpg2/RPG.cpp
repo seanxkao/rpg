@@ -15,7 +15,7 @@
 ////////////////////////////////////////物件設定/////////////////////////////////////////////////////
 
 
-list<Object*> Object::allObjecct;
+list<Object*> Object::allObject;
 
 class my_ship : public Body {
 public:

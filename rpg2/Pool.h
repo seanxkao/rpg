@@ -52,5 +52,5 @@ Pool::Pool(int size){
 }
 
 Pool::~Pool(){
-	delete []particle;
+	//delete []particle;
 }
