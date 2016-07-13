@@ -1,1 +1,0 @@
-@echo 資訊清單資源上一次更新於 %TIME%，在 %DATE% > .\Debug\mt.dep 上
