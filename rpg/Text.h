@@ -22,9 +22,9 @@ public:
 	}
 
 	enum STATE{
-		STATE_IN,	//出現 0
-		STATE_ON,	//顯示 1
-		STATE_OUT	//消失 2
+		STATE_IN,	//appear 0
+		STATE_ON,	//display 1
+		STATE_OUT	//disappera 2
 	};
 	void setFont(ID3DXFont *font){
 		this->font = font;

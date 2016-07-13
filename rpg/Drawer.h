@@ -257,8 +257,3 @@ protected:
 	float mapWidth;
 	float mapHeight;
 };
-
-class Drawable{
-public:
-	//virtual void draw(Drawer*) = 0;
-};

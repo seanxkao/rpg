@@ -610,5 +610,3 @@ public:
 
 };
 
-class Component : public Object, public Drawable{
-};

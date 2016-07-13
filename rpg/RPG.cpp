@@ -181,7 +181,7 @@ public:
 		MS = NULL;
 		pool = new Pool(10000);
 		TM = NULL;
-		system = new System(1000, 100);
+		system = new System();
 		avatar = new Avatar();
 		
 		EBM = new BodySystem(1000);
@@ -223,7 +223,7 @@ public:
 		
 		PlayerPanel *playerPanel = new PlayerPanel(system->getDrawer(), MS);
 		playerPanel->setAvatar(avatar);
-		system->addCom(playerPanel);
+		//system->addCom(playerPanel);
 		system->getDrawer()->setCamera(SCREEN_WIDTH/3, SCREEN_HEIGHT/4, SCREEN_WIDTH*2/3, SCREEN_HEIGHT/2);
 		
 		t_bar = new AnimeBlock;
@@ -411,7 +411,6 @@ public:
 			const int BTN_QUIT = 3;
 			if(currMenu!=NULL&&currMenu->isFinished()){
 				int pressed = currMenu->getPressed();
-				//delete currMenu;
 				currMenu = NULL;
 				if(pressed==0){
 					change_state(1);
@@ -431,7 +430,6 @@ public:
 			
 			if(currMenu!=NULL&&currMenu->isFinished()){
 				int pressed = currMenu->getPressed();
-				//delete currMenu;
 				currMenu = NULL;
 				if(pressed==0){
 					change_state(10);
@@ -447,7 +445,6 @@ public:
 		else if(state == STATE_TRAINMENU){
 			if(currMenu!=NULL&&currMenu->isFinished()){
 				int pressed = currMenu->getPressed();
-				//delete currMenu;
 				currMenu = NULL;
 				if(pressed==0){
 					change_state(100);

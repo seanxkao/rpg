@@ -6,7 +6,7 @@
 
 typedef int (Body::*BodyFP)();
 
-class Bar : public Component{
+class Bar : public Object{
 public:
 	Bar(Body*, Object*);
 	virtual ~Bar();
@@ -79,10 +79,8 @@ protected:
 };
 
 
-Bar::Bar(Body *refer, Object *target) :
-	Component(){
+Bar::Bar(Body *refer, Object *target): Object(){
 	this->refer = refer;
-
 	frame = new Image();
 	bar = new Image();
 	frame->setParent(this, 0, 0);
@@ -107,7 +105,7 @@ HpBar::HpBar(Body *refer, Object *target) :
 HpBar::~HpBar(){
 }
 
-class PlayerPanel : public Component{
+class PlayerPanel : public Object{
 public:
 	PlayerPanel(Drawer *drawer, Body *me){
 		ID3DXFont *font;
@@ -135,7 +133,6 @@ public:
 		level->setParent(group, 180, 15);
 		level->setFixed(true);
 		level->setFont(font);
-
 		
 		exp = new Text();
 		exp->setText(100, 10, 100, 10);
@@ -143,6 +140,7 @@ public:
 		exp->setFixed(true);
 		exp->setFont(font);
 
+		onFlag(RUNNABLE | DRAWABLE);
 	}
 	virtual ~PlayerPanel(){
 	}

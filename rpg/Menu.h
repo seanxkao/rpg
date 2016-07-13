@@ -4,7 +4,7 @@
 #include "Button.h"
 #include "Keyboard.h"
 
-class Menu : public ControlComponent{
+class Menu: public Object{
 public:
 	static const int COOL_DOWN = 10;
 	enum STATE{
@@ -103,23 +103,46 @@ protected:
 	Button	*button;
 	Button	*btnNow;
 	int		btnPressed;
-
-	vector<Image*>  image;
-
 	bool	finished;
 	virtual void create(){};
 	virtual void normal(){};
 	virtual void pressed(){};
 	virtual void disappear(){};
+	
+	vector<Image*>  image;
 };
 
-class ListMenu : public Menu{
+class ListMenu: public Menu{
 public:
-	ListMenu(float, float, float, float, int, float, float, bool);
-	virtual ~ListMenu();
-
 	static const bool HORIZONTAL = true;
 	static const bool VERTICLE = false;
+	
+	ListMenu(float x, float y, float width, float height, int size, float space, float distance, bool orientation)
+	: Menu(x, y,size){
+		this->orientation = orientation;
+		this->distance = distance;
+		button = new MainButton[size];
+		btnNow = NULL;
+
+		for(int i=0;i<size;i++){
+			button[i].setBtnId(i);
+			if(orientation == HORIZONTAL){
+				button[i].setBtnLink(button + (size+i-1)%size, button + (size+i+1)%size,NULL,NULL);
+				button[i].setPosition(x + (i - (size-1)/2)*(width+space), y);
+				button[i].setImage(width/2, height/2, width/2, height/2, 0, 0);
+			}
+			else{
+				button[i].setBtnLink(NULL, NULL, button + (size+i-1)%size, button+(size+i+1)%size);
+				button[i].setPosition(x, y - (i-(size-1)/2)*(height+space));
+				button[i].setImage(width/2, height/2, width/2, height/2, 0, 0);
+			}
+
+		}
+		cooldown = 0;
+	};
+
+	virtual ~ListMenu(){
+	};
 
 	virtual void create(){
 		if(time%3 == 0 && time/3 < size) {
@@ -179,92 +202,45 @@ public:
 	}
 
 protected:
-	float	distance;
-	bool	orientation  ;//0 = horizontal, 1 = verticle
+	float distance;
+	bool orientation;	//0 = horizontal, 1 = verticle
 };
 
-ListMenu::ListMenu(float x,float y,float width,float height, int size,float space,float distance,bool orientation) : 
-	Menu(x, y,size){
-	this->orientation = orientation;
-	this->distance = distance;
-
-	button = new MainButton[size];
-	btnNow = NULL;
-
-	for(int i=0;i<size;i++){
-		button[i].setBtnId(i);
-		if(orientation == HORIZONTAL){
-			button[i].setBtnLink(button + (size+i-1)%size, button + (size+i+1)%size,NULL,NULL);
-			button[i].setPosition(x + (i - (size-1)/2)*(width+space), y);
-			button[i].setImage(width/2, height/2, width/2, height/2, 0, 0);
-		}
-		else{
-			button[i].setBtnLink(NULL, NULL, button + (size+i-1)%size, button+(size+i+1)%size);
-			button[i].setPosition(x, y - (i-(size-1)/2)*(height+space));
-			button[i].setImage(width/2, height/2, width/2, height/2, 0, 0);
-		}
-
+class MainMenu: public ListMenu{
+public:
+	MainMenu(): ListMenu(SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - 65 , 300, 100, 4, 10, 40, VERTICLE){
+		button[0].setBtnImg(0, 1, 1);
+		button[1].setBtnImg(2, 3, 3);
+		button[2].setBtnImg(4, 5, 5);
+		button[3].setBtnImg(6, 7, 7);
+		addImage(new ThemeAnime());
 	}
-	cooldown = 0;
+	virtual ~MainMenu(){
+	}
 };
 
-ListMenu::~ListMenu(){
-};
-
-
-class MainMenu : public ListMenu{
+class StartMenu: public ListMenu{
 public:
-	MainMenu();
-	~MainMenu();
-
+	StartMenu(): ListMenu(SCREEN_WIDTH/2, SCREEN_HEIGHT/2 -10 , 300, 100, 5,10,40, VERTICLE){
+		button[0].setBtnImg(20,21,21);
+		button[1].setBtnImg(22,23,23);
+		button[2].setBtnImg(24,25,25);
+		button[3].setBtnImg(26,27,27);
+		button[4].setBtnImg(28,29,29);
+	}
+	virtual ~StartMenu(){
+	}
 };
 
-MainMenu::MainMenu():
-	ListMenu(SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - 65 , 300, 100, 4, 10, 40, VERTICLE){
-	button[0].setBtnImg(0, 1, 1);
-	button[1].setBtnImg(2, 3, 3);
-	button[2].setBtnImg(4, 5, 5);
-	button[3].setBtnImg(6, 7, 7);
-	addImage(new ThemeAnime());
-}
-MainMenu::~MainMenu(){
-	
-}
-
-
-
-class StartMenu : public ListMenu{
+class TrainingMenu: public ListMenu{
 public:
-	StartMenu();
-	~StartMenu();
+	TrainingMenu(): ListMenu(SCREEN_WIDTH/2, SCREEN_HEIGHT/2 -10 , 1000, 100, 5,10,0, VERTICLE){
+		button[0].setBtnImg(30,31,31);
+		button[1].setBtnImg(32,33,33);
+		button[2].setBtnImg(34,35,35);
+		button[3].setBtnImg(30,31,31);
+		button[4].setBtnImg(30,31,31);
+	}
+	virtual ~TrainingMenu(){
+	}
 };
-
-StartMenu::StartMenu():
-	ListMenu(SCREEN_WIDTH/2, SCREEN_HEIGHT/2 -10 , 300, 100, 5,10,40, VERTICLE){
-	button[0].setBtnImg(20,21,21);
-	button[1].setBtnImg(22,23,23);
-	button[2].setBtnImg(24,25,25);
-	button[3].setBtnImg(26,27,27);
-	button[4].setBtnImg(28,29,29);
-}
-StartMenu::~StartMenu(){
-	
-}
-
-class TrainingMenu : public ListMenu{
-public:
-	TrainingMenu();
-	~TrainingMenu();
-};
-
-TrainingMenu::TrainingMenu():
-	ListMenu(SCREEN_WIDTH/2, SCREEN_HEIGHT/2 -10 , 1000, 100, 5,10,0, VERTICLE){
-	button[0].setBtnImg(30,31,31);
-	button[1].setBtnImg(32,33,33);
-	button[2].setBtnImg(34,35,35);
-	button[3].setBtnImg(30,31,31);
-	button[4].setBtnImg(30,31,31);
-}
-TrainingMenu::~TrainingMenu(){
-	
-}

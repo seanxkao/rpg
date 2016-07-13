@@ -38,13 +38,13 @@ Object
 	->Component(Object&Drawable)
 		->Bar(*)
 			->HpBar(*)
-		->PlayerPanel
+		->PlayerPanel(*)
 		->ControlComponent(Component&Inputable)
-			->Menu
-				->ListMenu
-					->MainMenu
-					->StartMenu
-					->TrainingMenu		
+			->Menu(*)
+				->ListMenu(*)
+					->MainMenu(*)
+					->StartMenu(*)
+					->TrainingMenu(*)	
 	->Text
 		->AnimeText
 
