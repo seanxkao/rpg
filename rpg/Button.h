@@ -6,20 +6,27 @@
 
 class Button : public Image{
 public:
-
-	Button();
-	Button(int, int, int);
-	virtual ~Button();
-	
-	//按鈕狀態
 	static const int STATE_CREATE = 0;
 	static const int STATE_ACTIVE = 1;
 	static const int STATE_NORMAL = 2;
 	static const int STATE_PRESSED = 3;
 	static const int STATE_DISAPPEAR = 4;
-
-	//設定上下左右連結到的的按鈕
-
+	
+	Button(int imgNormal,int imgOn,int imgPress): Image(){
+		this->imgNormal = imgNormal;
+		this->imgOn     = imgOn    ;
+		this->imgPress  = imgPress ;
+		setBtnLink(NULL, NULL, NULL, NULL);
+		choosed = false;
+		onFlag(RUNNABLE | DRAWABLE);
+	};
+	
+	Button(): Button(-1, -1, -1){
+	};
+	
+	virtual ~Button(){
+	};
+	
 	void setChoosed(bool choosed){
 		this->choosed = choosed;
 	}
@@ -79,8 +86,6 @@ public:
 		return btnId;
 	}
 
-	virtual void onInput(Keyboard *keyboard){};
-
 	virtual void create() = 0;
 	virtual void active() = 0;
 	virtual void normal() = 0;
@@ -119,33 +124,10 @@ protected:
 	bool choosed;
 private:
 	void init(){
-		//初始化
-		//按鈕還未被選擇
-		//未連結任何按鈕
-		choosed = false;
-		button_left = NULL;
-		button_right = NULL;
-		button_up = NULL;
-		button_down = NULL;
 	}
 };
 
 
-Button::Button() :
-	Image(){
-	init();
-};
-
-Button::Button(int imgNormal,int imgOn,int imgPress) :
-	Image(){
-	this->imgNormal = imgNormal;
-	this->imgOn     = imgOn    ;
-	this->imgPress  = imgPress ;
-	init();
-};
-
-Button::~Button(){
-};
 
 class MainButton : public Button{
 
@@ -212,12 +194,10 @@ public:
 
 };
 
-MainButton::MainButton() :
-	Button(){
+MainButton::MainButton(): Button(){
 };
 
-MainButton::MainButton(int imgNormal,int imgOn,int imgPress) :
-	Button(imgNormal, imgOn, imgPress){
+MainButton::MainButton(int imgNormal,int imgOn,int imgPress): Button(imgNormal, imgOn, imgPress){
 	imgId = imgNormal;
 };
 

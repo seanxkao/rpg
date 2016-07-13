@@ -6,18 +6,25 @@
 
 class Menu : public ControlComponent{
 public:
-	
-	Menu(float, float, int);
-	virtual ~Menu();
-
 	static const int COOL_DOWN = 10;
-	
 	enum STATE{
 		STATE_CREATE,	
 		STATE_NORMAL,	
 		STATE_PRESSED,	
 		STATE_DISAPPEAR	
 	};
+	
+	Menu(float x,float y, int size){
+		btnPressed = -1;
+		this->x = x;
+		this->y = y;
+		this->size = size;
+		onFlag(RUNNABLE | DRAWABLE | INPUTABLE);
+	};
+
+	virtual ~Menu(){
+	};
+	
 	int getPressed(){
 		return btnPressed;
 	}
@@ -27,31 +34,32 @@ public:
 	}
 
 	void onInput(Keyboard *keyboard){
-		if (btnNow==NULL) return;
-
-		if(cooldown == 0){
-			if(keyboard->isPressed(Keyboard::KEY_LEFT)){
-				if(btnNow != btnNow->getBtnLeft()){
-					cooldown  = COOL_DOWN;
-					btnNow = btnNow->getBtnLeft();
+		if(btnNow==NULL)return;
+		if(state==STATE_NORMAL){
+			if(cooldown == 0){
+				if(keyboard->isPressed(Keyboard::KEY_LEFT)){
+					if(btnNow != btnNow->getBtnLeft()){
+						cooldown  = COOL_DOWN;
+						btnNow = btnNow->getBtnLeft();
+					}
 				}
-			}
-			if(keyboard->isPressed(Keyboard::KEY_RIGHT)){
-				if(btnNow != btnNow->getBtnRight()){
-					cooldown  = COOL_DOWN;
-					btnNow = btnNow->getBtnRight();
+				else if(keyboard->isPressed(Keyboard::KEY_RIGHT)){
+					if(btnNow != btnNow->getBtnRight()){
+						cooldown  = COOL_DOWN;
+						btnNow = btnNow->getBtnRight();
+					}
 				}
-			}
-			if(keyboard->isPressed(Keyboard::KEY_UP)){
-				if(btnNow != btnNow->getBtnUp()){
-					cooldown  = COOL_DOWN;
-					btnNow = btnNow->getBtnUp();
+				else if(keyboard->isPressed(Keyboard::KEY_UP)){
+					if(btnNow != btnNow->getBtnUp()){
+						cooldown  = COOL_DOWN;
+						btnNow = btnNow->getBtnUp();
+					}
 				}
-			}
-			if(keyboard->isPressed(Keyboard::KEY_DOWN)){
-				if(btnNow != btnNow->getBtnDown()){
-					cooldown  = COOL_DOWN;
-					btnNow = btnNow->getBtnDown();
+				else if(keyboard->isPressed(Keyboard::KEY_DOWN)){
+					if(btnNow != btnNow->getBtnDown()){
+						cooldown  = COOL_DOWN;
+						btnNow = btnNow->getBtnDown();
+					}
 				}
 			}
 			if(keyboard->isPressed(Keyboard::KEY_NATK)){
@@ -64,10 +72,8 @@ public:
 	}
 
 	virtual void draw(Drawer *drawer){
-		for(int i = 0; i < size; i++){
-			button[i].draw(drawer);
-		}
 	}
+	
 	virtual void stateStart(){
 		if(state == STATE_DISAPPEAR){
 			for(vector<Image*>::iterator it = image.begin();it!=image.end();++it){
@@ -88,11 +94,8 @@ public:
 		}
 		else if(state == STATE_DISAPPEAR){
 			disappear();
-		}	
-		for(int i = 0; i < size; i++){
-			button[i].main();
 		}
-		if(cooldown > 0) cooldown--;
+		if(cooldown > 0)cooldown--;
 	}
 protected:
 	int		size;
@@ -110,26 +113,8 @@ protected:
 	virtual void disappear(){};
 };
 
-Menu::Menu(float x,float y, int size){
-	btnPressed = -1;
-	this->x = x;
-	this->y = y;
-	this->size = size;
-	onFlag(RUNNABLE | DRAWABLE | INPUTABLE);
-};
-
-
-Menu::~Menu(){
-	if(button != NULL){
-		button = NULL;
-	}
-};
-
-
-
 class ListMenu : public Menu{
 public:
-
 	ListMenu(float, float, float, float, int, float, float, bool);
 	virtual ~ListMenu();
 
@@ -144,7 +129,7 @@ public:
 			if(time >= i*3 && time < i*3+10){
 				if(orientation == HORIZONTAL){
 					button[i].setPosition(button[i].getX(), y - distance + (time-i*3) * distance / 10 ); 
-				}else {
+				}else{
 					button[i].setPosition(x - distance + (time-i*3)*distance/10, button[i].getY()); 
 				}
 			}
@@ -209,14 +194,14 @@ ListMenu::ListMenu(float x,float y,float width,float height, int size,float spac
 	for(int i=0;i<size;i++){
 		button[i].setBtnId(i);
 		if(orientation == HORIZONTAL){
-			button[i].setBtnLink(button+(size+i-1)%size, button+(size+i+1)%size,NULL,NULL);
-			button[i].setPosition(x + (i- (size-1) /2 ) * (width + space ) , y );
-			button[i].setImage(width/2,height/2,width/2,height/2,0,0);
+			button[i].setBtnLink(button + (size+i-1)%size, button + (size+i+1)%size,NULL,NULL);
+			button[i].setPosition(x + (i - (size-1)/2)*(width+space), y);
+			button[i].setImage(width/2, height/2, width/2, height/2, 0, 0);
 		}
 		else{
-			button[i].setBtnLink(NULL,NULL,button+(size+i-1)%size, button+(size+i+1)%size);
-			button[i].setPosition(x , y - (i- (size-1) /2 ) * (height + space ) );
-			button[i].setImage(width/2,height/2,width/2,height/2,0,0);
+			button[i].setBtnLink(NULL, NULL, button + (size+i-1)%size, button+(size+i+1)%size);
+			button[i].setPosition(x, y - (i-(size-1)/2)*(height+space));
+			button[i].setImage(width/2, height/2, width/2, height/2, 0, 0);
 		}
 
 	}

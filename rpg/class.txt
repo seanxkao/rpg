@@ -26,8 +26,8 @@ Object
 		->ImageStrip
 			->SwordShadow
 		->AnimeBlock
-		->Button
-			->MainButton
+		->Button(*)
+			->MainButton(*)
 		->MapChip
 		->Particle
 		->Body
