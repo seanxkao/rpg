@@ -201,7 +201,7 @@ public:
 	Avatar *avatar;
 	Menu *currMenu;
 
-	AnimeBlock		*t_bar;
+	AnimeBlock		*animeBlock;
 	my_ship			*MS;
 	MyController	*myController;
 	BodySystem		*EBM;
@@ -223,12 +223,10 @@ public:
 		
 		PlayerPanel *playerPanel = new PlayerPanel(system->getDrawer(), MS);
 		playerPanel->setAvatar(avatar);
-		//system->addCom(playerPanel);
 		system->getDrawer()->setCamera(SCREEN_WIDTH/3, SCREEN_HEIGHT/4, SCREEN_WIDTH*2/3, SCREEN_HEIGHT/2);
 		
-		t_bar = new AnimeBlock;
-		t_bar -> setPosition(0,SCREEN_HEIGHT/2+70);
-
+		animeBlock = new AnimeBlock;
+		animeBlock->setPosition(0,SCREEN_HEIGHT/2+70);
 
 		map = new Map(0, 15, 15);		
 		int **m = new2D(15, 15, int);
@@ -242,7 +240,6 @@ public:
 
 	void training_running(){
 		if(map!=NULL)map->main();
-		if(t_bar!=NULL)t_bar->main();
 		if(EBM!=NULL)EBM->main();
 		if(MS!=NULL)MS->main();
 		if(pool!=NULL)pool->main();
@@ -346,7 +343,6 @@ public:
 		if(map!=NULL){
 			map->draw(drawer);
 		}
-		if(t_bar!=NULL)t_bar->draw(drawer);
 		if(MBM!=NULL)MBM->draw(drawer);
 		if(EBM!=NULL)EBM->draw(drawer);
 		if(MS!=NULL)MS->draw(drawer);
@@ -382,8 +378,8 @@ public:
 			case 101:
 				training_start();
 				MS->setPosition(SCREEN_WIDTH/2,FRAME_DOWN+50);
-				t_bar = new AnimeBlock;
-				t_bar -> setPosition(0,SCREEN_HEIGHT/2+70);
+				animeBlock = new AnimeBlock;
+				animeBlock -> setPosition(0,SCREEN_HEIGHT/2+70);
 				break;
 		}
 	}
@@ -539,8 +535,8 @@ public:
 			if(time==0){
 				training_start();
 				MS->setPosition(SCREEN_WIDTH/2,FRAME_DOWN+50);
-				t_bar = new AnimeBlock;
-				t_bar -> setPosition(0,SCREEN_HEIGHT/2+70);
+				animeBlock = new AnimeBlock;
+				animeBlock -> setPosition(0,SCREEN_HEIGHT/2+70);
 			}
 			if(time>100 && time<400){
 				if(time%3==0){

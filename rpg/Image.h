@@ -288,14 +288,12 @@ protected:
 
 };
 
-class Anime : public Image {
-
+class Anime: public Image {
 public:
 	static const int IN_MODE_FADE = 0;
 	
-	Anime():Image(){
-	};
-	Anime(int imgId):Image(imgId){
+	Anime(int imgId): Image(imgId){
+		onFlag(RUNNABLE | DRAWABLE);
 	};
 
 	virtual ~Anime(){
@@ -307,12 +305,14 @@ public:
 		this->inX = inX;
 		this->inY = inY;
 	}
+	
 	void setOn(int onTime,int onMode,float onX,float onY){
 		this->onTime = onTime;
 		this->onMode = onMode;
 		this->onX = onX;
 		this->onY = onY;
 	}
+	
 	void setOut(int outTime,int outMode,float outX,float outY){
 		this->outTime = outTime;
 		this->outMode = outMode;
@@ -367,24 +367,21 @@ protected:
 	int outTime, outMode , outX, outY;
 };
 
-class ThemeAnime : public Anime{
+class ThemeAnime: public Anime{
 public:
-	ThemeAnime();
-	~ThemeAnime();
-};
-
-ThemeAnime::ThemeAnime(): Anime(100){
-	setIn(30, 0, SCREEN_WIDTH/2, SCREEN_HEIGHT/2+270);
-	setOn(0, 1, SCREEN_WIDTH/2, SCREEN_HEIGHT/2+200);
-	setOut(30, 0, SCREEN_WIDTH/2, SCREEN_HEIGHT/2+130);
-	setImage(400, 100, 400, 100, 0, 0);
-	onFlag(RUNNABLE | DRAWABLE);
-};
-ThemeAnime::~ThemeAnime(){
+	ThemeAnime(): Anime(100){
+		setIn(30, 0, SCREEN_WIDTH/2, SCREEN_HEIGHT/2+270);
+		setOn(0, 1, SCREEN_WIDTH/2, SCREEN_HEIGHT/2+200);
+		setOut(30, 0, SCREEN_WIDTH/2, SCREEN_HEIGHT/2+130);
+		setImage(400, 100, 400, 100, 0, 0);
+	};
+	virtual ~ThemeAnime(){
+	};
 };
 
 
-class ImageFan : public Image {
+
+class ImageFan: public Image {
 public:
 	ImageFan(int length);
 	virtual ~ImageFan();
@@ -456,7 +453,7 @@ ImageFan::~ImageFan(){
 };
 
 
-class ImageStrip : public Image {
+class ImageStrip: public Image {
 public:
 	ImageStrip(int, float, float, float);
 	virtual ~ImageStrip();
@@ -530,7 +527,7 @@ ImageStrip::ImageStrip(int length, float len1, float len2, float rad){
 ImageStrip::~ImageStrip(){
 };
 
-class SwordShadow : public ImageStrip{
+class SwordShadow: public ImageStrip{
 public:
 	SwordShadow(int length, float len1, float len2, float rad) :
 		ImageStrip(length, len1, len2, rad){
@@ -561,13 +558,8 @@ public:
 		if(time<=wieldTime){
 			addStrip(5, swordLen1, swordLen2, swordRad, 255);
 		}
-		for(int i = 0; i < length*2+2; i++){
-			//if(strip[i].colorA<64){
-			//	strip[i].setPoint(strip[i].len, strip[i].rad, strip[i].colorA-3, strip[i].colorR*0.9, strip[i].colorG*0.9, strip[i].colorB);
-			//}
-			//else{
-				strip[i].setPoint(strip[i].len, strip[i].rad, strip[i].colorA*0.85, strip[i].colorR*0.9, strip[i].colorG*0.9, strip[i].colorB);
-			//}
+		for(int i=0;i<length*2+2;i++){
+			strip[i].setPoint(strip[i].len, strip[i].rad, strip[i].colorA*0.85, strip[i].colorR*0.9, strip[i].colorG*0.9, strip[i].colorB);
 		}
 	}
 
@@ -580,11 +572,12 @@ protected:
 	float wieldTime;
 };
 
-class AnimeBlock : public Image{
+class AnimeBlock: public Image{
 public:
-	AnimeBlock() : Image(){
+	AnimeBlock(): Image(){
 		imgId = 500;
 		setAlpha(192);
+		onFlag(RUNNABLE | DRAWABLE);
 	}
 
 	virtual ~AnimeBlock(){
@@ -607,6 +600,5 @@ public:
 			setAlpha(0);
 		}
 	}
-
 };
 

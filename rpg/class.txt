@@ -1,18 +1,15 @@
-System
 Game
-
-TextManager
+System
+Drawer
+Keyboard
 Status
+Avatar
 Controller
 	->MyController
 Point
-Drawable
-Drawer
-Keyboard
-Inputable
 Vector2D
 Pool
-Avatar
+TextManager
 BodyManager
 	->BodySystem
 BulletManager
@@ -25,7 +22,7 @@ Object
 		->ImageFan
 		->ImageStrip
 			->SwordShadow
-		->AnimeBlock
+		->AnimeBlock(*)
 		->Button(*)
 			->MainButton(*)
 		->MapChip
@@ -35,16 +32,14 @@ Object
 			->Enemy
 				->EnemySoldier
 			->Bullet
-	->Component(Object&Drawable)
-		->Bar(*)
-			->HpBar(*)
-		->PlayerPanel(*)
-		->ControlComponent(Component&Inputable)
-			->Menu(*)
-				->ListMenu(*)
-					->MainMenu(*)
-					->StartMenu(*)
-					->TrainingMenu(*)	
+	->Bar(*)
+		->HpBar(*)
+	->PlayerPanel(*)
+	->Menu(*)
+		->ListMenu(*)
+			->MainMenu(*)
+			->StartMenu(*)
+			->TrainingMenu(*)	
 	->Text
 		->AnimeText
 
