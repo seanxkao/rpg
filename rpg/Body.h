@@ -62,7 +62,7 @@ public:
 	}
 
 	virtual ~Body(){
-		delete swordShadow;
+		//delete swordShadow;
 	}
 
 	enum STATE {
@@ -154,9 +154,11 @@ public:
 		Image::draw(drawer);
 	}
 
+	virtual void onCreate(){
+		swordShadow->init();		
+	}
 
 protected:
-	
 	BodyManager *manager;
 	
 	float direction;
@@ -165,18 +167,12 @@ protected:
 	bool bdyEnable;
 	Attack attack;
 	bool atkEnable;
-	
-	
-	SwordShadow *swordShadow;
-	
 	int hp;
 	int maxHp;
 	Status *status;	
-	virtual void stateStart(){
-		if(state==STATE_NORMAL){
-			swordShadow->init();
-		}
-	}
+	SwordShadow *swordShadow;
+	
+	
 	virtual void mainProc(){
 		swordShadow->main();
 	}

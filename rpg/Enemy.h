@@ -202,6 +202,7 @@ protected:
 	virtual void disappear(){
 		if(time>=25){
 			finish();
+			swordShadow->finish();
 		}
 	}
 };
@@ -226,6 +227,7 @@ public:
 			if(body[i]==NULL){
 				Enemy *enemy = new Enemy(this);
 				body[i] = enemy;
+				body[i]->onCreate();
 				body[i]->init();
 				body[i]->setPosition(x, y);
 
@@ -239,6 +241,7 @@ public:
 			if(body[i]==NULL){
 				EnemySoldier *enemy = new EnemySoldier(this);
 				body[i] = enemy;
+				body[i]->onCreate();
 				body[i]->init();
 				body[i]->setPosition(x, y);
 					

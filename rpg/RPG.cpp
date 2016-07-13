@@ -30,7 +30,6 @@ public:
 		this->avatar = avatar;
 	}
 	void moveBody(){
-
 		float direction = controller->getDirection();
 		if	(direction>=0){
 			this->direction = direction;
@@ -121,7 +120,7 @@ public:
 				int atk = randomRange(status->getMinPAtk(), status->getMaxPAtk());
 				setAttack(atk, 0, 10, 100, direction-60, direction+60);
 			}
-			else if(time > 20){
+			else if(time > 4){
 				setState(0);
 			}
 		}
