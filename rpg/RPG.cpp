@@ -20,7 +20,7 @@ vector<Object*> *Object::drawQueue = new vector<Object*>;
 class my_ship: public Body {
 public:
 	int revive;
-	my_ship(BodyManager*, Controller*);
+	my_ship(Controller*);
 	my_ship();
 	~my_ship();
 
@@ -148,7 +148,7 @@ protected:
 	Avatar *avatar;
 };
 
-my_ship::my_ship(BodyManager *manager, Controller *controller): Body(manager){
+my_ship::my_ship(Controller *controller): Body(){
 	setController(controller);
 	setImage(30, 30, 30, 30, 0);
 	imgId = 1000;
@@ -195,7 +195,6 @@ public:
 	Avatar *avatar;
 	Menu *currMenu;
 
-	AnimeBlock		*animeBlock;
 	my_ship			*MS;
 	MyController	*myController;
 	BodySystem		*EBM;
@@ -203,10 +202,12 @@ public:
 	Pool			*pool;
 	TextManager		*TM;
 	Map				*map;
+	
 	void training_start(){
 		myController = new MyController();
-		MS = new my_ship(NULL, myController);
+		MS = new my_ship(myController);
 		MS->setAvatar(avatar);
+		
 		Bar *MS_Bar = system->createBar(0, MS, MS);
 		MS_Bar->setParent(0, 70);
 		MS_Bar->setBarSize(50, 10, 50, 10);
@@ -219,8 +220,6 @@ public:
 		playerPanel->setAvatar(avatar);
 		system->getDrawer()->setCamera(SCREEN_WIDTH/3, SCREEN_HEIGHT/4, SCREEN_WIDTH*2/3, SCREEN_HEIGHT/2);
 		
-		animeBlock = new AnimeBlock;
-		animeBlock->setPosition(0,SCREEN_HEIGHT/2+70);
 
 		map = new Map(0, 15, 15);		
 		int **m = new2D(15, 15, int);
@@ -235,7 +234,6 @@ public:
 	void training_running(){
 		map->main();
 		if(pool!=NULL)pool->main();
-		if(TM!=NULL)TM->main();
 		
 		//²¾°ÊÄá¼v¾÷
 		system->getDrawer()->setMapSize(map->getAllWidth(), map->getAllHeight());
@@ -261,7 +259,7 @@ public:
 
 	void collide(){
 		for(int i=0;i<1000;i++){
-			for(int j=0;j<100;j++){
+			for(int j=0;j<1000;j++){
 				Body *MB = MBM->getBody(i);
 				Body *EB = EBM->getBody(j);
 				if(MB!=NULL && EB!=NULL){
@@ -283,7 +281,7 @@ public:
 			}
 		}
 		
-		for(int j=0;j<100;j++){
+		for(int j=0;j<1000;j++){
 			Body *EB = EBM->getBody(j);
 			if(EB!=NULL){
 				if(Body::crash(MS, EB)){
@@ -331,7 +329,6 @@ public:
 	void draw(){
 		Drawer *drawer = system->getDrawer();
 		if(pool!=NULL)pool->draw(drawer);
-		if(TM!=NULL)TM->draw(drawer);
 		system->draw();
 		drawer->drawAll();
 	}
@@ -348,15 +345,29 @@ public:
 				currMenu = system->createMenu(2);
 				break;
 			case 100:
+			{
 				training_start();
 				MS->setPosition(SCREEN_WIDTH/2,FRAME_DOWN+50);
+				AnimeBlock *animeBlock = new AnimeBlock;
+				animeBlock->setPosition(0,SCREEN_HEIGHT/2+70);
 				break;
+			}
 			case 101:
+			{
 				training_start();
 				MS->setPosition(SCREEN_WIDTH/2,FRAME_DOWN+50);
-				animeBlock = new AnimeBlock;
+				AnimeBlock *animeBlock = new AnimeBlock;
+				animeBlock->setPosition(0,SCREEN_HEIGHT/2+70);
+				break;
+			}
+			case 102:
+			{
+				training_start();
+				MS->setPosition(SCREEN_WIDTH/2,FRAME_DOWN+50);
+				AnimeBlock *animeBlock = new AnimeBlock;
 				animeBlock -> setPosition(0,SCREEN_HEIGHT/2+70);
 				break;
+			}
 		}
 	}
 	void stateEnd(){
@@ -508,12 +519,6 @@ public:
 		}
 
 		else if(state==102){
-			if(time==0){
-				training_start();
-				MS->setPosition(SCREEN_WIDTH/2,FRAME_DOWN+50);
-				animeBlock = new AnimeBlock;
-				animeBlock -> setPosition(0,SCREEN_HEIGHT/2+70);
-			}
 			if(time>100 && time<400){
 				if(time%3==0){
 					//EBM->addBullet(SCREEN_WIDTH/2,SCREEN_HEIGHT/2,0,16,MS,3,1,20,0,1,100);
@@ -532,19 +537,21 @@ public:
 		}
 
 
+		system->main();
+		
 		if(EBM!=NULL){
-			for(int i=0;i<100;i++){
-				Enemy *EB = (Enemy*)EBM->getBody(i);
-				if(EB!=NULL){
-					if(EB->isFinished()){
-						int exp = EB->getExp();
+			for(int i=0;i<1000;i++){
+				Enemy *enemy = (Enemy*)EBM->getBody(i);
+				if(enemy!=NULL){
+					if(enemy->isFinished()){
+						int exp = enemy->getExp();
 						avatar->addExp(exp);
-						EBM->release(i);
+						EBM->removeBody(i);
 					}
 				}
 			}
 		}
-		system->main();
+		
 		draw();
 		system->garbageCollect();
 		return end;

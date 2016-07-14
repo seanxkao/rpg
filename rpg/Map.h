@@ -4,8 +4,6 @@
 
 class Map: public Object{
 public:
-	int mapId;
-	
 	Map(int mapId, int mapWidth, int mapHeight): Object(){
 		x = 0;
 		y = 0;
@@ -52,6 +50,7 @@ protected:
 	float mapChipHeight;
 	int mapWidth;
 	int mapHeight;
+	int mapId;
 	
 	class MapChip: public Image{
 	public:

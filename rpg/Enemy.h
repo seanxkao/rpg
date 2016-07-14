@@ -7,7 +7,7 @@
 
 class Enemy : public Body{
 public:
-	Enemy(BodyManager *manager):Body(manager){
+	Enemy():Body(){
 		setImage(15, 15, 30, 30, 0);
 		setImgId(1000);
 		setHp(100, 100);
@@ -54,7 +54,7 @@ protected:
 
 class EnemySoldier : public Enemy{
 public:
-	EnemySoldier(BodyManager *manager):Enemy(manager){
+	EnemySoldier():Enemy(){
 		setImgId(3001);
 		setHp(30, 30);
 		exp = 10;
@@ -71,7 +71,6 @@ public:
 				if(time>4){
 					setState(0);
 				}
-
 				break;
 			case STATE_DISAPPEAR:
 				if(time<25){
@@ -115,7 +114,7 @@ protected:
 	}
 };
 
-class BodySystem : public BodyManager{
+class BodySystem: public BodyManager{
 public:
 	BodySystem(int size) :
 		BodyManager(size){
@@ -123,22 +122,13 @@ public:
 	virtual ~BodySystem(){
 	}
 
-	void release(int i){
-		if(body[i]->isFinished()){
-			//delete body[i];
-			body[i] = NULL;
-		}
-	}
-
 	Enemy* addEnemy(float x,float y,int z,int kind, int state){
 		for(int i=0;i<size;i++){
 			if(body[i]==NULL){
-				Enemy *enemy = new Enemy(this);
+				Enemy *enemy = new Enemy();
 				body[i] = enemy;
 				body[i]->onCreate();
-				body[i]->init();
 				body[i]->setPosition(x, y);
-
 				return enemy;
 			}
 		}
@@ -147,12 +137,10 @@ public:
 	EnemySoldier* addEnemySoldier(float x,float y,int z,int state){
 		for(int i=0;i<size;i++){
 			if(body[i]==NULL){
-				EnemySoldier *enemy = new EnemySoldier(this);
+				EnemySoldier *enemy = new EnemySoldier();
 				body[i] = enemy;
 				body[i]->onCreate();
-				body[i]->init();
 				body[i]->setPosition(x, y);
-					
 				return enemy;
 			}
 		}

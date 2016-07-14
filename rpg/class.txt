@@ -40,8 +40,8 @@ Object
 			->MainMenu
 			->StartMenu
 			->TrainingMenu	
-	->Text(-)
-		->AnimeText(-)
+	->Text
+		->AnimeText
 
 
 

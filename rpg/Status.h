@@ -24,9 +24,6 @@ public:
 
 protected:
 	int swordSkill;
-
 	int maxPAtk;
 	int minPAtk;
-	
-
 };

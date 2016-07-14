@@ -105,9 +105,6 @@ public:
 protected:
 	list<Object*> *allObject;
 	vector<Object*> *drawQueue;
-	list<Object*> runnables;
-	list<Object*> inputables;
-	list<Object*> drawables;
 	Drawer *drawer;
 	Keyboard *keyboard;
 };

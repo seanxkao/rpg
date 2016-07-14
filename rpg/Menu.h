@@ -19,7 +19,7 @@ public:
 		this->x = x;
 		this->y = y;
 		this->size = size;
-		onFlag(RUNNABLE | DRAWABLE | INPUTABLE);
+		onFlag(RUNNABLE | INPUTABLE);
 	};
 
 	virtual ~Menu(){
@@ -69,9 +69,6 @@ public:
 				}
 			}
 		}
-	}
-
-	virtual void draw(Drawer *drawer){
 	}
 	
 	virtual void stateStart(){

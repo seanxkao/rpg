@@ -5,7 +5,7 @@
 class Bullet : public Body{
 public:
 
-	Bullet(BodyManager*);
+	Bullet();
 	~Bullet();
 
 	static const int STATE_CREATE = 0;
@@ -127,7 +127,7 @@ protected:
 	}
 };
 
-Bullet::Bullet(BodyManager *manager):Body(manager){
+Bullet::Bullet():Body(){
 	imgIn = 4000;
 	imgOn = 4000;
 	imgOut = 4000;

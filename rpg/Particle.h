@@ -5,22 +5,21 @@
 
 class Particle : public Image{
 public:
-
 	Particle();
 	virtual ~Particle();
 
 	void setExist(bool exist){
 		this->exist = exist;
 	}
-
+	
+	bool isExist(){
+		return exist;
+	}
 	void setParticle(int kind, int life){
 		this->kind = kind;
 		this->life = life;
 	}
 
-	bool alife(){
-		return exist;
-	}
 	virtual void draw(Drawer *drawer){
 		if(kind==0){
 			if(state==0){	
@@ -100,8 +99,8 @@ public:
 				
 			}
 			else if (state==99){
-				exist=false;
-				time=-1;
+				offFlag(RUNNABLE | DRAWABLE);
+				exist = false;
 			}
 		}
 		else if(kind == 1){
@@ -115,7 +114,7 @@ public:
 			}
 			else if (state==99){
 				exist=false;
-				time=-1;
+				offFlag(RUNNABLE | DRAWABLE);
 			}
 		}
 	}
@@ -125,12 +124,10 @@ protected:
 	int	life;
 	int kind;
 	bool exist;
-
 };
 
-Particle::Particle() :
-	Image(){
-		setZ(0.7);
+Particle::Particle(): Image(){
+	setZ(0.7);
 }
 
 Particle::~Particle(){

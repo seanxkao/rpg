@@ -2,58 +2,10 @@
 
 #include "Image.h"
 
-class Body;
-
-class BodyManager{
-public:
-	BodyManager(int size){
-		this->size = size;
-		body = new Body*[size];
-		for(int i = 0; i < size; i++){
-			body[i] = NULL;
-		}
-	}
-
-	~BodyManager(){
-		for(int i=0;i<size;i++){
-			if(body[i]!=NULL){
-				delete body[i];
-				body[i] = NULL;
-			}
-		}
-	}
-
-	void clear(){
-		for(int i=0;i<size;i++){
-			if(body[i]!=NULL){
-				delete body[i];
-				body[i] = NULL;
-			}
-		}
-	}
-
-	Body* addBody(){
-		for(int i=0;i<size;i++){
-			if(body[i]==NULL){
-				return body[i];
-			}
-		}
-		return NULL;
-	}
-
-	Body* getBody(int i){
-		return body[i];
-	}
-protected:
-	int size;
-	Body **body;
-};
-
 class Body : public Image{
 public:
-	Body(BodyManager *manager) : 
+	Body() : 
 		Image(){
-		this->manager = manager;
 		bdyEnable = false;
 		atkEnable = false;
 		direction = 90;
@@ -154,8 +106,6 @@ public:
 	}
 
 protected:
-	BodyManager *manager;
-	
 	float direction;
 	int bdyKind;
 	float bdyRad;
@@ -166,5 +116,46 @@ protected:
 	int maxHp;
 	Status *status;	
 	SwordShadow *swordShadow;
+};
+
+
+class BodyManager{
+public:
+	BodyManager(int size){
+		this->size = size;
+		body = new Body*[size];
+		for(int i=0;i<size;i++){
+			body[i] = NULL;
+		}
+	}
+
+	~BodyManager(){
+		for(int i=0;i<size;i++){
+			if(body[i]!=NULL){
+				delete body[i];
+				body[i] = NULL;
+			}
+		}
+	}
+
+
+	Body* addBody(){
+		for(int i=0;i<size;i++){
+			if(body[i]==NULL){
+				return body[i];
+			}
+		}
+		return NULL;
+	}
+	void removeBody(int i){
+		body[i]=NULL;
+	}
+
+	Body* getBody(int i){
+		return body[i];
+	}
+protected:
+	int size;
+	Body **body;
 };
 

@@ -14,11 +14,9 @@ public:
 		bar = new Image();
 		frame->setParent(this, 0, 0);
 		bar->setParent(this, 0, 0);
-		//frame->setZ(0.61);
-		//bar->setZ(0.60);
 		setParent(target, 0, 0);
-		setZ(0.60);
 		onFlag(RUNNABLE | DRAWABLE);
+		setZ(0.60);
 	};
 
 	virtual ~Bar(){
@@ -35,7 +33,6 @@ public:
 	}
 	
 	void setBarValue(float value, float max){
-		//系統用Bar，不使用Body的函式指標，需要直接值
 		this->value = value;
 		this->max = max;
 	}
@@ -125,13 +122,13 @@ public:
 
 		level = new Text();
 		level->setText(50, 20, 50, 20);
-		level->setParent(group, 180, 15);
+		level->setParent(group, 180, 0);
 		level->setFixed(true);
 		level->setFont(font);
 		
 		exp = new Text();
 		exp->setText(100, 10, 100, 10);
-		exp->setParent(group, 200, -15);
+		exp->setParent(group, 200, -30);
 		exp->setFixed(true);
 		exp->setFont(font);
 
@@ -144,8 +141,6 @@ public:
 
 	virtual void draw(Drawer *drawer){
 		group->draw(drawer);
-		level->draw(drawer);
-		exp->draw(drawer);
 	}
 	virtual void setAvatar(Avatar *avatar){
 		this->avatar = avatar;
@@ -162,7 +157,6 @@ protected:
 	Avatar *avatar;
 
 	virtual void mainProc(){
-
 		if(state==0){
 		}
 		else if(state==1){
@@ -179,10 +173,8 @@ protected:
 		stringstream ss;
 		ss<<"LV "<<avatar->getLevel()<<endl;
 		level->setWord(ss.str());
-		level->main();
 		ss.str("");
 		ss<<"EXP "<<avatar->getExp()<<"/"<<avatar->getMaxExp();
 		exp->setWord(ss.str());
-		exp->main();
 	}
 };
