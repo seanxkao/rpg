@@ -159,25 +159,5 @@ public:
 		return NULL;
 	}
 
-
-	virtual void draw(Drawer *drawer){
-		/*
-		for(int i=0;i<size;i++){
-			if(body[i]!=NULL){
-				body[i]->draw(drawer);
-			}
-		}
-		*/
-	}
-	virtual void main(){
-		/*
-		for(int i=0;i<size;i++){
-			if(body[i]!=NULL){
-				body[i]->main();
-			}
-		}
-		*/
-	}
-
 protected:
 };

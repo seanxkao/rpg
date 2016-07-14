@@ -64,7 +64,7 @@ public:
 	}
 
 	virtual void draw(){
-		sort(drawQueue->begin(), drawQueue->end(), ObjectCompare());
+		sort(drawQueue->begin(), drawQueue->end(), ZSorter());
 		for(auto drawable: *drawQueue){
 			if(drawable->isDrawable()){
 				drawable->draw(drawer);

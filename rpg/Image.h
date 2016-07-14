@@ -528,6 +528,7 @@ public:
 		setBlend(ALPHA_LIGHT, 3);
 		setAllStrip(swordLen1, swordLen2, 0, 0);
 		imgId = 820;
+		onFlag(RUNNABLE | DRAWABLE);
 		setZ(0.6);
 	}
 	virtual ~SwordShadow(){

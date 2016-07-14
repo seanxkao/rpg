@@ -15,33 +15,33 @@ BodyManager
 BulletManager
 
 Object
-	->Map
-	->Image
+	->Map(-)
+	->Image(-)
 		->Anime
-			->ThemeAnime(*)
-		->ImageFan
-		->ImageStrip
+			->ThemeAnime
+		->ImageFan(-)
+		->ImageStrip(-)
 			->SwordShadow
-		->AnimeBlock(*)
-		->Button(*)
-			->MainButton(*)
+		->AnimeBlock
+		->Button
+			->MainButton
 		->MapChip
-		->Particle
+		->Particle(-)
 		->Body
 			->my_ship
 			->Enemy
 				->EnemySoldier
 			->Bullet
-	->Bar(*)
-		->HpBar(*)
-	->PlayerPanel(*)
-	->Menu(*)
-		->ListMenu(*)
-			->MainMenu(*)
-			->StartMenu(*)
-			->TrainingMenu(*)	
-	->Text
-		->AnimeText
+	->Bar
+		->HpBar
+	->PlayerPanel
+	->Menu
+		->ListMenu
+			->MainMenu
+			->StartMenu
+			->TrainingMenu	
+	->Text(-)
+		->AnimeText(-)
 
 
 

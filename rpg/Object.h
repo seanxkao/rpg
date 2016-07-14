@@ -8,7 +8,6 @@ class Drawer;
 
 using namespace std;
 
-	
 class Object{	//the foundamental game object
 public:
 	static list<Object*> *allObject;
@@ -17,7 +16,6 @@ public:
 	static const unsigned int DRAWABLE = 2;
 	static const unsigned int INPUTABLE = 4;
 	static const unsigned int ZOMBIE = 8;
-	
 	
 	Object(){
 		init();
@@ -28,15 +26,11 @@ public:
 		flag = 0;
 		Object::allObject->push_back(this);
 		Object::drawQueue->push_back(this);
-	
-		//auto it = upper_bound(Object::drawQueue->begin(), Object::drawQueue->end(), this, ObjectCompare());
-		//Object::drawQueue->insert(it, this);
 	}
 	
 	virtual ~Object(){
 	}
 	
-
 	void init(){
 		time = 0;
 		state = 0;
@@ -198,7 +192,7 @@ protected:
 	
 };
 
-class ObjectCompare{
+class ZSorter{
 public:
 	bool operator()(Object *a, Object *b){
 		if(a->getZ()!=b->getZ())return a->getZ()<b->getZ();

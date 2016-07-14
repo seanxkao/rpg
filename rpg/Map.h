@@ -46,14 +46,6 @@ public:
 			}
 		}
 	}
-	
-	void draw(Drawer *drawer){
-		for(int i=0;i<mapWidth;i++){	
-			for(int j=0;j<mapHeight;j++){
-				//mapChip[i][j]->draw(drawer);
-			}
-		}
-	}
 
 protected:
 	float mapChipWidth;

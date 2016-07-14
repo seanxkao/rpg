@@ -63,7 +63,7 @@ public:
 	}
 
 	virtual ~Body(){
-		//delete swordShadow;
+		swordShadow->finish();
 	}
 
 	enum STATE {
@@ -118,10 +118,8 @@ public:
 		v = Vector2D::polar(A->attack.rad, A->attack.end);
 		float uDis = u->length();
 		float vDis = v->length();
-
 		float alpha = (w.cross(v) + B->bdyRad*vDis)/u->cross(v);
 		float beta = (u->cross(w) + B->bdyRad/vDis*u->dot(v))/u->cross(v);
-
 		return (wDis<dis && alpha>0 && beta>0);
 	}
 
@@ -150,10 +148,6 @@ public:
 	int getMaxHp(){
 		return maxHp;
 	}
-	virtual void draw(Drawer *drawer){
-		swordShadow->draw(drawer);
-		Image::draw(drawer);
-	}
 
 	virtual void onCreate(){
 		swordShadow->init();		
@@ -172,10 +166,5 @@ protected:
 	int maxHp;
 	Status *status;	
 	SwordShadow *swordShadow;
-	
-	
-	virtual void mainProc(){
-		swordShadow->main();
-	}
 };
 
