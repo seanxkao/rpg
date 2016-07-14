@@ -22,7 +22,6 @@ public:
 		return exist;
 	}
 	virtual void draw(Drawer *drawer){
-
 		if(kind==0){
 			if(state==0){	
 				imgId = 800;
@@ -32,7 +31,7 @@ public:
 					setARGB(255* (1-rate),172,200,255);
 					float si = 2+80*rate;
 
-					setImage(si,si,si,si,0,0);
+					setImage(si,si,si,si,0);
 					setBlendMode(ALPHA_LIGHT);
 				}
 				//fire
@@ -42,7 +41,7 @@ public:
 					setARGB(255* (1-rate),255,255*(1-rate) ,25 + 25*(1-rate) );
 					float si = 60-40*rate;
 
-					setImage(si,si,si,si,0,0);
+					setImage(si,si,si,si,0);
 					setBlendMode(ALPHA_LIGHT);
 				}
 				*/
@@ -59,7 +58,7 @@ public:
 				if(time<life){
 					setARGB(255* (1-rate),255,255,255);
 					float si = 50 + 100*rate;
-					setImage(si,si,si,si,0,0);
+					setImage(si,si,si,si,0);
 					setBlendMode(ALPHA_LIGHT);
 				}
 			}
@@ -84,14 +83,14 @@ public:
 					setARGB(255*(float)time/life*2,180,180,255);
 					float si = 10+40*(float)time/life;
 
-					setImage(si,si,si,si,0,0);
+					setImage(si,si,si,si,0);
 					setBlendMode(ALPHA_LIGHT);
 				}
 				else if(time<life){
 					setARGB(255 - 255*((float)time-life/2)/(life/2),180,180,255);
 					float si = 10+40*(float)time/life;
 
-					setImage(si,si,si,si,0,0);
+					setImage(si,si,si,si,0);
 					setBlendMode(ALPHA_LIGHT);
 				}
 				else{
@@ -131,6 +130,7 @@ protected:
 
 Particle::Particle() :
 	Image(){
+		setZ(0.7);
 }
 
 Particle::~Particle(){

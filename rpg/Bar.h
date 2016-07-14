@@ -8,8 +8,21 @@ typedef int (Body::*BodyFP)();
 
 class Bar : public Object{
 public:
-	Bar(Body*, Object*);
-	virtual ~Bar();
+	Bar(Body *refer, Object *target): Object(){
+		this->refer = refer;
+		frame = new Image();
+		bar = new Image();
+		frame->setParent(this, 0, 0);
+		bar->setParent(this, 0, 0);
+		//frame->setZ(0.61);
+		//bar->setZ(0.60);
+		setParent(target, 0, 0);
+		setZ(0.60);
+		onFlag(RUNNABLE | DRAWABLE);
+	};
+
+	virtual ~Bar(){
+	};
 
 	void setBarImg(int barImgId, int frameImgId){
 		bar->setImgId(barImgId);
@@ -41,8 +54,8 @@ public:
 
 	virtual void draw(Drawer *drawer){
 		float valWidth = bound((barWidth+barLeft)*(value/max) - barLeft, -barLeft, barWidth);
-		bar->setImage(barLeft, barTop, valWidth, barHeight, 0, 0);
-		frame->setImage(barLeft, barTop, barWidth, barHeight, 0, 0);
+		bar->setImage(barLeft, barTop, valWidth, barHeight, 0);
+		frame->setImage(barLeft, barTop, barWidth, barHeight, 0);
 		bar->draw(drawer);
 		frame->draw(drawer);
 	}
@@ -66,11 +79,10 @@ protected:
 		if(refer!=NULL){
 			value = (float)(refer->*getValue)();
 			max = (float)(refer->*getMax)();
-		}
-		if(refer!=NULL){
 			if(refer->isFinished()){
+				bar->finish();
+				frame->finish();
 				finish();
-				refer = NULL;
 			}
 		}
 		bar->main();
@@ -78,32 +90,15 @@ protected:
 	}
 };
 
-
-Bar::Bar(Body *refer, Object *target): Object(){
-	this->refer = refer;
-	frame = new Image();
-	bar = new Image();
-	frame->setParent(this, 0, 0);
-	bar->setParent(this, 0, 0);
-	setParent(target, 0, 0);
-	onFlag(RUNNABLE | DRAWABLE);
-};
-
-Bar::~Bar(){
-};
-
 class HpBar : public Bar{
 public:
-	HpBar(Body*, Object*);
-	~HpBar();
+	HpBar(Body *refer, Object *target): Bar(refer, target){
+		setBarImg(1100, 1101);
+		setBarRefer(&Body::getHp, &Body::getMaxHp);
+	}
+	virtual ~HpBar(){
+	}
 };
-HpBar::HpBar(Body *refer, Object *target) :
-	Bar(refer, target){
-	setBarImg(1100, 1101);
-	setBarRefer(&Body::getHp, &Body::getMaxHp);
-}
-HpBar::~HpBar(){
-}
 
 class PlayerPanel : public Object{
 public:
@@ -114,7 +109,7 @@ public:
 		show = true;
 		group = new Image(300);
 		group->setPosition(SCREEN_WIDTH/2, SCREEN_HEIGHT/10);
-		group->setImage(SCREEN_WIDTH/2, SCREEN_HEIGHT/10, SCREEN_WIDTH/2, SCREEN_HEIGHT/10, 0, 0);
+		group->setImage(SCREEN_WIDTH/2, SCREEN_HEIGHT/10, SCREEN_WIDTH/2, SCREEN_HEIGHT/10, 0);
 		group->setFixed(true);
 
 		hpBar = new HpBar(me, group);
@@ -141,6 +136,7 @@ public:
 		exp->setFont(font);
 
 		onFlag(RUNNABLE | DRAWABLE);
+		setZ(0.55);
 	}
 	virtual ~PlayerPanel(){
 	}

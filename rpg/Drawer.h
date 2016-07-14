@@ -34,7 +34,7 @@ public:
 	}
 
 	void clear(){
-		direct3DDevice->Clear(0, NULL, D3DCLEAR_TARGET| D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0,0,0),1.0f, 0 );
+		direct3DDevice->Clear(0, NULL, D3DCLEAR_TARGET| D3DCLEAR_ZBUFFER, D3DCOLOR_ARGB(255, 0,0,0),1.0f, 0 );
 	}
 
 	void loadTexture(int img, LPCWSTR file)
@@ -76,6 +76,7 @@ public:
 		}
 		direct3DDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
 		direct3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+		direct3DDevice->SetRenderState(D3DRS_ZENABLE, false);
 
 		/*
 		linear

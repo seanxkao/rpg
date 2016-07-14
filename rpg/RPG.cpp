@@ -15,8 +15,9 @@
 ////////////////////////////////////////物件設定/////////////////////////////////////////////////////
 
 list<Object*> *Object::allObject = new list<Object*>;
+vector<Object*> *Object::drawQueue = new vector<Object*>;
 
-class my_ship : public Body {
+class my_ship: public Body {
 public:
 	int revive;
 	my_ship(BodyManager*, Controller*);
@@ -57,7 +58,7 @@ public:
 	virtual void draw(Drawer *drawer){
 		switch(state){
 			case STATE_NORMAL:
-				setImage(50,50,50,50,0,0);
+				setImage(50,50,50,50,0);
 				if(time%16 == 0){
 					setImgId(1000);
 				}
@@ -72,13 +73,13 @@ public:
 				}
 				break;
 			case STATE_DAMAGED:
-				setImage(50,50,50,50,0,0);
+				setImage(50,50,50,50,0);
 				break;
 			case STATE_DISAPPEAR:
 				if(time<25){
 					imgRad+=17;
 					setAlpha(255-time*10);
-					setImage(30+time*7,30+time*7,30+time*7,30+time*7,0,imgRad);
+					setImage(30+time*7,30+time*7,30+time*7,30+time*7,imgRad);
 				}
 				else{
 					setAlpha(0);
@@ -147,24 +148,17 @@ protected:
 	Avatar *avatar;
 };
 
-my_ship::my_ship(BodyManager *manager, Controller *controller) : Body(manager){
+my_ship::my_ship(BodyManager *manager, Controller *controller): Body(manager){
 	setController(controller);
-	setImage(30,30,30,30,0,0);
-	imgId = 1000;
-	maxHp=100;
-	hp=100;
-	revive = 0;
-	status = new Status(10);
-}
-
-my_ship::my_ship() :
-	Body(NULL){
-	setImage(30,30,30,30,0,0);
+	setImage(30, 30, 30, 30, 0);
 	imgId = 1000;
 	maxHp = 100;
 	hp = 100;
+	revive = 0;
 	status = new Status(10);
+	setZ(0.5);
 }
+
 
 my_ship::~my_ship(){
 }
@@ -239,9 +233,7 @@ public:
 	}
 
 	void training_running(){
-		if(map!=NULL)map->main();
-		if(EBM!=NULL)EBM->main();
-		if(MS!=NULL)MS->main();
+		map->main();
 		if(pool!=NULL)pool->main();
 		if(TM!=NULL)TM->main();
 		
@@ -251,10 +243,8 @@ public:
 	}
 
 	void training_end(){
-		if(MS!=NULL){
-			delete MS;
-			MS = NULL;
-		}
+		MS->finish();
+		
 		if(pool!=NULL){
 			delete pool;
 			pool = NULL;
@@ -340,23 +330,9 @@ public:
 
 	void draw(){
 		Drawer *drawer = system->getDrawer();
-		if(map!=NULL){
-			map->draw(drawer);
-		}
-		if(MBM!=NULL)MBM->draw(drawer);
-		if(EBM!=NULL)EBM->draw(drawer);
-		if(MS!=NULL)MS->draw(drawer);
 		if(pool!=NULL)pool->draw(drawer);
 		if(TM!=NULL)TM->draw(drawer);
-		if(system!=NULL)system->draw();
-
-		//移動攝影機
-		if(map!=NULL){
-			drawer->setMapSize(map->getAllWidth(), map->getAllHeight());
-		}
-		if(MS!=NULL){
-			drawer->moveCamera(MS->getX(), MS->getY());
-		}
+		system->draw();
 		drawer->drawAll();
 	}
 
@@ -568,25 +544,14 @@ public:
 				}
 			}
 		}
-
-		if(system!=NULL){
-			system->main();
-		}
-
-		if(state == nextState){
-			time++;
-		}
-		
-
+		system->main();
+		draw();
+		system->garbageCollect();
 		return end;
 	}
 	void mainEnd(){
-		draw();
-		system->garbageCollect();
+		time++;
 	}
-
-
-
 
 	bool game_main(){
 		mainStart();

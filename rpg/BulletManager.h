@@ -30,7 +30,7 @@ void addBullet(float x, float y, int z, float spd, float r, int wnum, int lnum, 
 			bullet[i].setPosition(x, y);
 			bullet[i].setSpeed(spd, r+turn*(wnum-a*2-1)/2, 1);
 			bullet[i].setImgId(2000);
-			bullet[i].setImage(9,9,9,9,0,0);
+			bullet[i].setImage(9,9,9,9,0);
 			bullet[i].setAlpha(255);
 			bullet[i].setBlendMode(ALPHA_NORMAL);
 			bullet[i].atk=atk;
@@ -54,11 +54,13 @@ void addBullet(float x,float y,int z,float spd,Object *MS,int wnum, int lnum, fl
 }
 
 void main(Drawer *drawer){
+	/*
 	for(int i=0;i<1000;i++){
 		if(bullet[i].exist){
 			bullet[i].main(drawer);
 		}
 	}
+	*/
 
 }
 

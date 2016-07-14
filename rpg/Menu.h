@@ -129,12 +129,12 @@ public:
 			if(orientation == HORIZONTAL){
 				button[i].setBtnLink(button + (size+i-1)%size, button + (size+i+1)%size,NULL,NULL);
 				button[i].setPosition(x + (i - (size-1)/2)*(width+space), y);
-				button[i].setImage(width/2, height/2, width/2, height/2, 0, 0);
+				button[i].setImage(width/2, height/2, width/2, height/2, 0);
 			}
 			else{
 				button[i].setBtnLink(NULL, NULL, button + (size+i-1)%size, button+(size+i+1)%size);
 				button[i].setPosition(x, y - (i-(size-1)/2)*(height+space));
-				button[i].setImage(width/2, height/2, width/2, height/2, 0, 0);
+				button[i].setImage(width/2, height/2, width/2, height/2, 0);
 			}
 
 		}

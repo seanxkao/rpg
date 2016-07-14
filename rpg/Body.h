@@ -59,6 +59,7 @@ public:
 		direction = 90;
 		swordShadow = new SwordShadow(200, 20, 80, 255);
 		swordShadow->setParent(this, 0, 0);
+		onFlag(RUNNABLE | DRAWABLE);
 	}
 
 	virtual ~Body(){

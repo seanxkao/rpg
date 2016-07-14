@@ -9,9 +9,11 @@
 #include <memory.h>
 #include <tchar.h>
 //C++
+#include <list>
 #include <vector>
 #include <string>
 #include <sstream>
+#include <algorithm>
 //winapi
 #include <windows.h>
 //local

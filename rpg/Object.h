@@ -2,20 +2,23 @@
 
 #include "global.h"
 #include "Maths.h"
-#include <list>
 
 class Keyboard;
 class Drawer;
 
 using namespace std;
 
+	
 class Object{	//the foundamental game object
 public:
 	static list<Object*> *allObject;
+	static vector<Object*> *drawQueue;
 	static const unsigned int RUNNABLE = 1;
 	static const unsigned int DRAWABLE = 2;
 	static const unsigned int INPUTABLE = 4;
 	static const unsigned int ZOMBIE = 8;
+	
+	
 	Object(){
 		init();
 		setSpeed(0, 0, 0);
@@ -24,10 +27,15 @@ public:
 		finished = false;
 		flag = 0;
 		Object::allObject->push_back(this);
+		Object::drawQueue->push_back(this);
+	
+		//auto it = upper_bound(Object::drawQueue->begin(), Object::drawQueue->end(), this, ObjectCompare());
+		//Object::drawQueue->insert(it, this);
 	}
-
+	
 	virtual ~Object(){
 	}
+	
 
 	void init(){
 		time = 0;
@@ -71,15 +79,26 @@ public:
 		setParent(parent, parentX, parentY);
 	}
 
+	void setZ(float imgZ){
+		this->imgZ = imgZ;
+	}
+	
 	float getX(){
 		return x;
 	}
+	
 	float getY(){
 		return y;
 	}
+	
+	float getZ(){
+		return imgZ;
+	}
+	
 	int getState(){
 		return state;
 	}
+	
 	int getTime(){
 		return time;
 	}
@@ -87,6 +106,7 @@ public:
 	void finish(){
 		finished = true;
 	}
+	
 	bool isFinished(){
 		return finished;
 	}
@@ -94,18 +114,23 @@ public:
 	int isRunnable(){
 		return flag&RUNNABLE;
 	}
+	
 	int isDrawable(){
 		return flag&DRAWABLE;
 	}
+	
 	int isInputable(){
 		return flag&INPUTABLE;
 	}
+	
 	int isZombie(){
 		return flag&ZOMBIE;
 	}
+	
 	void onFlag(unsigned int on){
 		flag |= on;
 	}
+	
 	void offFlag(unsigned int off){
 		flag &= ~off;
 	}
@@ -115,12 +140,10 @@ public:
 		mainProc();
 		mainEnd();
 	}
-
 	virtual void draw(Drawer *drawer){};
 	virtual void onInput(Keyboard *keyboard){};
 
-	protected:
-
+protected:
 	float x;
 	float y;
 	float mx;
@@ -137,6 +160,7 @@ public:
 	float parentX;
 	float parentY;
 	bool finished;
+	float imgZ;
 	int flag;
 
 	virtual void stateStart(){
@@ -174,4 +198,12 @@ public:
 	
 };
 
+class ObjectCompare{
+public:
+	bool operator()(Object *a, Object *b){
+		if(a->getZ()!=b->getZ())return a->getZ()<b->getZ();
+		if(a->getY()!=b->getY())return a->getY()>b->getY();
+		return a<b;
+	}
+};
 
