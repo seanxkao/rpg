@@ -113,10 +113,7 @@ public:
 		device->CreateVertexBuffer(sizeof(D3DVERTEX)*4, D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX, D3DPOOL_DEFAULT , &vertexBuffer, NULL);
 	}
 	
-	virtual void setVertex(float cameraX, float cameraY){
-		float vcos = cosf((float)(imgRad/180*3.14));
-		float vsin = sinf((float)(imgRad/180*3.14));
-		
+	virtual void setVertex(){
 		vertex[0].x= -imgLeft;   
 		vertex[0].y= imgHeight; 
 		vertex[1].x= imgWidth;   
@@ -125,29 +122,6 @@ public:
 		vertex[2].y= -imgTop;
 		vertex[3].x= imgWidth;   
 		vertex[3].y= -imgTop; 
-		
-		/*
-		if(fixed){
-			vertex[0].x= ((vcos * -imgLeft) - (vsin * imgHeight) + x) / SCREEN_WIDTH*2 - 1;   
-			vertex[0].y= ((vsin * -imgLeft) + (vcos * imgHeight) + y) / SCREEN_HEIGHT*2 - 1; 
-			vertex[1].x= ((vcos * imgWidth) - (vsin * imgHeight) + x) / SCREEN_WIDTH *2 - 1;   
-			vertex[1].y= ((vsin * imgWidth) + (vcos * imgHeight) + y) / SCREEN_HEIGHT*2 - 1;
-			vertex[2].x= ((vcos * -imgLeft) - (vsin * -imgTop) + x) / SCREEN_WIDTH*2 - 1;   
-			vertex[2].y= ((vsin * -imgLeft) + (vcos * -imgTop) + y) / SCREEN_HEIGHT*2  - 1;
-			vertex[3].x= ((vcos * imgWidth) - (vsin * -imgTop) + x) / SCREEN_WIDTH*2 - 1;   
-			vertex[3].y= ((vsin * imgWidth) + (vcos * -imgTop) + y) / SCREEN_HEIGHT*2 - 1;
-		}
-		else{
-			vertex[0].x= ((vcos * -imgLeft) - (vsin * imgHeight) + x - cameraX) / SCREEN_WIDTH*2 - 1;   
-			vertex[0].y= ((vsin * -imgLeft) + (vcos * imgHeight) + y - cameraY) / SCREEN_HEIGHT*2 - 1; 
-			vertex[1].x= ((vcos * imgWidth) - (vsin * imgHeight) + x - cameraX) / SCREEN_WIDTH *2 - 1;   
-			vertex[1].y= ((vsin * imgWidth) + (vcos * imgHeight) + y - cameraY) / SCREEN_HEIGHT*2 - 1;
-			vertex[2].x= ((vcos * -imgLeft) - (vsin * -imgTop) + x - cameraX) / SCREEN_WIDTH*2 - 1;   
-			vertex[2].y= ((vsin * -imgLeft) + (vcos * -imgTop) + y - cameraY) / SCREEN_HEIGHT*2  - 1;
-			vertex[3].x= ((vcos * imgWidth) - (vsin * -imgTop) + x - cameraX) / SCREEN_WIDTH*2 - 1;   
-			vertex[3].y= ((vsin * imgWidth) + (vcos * -imgTop) + y - cameraY) / SCREEN_HEIGHT*2 - 1;
-		}
-		*/
 		vertex[0].z = vertex[1].z = vertex[2].z = vertex[3].z = 0;
 		vertex[0].tu = vertex[2].tu = texLeft;
 		vertex[1].tu = vertex[3].tu = texWidth;
@@ -155,7 +129,6 @@ public:
 		vertex[2].tv = vertex[3].tv = texHeight;
 		vertex[0].specular = vertex[1].specular = vertex[2].specular = vertex[3].specular = D3DCOLOR_ARGB(colorA, colorR, colorG, colorB);
 		vertex[0].diffuse  = vertex[1].diffuse  = vertex[2].diffuse  = vertex[3].diffuse  = D3DCOLOR_ARGB(colorA, colorR, colorG, colorB);
-
 	}
 
 	virtual void drawVertex(LPDIRECT3DDEVICE9 &device){
@@ -166,9 +139,6 @@ public:
 		if(imgId == -1) return;
 		LPDIRECT3DDEVICE9 device = drawer->getDevice();
 		if(vertex == NULL)initVertex(device);
-		float cameraX = drawer->getCameraX();
-		float cameraY = drawer->getCameraY();
-		setVertex(cameraX, cameraY);
 		void *pVertices = NULL;
 		vertexBuffer->Lock(0, 0, &pVertices, D3DLOCK_DISCARD);
 		memcpy(pVertices, vertex, vertexSize());
@@ -212,6 +182,9 @@ public:
 		device->SetTexture(0, *texture);
 		device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
 		
+		float cameraX = drawer->getCameraX();
+		float cameraY = drawer->getCameraY();
+		setVertex();
 		D3DXMATRIX transform, scale, rotate, world;
 		if(fixed){
 			D3DXMatrixTranslation(&transform, x/SCREEN_WIDTH*2-1, y/SCREEN_HEIGHT*2-1, 0);
@@ -414,7 +387,7 @@ public:
 		device->CreateVertexBuffer( sizeof(D3DVERTEX)*(length+1), D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX  , D3DPOOL_MANAGED ,  &vertexBuffer, NULL);
 	}
 	
-	void setVertex(float cameraX, float cameraY){
+	void setVertex(){
 		vertex[0].x = 0;
 		vertex[0].y = 0;
 		vertex[0].z = 0;
@@ -486,7 +459,7 @@ public:
 		device->CreateVertexBuffer(sizeof(D3DVERTEX)*(length*2+2), D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX  , D3DPOOL_MANAGED ,  &vertexBuffer, NULL);
 	}
 
-	void setVertex(float cameraX, float cameraY){
+	void setVertex(){
 		for(int i = 0; i < length*2 + 2; i+=2){
 			vertex[i].x = strip[i].x;
 			vertex[i].y = strip[i].y;

@@ -61,7 +61,7 @@ public:
 	   */
 		
 		d3dpp.Windowed = true;  
-		d3dpp.SwapEffect = D3DSWAPEFFECT_FLIP;		
+		d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;		
 		d3dpp.FullScreen_RefreshRateInHz = 0;   
 		d3dpp.BackBufferHeight = 0;
 		d3dpp.BackBufferWidth = 0; 
@@ -76,18 +76,16 @@ public:
 		}
 		direct3DDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
 		direct3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-//		direct3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 		
 		direct3DDevice->SetRenderState(D3DRS_ZENABLE, false);
 
-		/*
-		linear
+		//linear
 		direct3DDevice->SetSamplerState( 0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR );
 		direct3DDevice->SetSamplerState( 0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR );
 		direct3DDevice->SetSamplerState( 0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR );
-		*/
 
-		texture = new LPDIRECT3DTEXTURE9[10000];
+
+		texture = new LPDIRECT3DTEXTURE9[1000];
 
 		for(int i=0;i<10000;i++){	
 			texture[i] = NULL;
@@ -174,6 +172,8 @@ public:
 	void moveCamera(float x, float y){
 		//地圖小於攝影機視野-視角設定在中央
 		//攝影機邊界不能超出地圖邊界
+		float prevX = cameraX;
+		float prevY = cameraY;
 		if(mapWidth < SCREEN_WIDTH){
 			cameraX = (SCREEN_WIDTH - mapWidth)/2;
 		}
@@ -210,8 +210,9 @@ public:
 				cameraY = mapHeight - SCREEN_HEIGHT;
 			}
 		}
+		cameraX = (cameraX + prevX*4)/5;
+		cameraY = (cameraY + prevY*4)/5;
 	}
-	
 	
 	void setCamera(float left, float top, float right, float bottom){
 		cameraLeft = left;
@@ -242,9 +243,7 @@ public:
 	LPDIRECT3DTEXTURE9* getTexture(int i){
 		return &texture[i];
 	}
-
-
-
+	
 protected:
 	LPDIRECT3D9			direct3D; //DX物件宣告
 	LPDIRECT3DDEVICE9	direct3DDevice;

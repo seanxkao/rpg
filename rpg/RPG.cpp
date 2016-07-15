@@ -174,7 +174,7 @@ public:
 
 		currMenu = NULL;
 		MS = NULL;
-		pool = new Pool(1000);
+		pool = new Pool(10000);
 		TM = NULL;
 		system = new System();
 		avatar = new Avatar();
@@ -451,15 +451,16 @@ public:
 				enemyHpBar->setParent(0, 70);
 				enemyHpBar->setBarSize(50, 10, 50, 10);
 			}
-			for(int i=0;i<20;i++){
+			for(int i=0;i<200;i++){
 				// BOX 1
+				/*
 				float r = random(0,360);
-				float rr = random(0,20);
-				float l = random(150,250);
+				float rr = random(0,10);
+				float l = random(50,80);
 				float s = random(l/30,l/18);
-				float a = random(s/20,s/12);
+				float a = random(s/5,s/3);
 				pool->addParticle(45,0,SCREEN_WIDTH/2 + vectorX(l,r) , SCREEN_HEIGHT/2 + vectorY(l,r),vectorX(s,r+90+rr) ,vectorY(s,r+90+rr),vectorX(a,r+180+rr) ,vectorY(a,r+180+rr));
-				
+				*/
 
 				// BOX 2
 				/*

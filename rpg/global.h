@@ -39,22 +39,11 @@ const float H = GetSystemMetrics(SM_CYSCREEN);
 #define SCREEN_WIDTH  W
 #define SCREEN_HEIGHT H
 
-//#define FRAME_LEFT   L
-//#define FRAME_RIGHT  R
-//#define FRAME_UP     U
-//#define FRAME_DOWN   D
+#define FRAME_LEFT   0
+#define FRAME_RIGHT  W
+#define FRAME_UP     H
+#define FRAME_DOWN   50
 
-#define FRAME_LEFT   20
-#define FRAME_RIGHT  W - 20
-#define FRAME_UP     H + 50
-#define FRAME_DOWN   -50
-
-//const int L = 200;
-//const int R = W - 200;
-const int L = 20;
-const int R = W - 20;
-const int U = H - 50;
-const int D = 50;
 
 enum CONTROLER{
 	AUTO,	
