@@ -61,7 +61,7 @@ public:
 	virtual ~Vector2D();
 
 	Vector2D operator*(const float& scalar){
-		Vector2D temp(this->x * scalar, this->y * scalar);
+		Vector2D temp(this->x*scalar, this->y*scalar);
 		return temp;
 	}
 	

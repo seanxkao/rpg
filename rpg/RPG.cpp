@@ -241,17 +241,11 @@ public:
 	}
 
 	void training_end(){
+		delete myController;
 		MS->finish();
-		
-		if(pool!=NULL){
-			delete pool;
-			pool = NULL;
-		}
+		delete TM;	
 		map->finish();
-		if(TM!=NULL){
-			delete TM;
-			TM = NULL;
-		}
+		delete pool;
 	}
 
 	void collide(){
@@ -446,7 +440,7 @@ public:
 		else if(state==100){
 			myController->onInput(system->getKeyboard());
 			if (time%35==0){
-				Enemy *enemy = EBM->addEnemySoldier(SCREEN_WIDTH/2, SCREEN_WIDTH/2,0,0);
+				Enemy *enemy = EBM->addEnemySoldier(SCREEN_WIDTH/2, SCREEN_HEIGHT/2,0,0);
 				Bar *enemyHpBar = system->createBar(0, enemy, enemy);
 				enemyHpBar->setParent(0, 70);
 				enemyHpBar->setBarSize(50, 10, 50, 10);
@@ -473,26 +467,10 @@ public:
 				*/
 			}
 
-/*
-			if(time>100 && time<400){
-				if(time%1==0){
-					//EBM->create_EB(SCREEN_WIDTH/2,SCREEN_HEIGHT-200,0,12,time*7.3,4,1,90,0,1,0,0,0);
-					EBM->create_EB(SCREEN_WIDTH/2,SCREEN_HEIGHT-200,0,random(12,10),random(0,360),4,1,90,0,1,0,0,0,0);
-
-				}
-				if(time%3==0){
-					EBM->addEnemy(SCREEN_WIDTH/2,SCREEN_HEIGHT-200,0,0);
-				}
-			}
-			else if(time==400){
-				EBM->clear();
-			}
-			
-			else if(time==500){
+			if(time>=10000){
 				training_end();
 				change_state(10);
 			}
-*/
 			collide();
 			training_running();
 		}
@@ -560,10 +538,7 @@ public:
 		mainStart();
 		bool end = mainProc();
 		mainEnd();
-
 		return end;
-
-
 	}
 };
 

@@ -130,12 +130,16 @@ private:
 
 
 class MainButton : public Button{
-
 public:	
-	MainButton();
-	MainButton(int, int, int);
-	virtual ~MainButton();
+	MainButton(): Button(){
+	};
 
+	MainButton(int imgNormal,int imgOn,int imgPress): Button(imgNormal, imgOn, imgPress){
+		imgId = imgNormal;
+	};
+
+	virtual ~MainButton(){
+	};
 
 	virtual void draw(Drawer *drawer){
 		switch(state){
@@ -192,14 +196,4 @@ public:
 		if(time>=10)finish();
 	}
 
-};
-
-MainButton::MainButton(): Button(){
-};
-
-MainButton::MainButton(int imgNormal,int imgOn,int imgPress): Button(imgNormal, imgOn, imgPress){
-	imgId = imgNormal;
-};
-
-MainButton::~MainButton(){
 };

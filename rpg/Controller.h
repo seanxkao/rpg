@@ -17,7 +17,6 @@ public:
 		return normalAtk;
 	}
 
-
 protected:
 	float direction;
 	bool normalAtk;

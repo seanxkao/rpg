@@ -15,18 +15,18 @@ BodyManager
 BulletManager
 
 Object
-	->Map(-)
+	->Map
 	->Image(-)
 		->Anime
 			->ThemeAnime
-		->ImageFan(-)
-		->ImageStrip(-)
+		->ImageFan
+		->ImageStrip
 			->SwordShadow
 		->AnimeBlock
 		->Button
 			->MainButton
 		->MapChip
-		->Particle(-)
+		->Particle
 		->Body
 			->my_ship
 			->Enemy

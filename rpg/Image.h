@@ -52,7 +52,6 @@ public:
 		this->imgRad = imgRad;
 	}
 	
-
 	void setARGB(int colorA, int colorR, int colorG, int colorB){
 		if(colorA < 0)		this->colorA = 0;
 		else if(colorA>255)	this->colorA = 255;
@@ -370,8 +369,6 @@ public:
 	};
 };
 
-
-
 class ImageFan: public Image {
 public:
 	ImageFan(int length);
@@ -437,8 +434,9 @@ ImageFan::ImageFan(int length){
 		fan[i].colorG = 255;
 		fan[i].colorB = 255;
 	}
-	setZ(0);
 	imgId = 0;
+	onFlag(RUNNABLE | DRAWABLE);
+	setZ(0);
 };
 
 ImageFan::~ImageFan(){
@@ -513,6 +511,7 @@ ImageStrip::ImageStrip(int length, float len1, float len2, float rad){
 	vertex = NULL;
 	strip = new Point[length*2+2];
 	setTexture(0, 0, 1, 1);
+	onFlag(RUNNABLE | DRAWABLE);
 };
 
 ImageStrip::~ImageStrip(){
@@ -527,7 +526,6 @@ public:
 		setBlend(ALPHA_LIGHT, 3);
 		setAllStrip(swordLen1, swordLen2, 0, 0);
 		imgId = 820;
-		onFlag(RUNNABLE | DRAWABLE);
 		setZ(0.6);
 	}
 	virtual ~SwordShadow(){

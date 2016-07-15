@@ -56,14 +56,13 @@ public:
 	}
 
 	static bool crash(Body *A, Body *B){
-		//不可碰撞單位
 		if (!(A->atkEnable && B->bdyEnable)) return false;
-		//判斷是圓形還是扇形
+		
 		Vector2D w(B->getX() - A->getX(), B->getY() - A->getY());
 		float wDis = w.length();
 		float dis = A->attack.rad + B->bdyRad;
 		if(A->attack.start == A->attack.end) return wDis < dis;
-		//扇形向量公式
+		
 		Vector2D *u;
 		Vector2D *v;
 		u = Vector2D::polar(A->attack.rad, A->attack.start);

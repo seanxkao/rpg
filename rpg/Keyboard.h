@@ -2,7 +2,6 @@
 
 #include "Drawer.h"
 
-
 class Keyboard{
 public:
 	Keyboard(int keyLength, int recordLength){
@@ -68,7 +67,6 @@ public:
 
 
 protected:
-
 	struct Key{
 		bool buffer;
 		bool now;
@@ -76,7 +74,6 @@ protected:
 		bool down;
 		bool up;
 	};
-
 
 	int keyLength;
 	int recordLength;

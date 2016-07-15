@@ -68,9 +68,6 @@ public:
 				setImage(40, 40, 40, 40, 0);
 				break;
 			case STATE_DAMAGED:
-				if(time>4){
-					setState(0);
-				}
 				break;
 			case STATE_DISAPPEAR:
 				if(time<25){
@@ -86,7 +83,6 @@ public:
 protected:
 	virtual void normal(){
 		setBody(BDY_NORMAL, 20);
-
 		if(time%50==0){
 			direction = (int)random(3.5,7)*45;
 			setSpeed(4, direction, 1);
@@ -105,6 +101,9 @@ protected:
 		}
 	}
 	virtual void damaged(){
+		if(time>4){
+			setState(0);
+		}
 	}
 	virtual void disappear(){
 		if(time>=25){
