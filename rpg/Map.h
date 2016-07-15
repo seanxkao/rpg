@@ -13,7 +13,6 @@ public:
 		this->mapWidth = mapWidth;
 		this->mapHeight = mapHeight;
 		mapChip = new2D(mapWidth, mapHeight, MapChip*);
-		onFlag(RUNNABLE);
 	}
 
 	virtual ~Map(){
@@ -57,7 +56,6 @@ protected:
 	public:
 		MapChip(int imgId): Image(imgId){
 			setZ(0);
-			onFlag(RUNNABLE | DRAWABLE);
 		};
 		virtual ~MapChip(){
 		};

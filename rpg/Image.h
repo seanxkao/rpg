@@ -29,6 +29,7 @@ public:
 		setFixed(false);
 		setZ(0);
 		go_out = false;
+		onFlag(DRAWABLE);
 	};
 
 	Image():Image(-1){
@@ -283,7 +284,6 @@ public:
 	static const int IN_MODE_FADE = 0;
 	
 	Anime(int imgId): Image(imgId){
-		onFlag(RUNNABLE | DRAWABLE);
 	};
 
 	virtual ~Anime(){
@@ -435,7 +435,7 @@ ImageFan::ImageFan(int length){
 		fan[i].colorB = 255;
 	}
 	imgId = 0;
-	onFlag(RUNNABLE | DRAWABLE);
+	onFlag(DRAWABLE);
 	setZ(0);
 };
 
@@ -511,7 +511,7 @@ ImageStrip::ImageStrip(int length, float len1, float len2, float rad){
 	vertex = NULL;
 	strip = new Point[length*2+2];
 	setTexture(0, 0, 1, 1);
-	onFlag(RUNNABLE | DRAWABLE);
+	onFlag(DRAWABLE);
 };
 
 ImageStrip::~ImageStrip(){
@@ -569,7 +569,6 @@ public:
 	AnimeBlock(): Image(){
 		imgId = 500;
 		setAlpha(192);
-		onFlag(RUNNABLE | DRAWABLE);
 	}
 
 	virtual ~AnimeBlock(){

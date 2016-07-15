@@ -19,7 +19,7 @@ public:
 		this->x = x;
 		this->y = y;
 		this->size = size;
-		onFlag(RUNNABLE | INPUTABLE);
+		onFlag(INPUTABLE);
 	};
 
 	virtual ~Menu(){

@@ -18,7 +18,6 @@ public:
 		this->imgPress  = imgPress ;
 		setBtnLink(NULL, NULL, NULL, NULL);
 		choosed = false;
-		onFlag(RUNNABLE | DRAWABLE);
 	};
 	
 	Button(): Button(-1, -1, -1){

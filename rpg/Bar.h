@@ -14,9 +14,9 @@ public:
 		bar = new Image();
 		frame->setParent(this, 0, 0);
 		bar->setParent(this, 0, 0);
+		frame->setZ(0.61);
+		bar->setZ(0.60);
 		setParent(target, 0, 0);
-		onFlag(RUNNABLE | DRAWABLE);
-		setZ(0.60);
 	};
 
 	virtual ~Bar(){
@@ -49,15 +49,6 @@ public:
 		frame->setFixed(fixed);
 	}
 
-	virtual void draw(Drawer *drawer){
-		float valWidth = bound((barWidth+barLeft)*(value/max) - barLeft, -barLeft, barWidth);
-		bar->setImage(barLeft, barTop, valWidth, barHeight, 0);
-		frame->setImage(barLeft, barTop, barWidth, barHeight, 0);
-		bar->draw(drawer);
-		frame->draw(drawer);
-	}
-
-
 protected:
 	Body *refer;
 	float barLeft;
@@ -82,8 +73,9 @@ protected:
 				finish();
 			}
 		}
-		bar->main();
-		frame->main();
+		float valWidth = bound((barWidth+barLeft)*(value/max) - barLeft, -barLeft, barWidth);
+		bar->setImage(barLeft, barTop, valWidth, barHeight, 0);
+		frame->setImage(barLeft, barTop, barWidth, barHeight, 0);
 	}
 };
 
@@ -108,6 +100,7 @@ public:
 		group->setPosition(SCREEN_WIDTH/2, SCREEN_HEIGHT/10);
 		group->setImage(SCREEN_WIDTH/2, SCREEN_HEIGHT/10, SCREEN_WIDTH/2, SCREEN_HEIGHT/10, 0);
 		group->setFixed(true);
+		group->setZ(0.55);
 
 		hpBar = new HpBar(me, group);
 		hpBar->setBarSize(100, 10, 100, 10);
@@ -131,21 +124,13 @@ public:
 		exp->setParent(group, 200, -30);
 		exp->setFixed(true);
 		exp->setFont(font);
-
-		onFlag(RUNNABLE | DRAWABLE);
-		setZ(0.55);
 	}
 	virtual ~PlayerPanel(){
 	}
 
-
-	virtual void draw(Drawer *drawer){
-		group->draw(drawer);
-	}
 	virtual void setAvatar(Avatar *avatar){
 		this->avatar = avatar;
 	}
-
 
 protected:
 	bool show;
@@ -165,9 +150,6 @@ protected:
 				group->setPosition(SCREEN_WIDTH/2, SCREEN_HEIGHT/10-time*SCREEN_HEIGHT/100);
 			}
 		}
-
-		group->main();
-		
 		expBar->setBarValue(avatar->getExp(), avatar->getMaxExp());
 		
 		stringstream ss;

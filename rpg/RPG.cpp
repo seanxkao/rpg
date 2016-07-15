@@ -1,12 +1,12 @@
 #include "Bar.h"
 #include "Bullet.h"
 #include "Button.h"
-#include "Controller.h"
 #include "Drawer.h"
 #include "Enemy.h"
 #include "Keyboard.h"
 #include "Map.h"
 #include "Menu.h"
+#include "PlayerCharacter.h"
 #include "Particle.h"
 #include "Pool.h"
 #include "System.h"
@@ -16,153 +16,6 @@
 
 list<Object*> *Object::allObject = new list<Object*>;
 vector<Object*> *Object::drawQueue = new vector<Object*>;
-
-class my_ship: public Body {
-public:
-	int revive;
-	my_ship(Controller*);
-	my_ship();
-	~my_ship();
-
-	void setController(Controller *controller){
-		this->controller = controller;
-	}
-	void setAvatar(Avatar *avatar){
-		this->avatar = avatar;
-	}
-	void moveBody(){
-		float direction = controller->getDirection();
-		if	(direction>=0){
-			this->direction = direction;
-			Vector2D *velocity = Vector2D::polar(8, direction);
-
-			x += velocity->getX();
-			y += velocity->getY();
-
-		}
-
-		if(x < FRAME_LEFT + 50){
-			x = FRAME_LEFT + 50;
-		}
-		if(x > FRAME_RIGHT - 50){
-			x = FRAME_RIGHT	- 50;
-		}
-		if(y > FRAME_UP	- 60){
-			y = FRAME_UP - 60;
-		}
-		if(y < FRAME_DOWN + 60){
-			y = FRAME_DOWN	+ 60;
-		}
-	}
-
-	virtual void draw(Drawer *drawer){
-		switch(state){
-			
-			case STATE_NORMAL:
-				setImage(50,50,50,50,0);
-				if(time%16 == 0){
-					setImgId(1000);
-				}
-				else if(time%16 == 4){
-					setImgId(1001);
-				}
-				else if(time%16 == 8){
-					setImgId(1000);
-				}
-				else if(time%16 == 12){
-					setImgId(1002);
-				}
-				break;
-			case STATE_DAMAGED:
-				setImage(50,50,50,50,0);
-				break;
-			case STATE_DISAPPEAR:
-				if(time<25){
-					imgRad+=17;
-					setAlpha(255-time*10);
-					setImage(30+time*7,30+time*7,30+time*7,30+time*7,imgRad);
-				}
-				else{
-					setAlpha(0);
-				}
-				break;
-		}
-		Body::draw(drawer);
-	}
-	virtual void mainStart(){
-		bdyEnable = false;
-		atkEnable = false;
-		Body::mainStart();
-	}
-
-	virtual void mainProc(){
-		if(state==0){
-			setBody(BDY_NORMAL, 20);
-			setSpeed(3, 0, 0);
-			moveBody();
-			if(controller->getNormalAtk()){
-				setState(1);
-			}
-			if(hp<0)setState(99);
-		}
-
-		else if(state==1){
-			setBody(BDY_NORMAL, 25);
-			if(time==0){
-				//bulletManager->addBullet(x,y,0,0,0.0,1,1,10,0,1,0);
-				if(rand()<RAND_MAX/2){
-					swordShadow->wield(5, direction - 100, direction + 100);
-				}
-				else{
-					swordShadow->wield(5, direction + 100, direction - 100);
-				}
-			}
-			else if(time==1){
-				status = avatar->getStatus();
-				int atk = randomRange(status->getMinPAtk(), status->getMaxPAtk());
-				setAttack(atk, 0, 10, 100, direction-60, direction+60);
-			}
-			else if(time > 4){
-				setState(0);
-			}
-		}
-		else if(state==10){
-			if(time>4){
-				setState(0);
-			}
-		}
-
-		else if(state==99){
-		}
-		
-		revive++;
-		if(revive>=60){
-			if(hp<maxHp)hp++;
-			revive = 0;
-		}
-
-		Body::mainProc();
-	}
-
-protected:
-	Controller *controller;
-	Avatar *avatar;
-};
-
-my_ship::my_ship(Controller *controller): Body(){
-	setController(controller);
-	setImage(30, 30, 30, 30, 0);
-	imgId = 1000;
-	maxHp = 100;
-	hp = 100;
-	revive = 0;
-	status = new Status(10);
-	setZ(0.5);
-}
-
-
-my_ship::~my_ship(){
-}
 
 
 class Game{
@@ -196,7 +49,7 @@ public:
 	Avatar *avatar;
 	Menu *currMenu;
 
-	my_ship			*MS;
+	PlayerCharacter			*MS;
 	MyController	*myController;
 	BodySystem		*EBM;
 	BodySystem		*MBM;
@@ -206,7 +59,7 @@ public:
 	
 	void training_start(){
 		myController = new MyController();
-		MS = new my_ship(myController);
+		MS = new PlayerCharacter(myController);
 		MS->setAvatar(avatar);
 		
 		Bar *MS_Bar = system->createBar(0, MS, MS);

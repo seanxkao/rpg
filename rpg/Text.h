@@ -11,7 +11,7 @@ public:
 		setFixed(false);
 		setWord("");
 		setARGB(255, 255, 255, 255);
-		onFlag(RUNNABLE | DRAWABLE);
+		onFlag(DRAWABLE);
 		setZ(0.6);
 	}
 	Text(string word, int colorA, int colorR, int colorG, int colorB){

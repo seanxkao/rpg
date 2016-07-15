@@ -24,6 +24,7 @@ public:
 		parent = NULL;
 		finished = false;
 		flag = 0;
+		onFlag(RUNNABLE);
 		Object::allObject->push_back(this);
 		Object::drawQueue->push_back(this);
 	}

@@ -54,14 +54,6 @@ void addBullet(float x,float y,int z,float spd,Object *MS,int wnum, int lnum, fl
 }
 
 void main(Drawer *drawer){
-	/*
-	for(int i=0;i<1000;i++){
-		if(bullet[i].exist){
-			bullet[i].main(drawer);
-		}
-	}
-	*/
-
 }
 
 };

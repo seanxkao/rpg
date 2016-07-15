@@ -16,7 +16,7 @@ BulletManager
 
 Object
 	->Map
-	->Image(-)
+	->Image
 		->Anime
 			->ThemeAnime
 		->ImageFan
@@ -28,7 +28,7 @@ Object
 		->MapChip
 		->Particle
 		->Body
-			->my_ship
+			->PlayerCharacter
 			->Enemy
 				->EnemySoldier
 			->Bullet

@@ -132,7 +132,7 @@ public:
 		loadTexture(810, L"image/explode_0.bmp");
 		loadTexture(820, L"image/effect_swordshadow_01.bmp");
 		//alley
-//		loadTexture(1000, L"image/my_ship_0.bmp");
+//		loadTexture(1000, L"image/PlayerCharacter_0.bmp");
 //		loadTexture(1000, L"image/character_medica.bmp");
 		loadTexture(1000, L"image/character_literace_00.bmp");
 		loadTexture(1001, L"image/character_literace_01.bmp");
@@ -151,7 +151,7 @@ public:
 		loadTexture(2002, L"image/slash_3.bmp");
 		loadTexture(2003, L"image/slash_4.bmp");
 		//敵方角色
-		loadTexture(3000, L"image/enemy_ship_0.bmp");
+		loadTexture(3000, L"image/enePlayerCharacter_0.bmp");
 		loadTexture(3001, L"image/enemy_weak.bmp");
 		//敵方子彈
 		loadTexture(4000, L"image/enemy_bullet_0.bmp"); 
