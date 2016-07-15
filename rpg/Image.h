@@ -110,12 +110,23 @@ public:
 	
 	virtual void initVertex(LPDIRECT3DDEVICE9 device){
 		vertex = new D3DVERTEX[4];
-		device->CreateVertexBuffer(sizeof(D3DVERTEX)*4, D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX  , D3DPOOL_MANAGED ,  &vertexBuffer, NULL);
+		device->CreateVertexBuffer(sizeof(D3DVERTEX)*4, D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX, D3DPOOL_DEFAULT , &vertexBuffer, NULL);
 	}
 	
 	virtual void setVertex(float cameraX, float cameraY){
 		float vcos = cosf((float)(imgRad/180*3.14));
 		float vsin = sinf((float)(imgRad/180*3.14));
+		
+		vertex[0].x= -imgLeft;   
+		vertex[0].y= imgHeight; 
+		vertex[1].x= imgWidth;   
+		vertex[1].y= imgHeight;
+		vertex[2].x= -imgLeft;   
+		vertex[2].y= -imgTop;
+		vertex[3].x= imgWidth;   
+		vertex[3].y= -imgTop; 
+		
+		/*
 		if(fixed){
 			vertex[0].x= ((vcos * -imgLeft) - (vsin * imgHeight) + x) / SCREEN_WIDTH*2 - 1;   
 			vertex[0].y= ((vsin * -imgLeft) + (vcos * imgHeight) + y) / SCREEN_HEIGHT*2 - 1; 
@@ -136,6 +147,7 @@ public:
 			vertex[3].x= ((vcos * imgWidth) - (vsin * -imgTop) + x - cameraX) / SCREEN_WIDTH*2 - 1;   
 			vertex[3].y= ((vsin * imgWidth) + (vcos * -imgTop) + y - cameraY) / SCREEN_HEIGHT*2 - 1;
 		}
+		*/
 		vertex[0].z = vertex[1].z = vertex[2].z = vertex[3].z = 0;
 		vertex[0].tu = vertex[2].tu = texLeft;
 		vertex[1].tu = vertex[3].tu = texWidth;
@@ -143,6 +155,7 @@ public:
 		vertex[2].tv = vertex[3].tv = texHeight;
 		vertex[0].specular = vertex[1].specular = vertex[2].specular = vertex[3].specular = D3DCOLOR_ARGB(colorA, colorR, colorG, colorB);
 		vertex[0].diffuse  = vertex[1].diffuse  = vertex[2].diffuse  = vertex[3].diffuse  = D3DCOLOR_ARGB(colorA, colorR, colorG, colorB);
+
 	}
 
 	virtual void drawVertex(LPDIRECT3DDEVICE9 &device){
@@ -156,11 +169,11 @@ public:
 		float cameraX = drawer->getCameraX();
 		float cameraY = drawer->getCameraY();
 		setVertex(cameraX, cameraY);
-		//將頂點複製到頂點緩衝區
 		void *pVertices = NULL;
-		vertexBuffer->Lock(0, 0, &pVertices, 0);
+		vertexBuffer->Lock(0, 0, &pVertices, D3DLOCK_DISCARD);
 		memcpy(pVertices, vertex, vertexSize());
 		vertexBuffer->Unlock();
+		
 		device->SetStreamSource(0, vertexBuffer, 0, sizeof(D3DVERTEX));
 		//繪製模式
 		if (blendMode == ALPHA_NORMAL){
@@ -198,6 +211,19 @@ public:
 		LPDIRECT3DTEXTURE9 *texture = drawer->getTexture(imgId);
 		device->SetTexture(0, *texture);
 		device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+		
+		D3DXMATRIX transform, scale, rotate, world;
+		if(fixed){
+			D3DXMatrixTranslation(&transform, x/SCREEN_WIDTH*2-1, y/SCREEN_HEIGHT*2-1, 0);
+		}
+		else{
+			D3DXMatrixTranslation(&transform, (x+cameraX)/SCREEN_WIDTH*2-1, (y-cameraY)/SCREEN_HEIGHT*2-1, 0);
+		}
+		D3DXMatrixScaling(&scale, 1/SCREEN_WIDTH*2, 1/SCREEN_HEIGHT*2, 1);
+		D3DXMatrixIdentity(&rotate);
+        D3DXMatrixRotationZ(&rotate, imgRad/180*3.14);
+		world = rotate*scale*transform;
+		device->SetTransform(D3DTS_WORLD, &world);
 		device->BeginScene();	
 		for(int i=0;i<blendTimes;i++){
 			drawVertex(device);
@@ -389,8 +415,8 @@ public:
 	}
 	
 	void setVertex(float cameraX, float cameraY){
-		vertex[0].x = (x - cameraX)/SCREEN_WIDTH*2 - 1;
-		vertex[0].y = (y - cameraY)/SCREEN_HEIGHT*2 - 1;
+		vertex[0].x = 0;
+		vertex[0].y = 0;
 		vertex[0].z = 0;
 		vertex[0].tu = texLeft;
 		vertex[0].tv = texTop;
@@ -398,8 +424,8 @@ public:
 		vertex[0].diffuse= fan[0].getColor();
 
 		for(int i = 1; i < length+1; i++){
-			vertex[i].x = (fan[i].x + x - cameraX)/SCREEN_WIDTH*2 - 1;
-			vertex[i].y = (fan[i].y + y - cameraY)/SCREEN_HEIGHT*2 - 1;
+			vertex[i].x = fan[i].x;
+			vertex[i].y = fan[i].y;
 			vertex[i].z = 0;
 			vertex[i].tu = texLeft + (texWidth-texLeft)*(float)i/(float)length;
 			vertex[i].tv = texHeight;
@@ -462,15 +488,15 @@ public:
 
 	void setVertex(float cameraX, float cameraY){
 		for(int i = 0; i < length*2 + 2; i+=2){
-			vertex[i].x = (strip[i].x + x - cameraX)/SCREEN_WIDTH*2 - 1;
-			vertex[i].y = (strip[i].y + y - cameraY)/SCREEN_HEIGHT*2 - 1;
+			vertex[i].x = strip[i].x;
+			vertex[i].y = strip[i].y;
 			vertex[i].z = 0;
 			vertex[i].tu = texLeft + (texWidth)*(float)i/(float)length/2;
 			vertex[i].tv = texHeight;
 			vertex[i].specular = strip[i].getColor();
 			vertex[i].diffuse= strip[i].getColor();
-			vertex[i+1].x = (strip[i+1].x + x - cameraX)/SCREEN_WIDTH*2 - 1;
-			vertex[i+1].y = (strip[i+1].y + y - cameraY)/SCREEN_HEIGHT*2 - 1;
+			vertex[i+1].x = strip[i+1].x;
+			vertex[i+1].y = strip[i+1].y;
 			vertex[i+1].z = 0;
 			vertex[i+1].tu = texLeft + (texWidth)*(float)i/(float)length/2;
 			vertex[i+1].tv = texTop;

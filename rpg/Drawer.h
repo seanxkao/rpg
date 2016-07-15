@@ -76,6 +76,8 @@ public:
 		}
 		direct3DDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
 		direct3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+//		direct3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+		
 		direct3DDevice->SetRenderState(D3DRS_ZENABLE, false);
 
 		/*

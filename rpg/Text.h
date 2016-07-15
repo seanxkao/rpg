@@ -87,9 +87,9 @@ public:
 			rectBottom = (int)(SCREEN_HEIGHT-(y - textTop + textHeight));
 		}
 		else{
-			rectLeft = (int)((x - textLeft)-cameraX);
+			rectLeft = (int)((x - textLeft)+cameraX);
 			rectTop = (int)(SCREEN_HEIGHT-(y - textTop)+cameraY);
-			rectRight = (int)((x - textLeft + textWidth)-cameraX);
+			rectRight = (int)((x - textLeft + textWidth)+cameraX);
 			rectBottom = (int)(SCREEN_HEIGHT-(y - textTop + textHeight )+cameraY);
 		}
 		SetRect(&rect, rectLeft, rectTop, rectRight, rectBottom);

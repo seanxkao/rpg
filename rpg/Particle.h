@@ -28,8 +28,7 @@ public:
 
 				if(time<life){
 					setARGB(255* (1-rate),172,200,255);
-					float si = 2+80*rate;
-
+					float si = 2+10*rate;
 					setImage(si,si,si,si,0);
 					setBlendMode(ALPHA_LIGHT);
 				}

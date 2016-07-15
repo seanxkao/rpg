@@ -13,6 +13,7 @@ public:
 		this->mapWidth = mapWidth;
 		this->mapHeight = mapHeight;
 		mapChip = new2D(mapWidth, mapHeight, MapChip*);
+		onFlag(RUNNABLE|DRAWABLE);
 	}
 
 	virtual ~Map(){

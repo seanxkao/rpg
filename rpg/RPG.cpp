@@ -57,6 +57,7 @@ public:
 
 	virtual void draw(Drawer *drawer){
 		switch(state){
+			
 			case STATE_NORMAL:
 				setImage(50,50,50,50,0);
 				if(time%16 == 0){
@@ -173,7 +174,7 @@ public:
 
 		currMenu = NULL;
 		MS = NULL;
-		pool = new Pool(10000);
+		pool = new Pool(1000);
 		TM = NULL;
 		system = new System();
 		avatar = new Avatar();
@@ -232,7 +233,6 @@ public:
 	}
 
 	void training_running(){
-		map->main();
 		if(pool!=NULL)pool->main();
 		
 		//²¾°ÊÄá¼v¾÷
@@ -247,10 +247,7 @@ public:
 			delete pool;
 			pool = NULL;
 		}
-		if(map!=NULL){
-			delete map;
-			map = NULL;
-		}
+		map->finish();
 		if(TM!=NULL){
 			delete TM;
 			TM = NULL;
@@ -455,8 +452,6 @@ public:
 				enemyHpBar->setBarSize(50, 10, 50, 10);
 			}
 			for(int i=0;i<20;i++){
-
-				/*
 				// BOX 1
 				float r = random(0,360);
 				float rr = random(0,20);
@@ -464,7 +459,7 @@ public:
 				float s = random(l/30,l/18);
 				float a = random(s/20,s/12);
 				pool->addParticle(45,0,SCREEN_WIDTH/2 + vectorX(l,r) , SCREEN_HEIGHT/2 + vectorY(l,r),vectorX(s,r+90+rr) ,vectorY(s,r+90+rr),vectorX(a,r+180+rr) ,vectorY(a,r+180+rr));
-				*/		
+				
 
 				// BOX 2
 				/*
