@@ -18,7 +18,7 @@ public:
 		ALPHA_COLOR		//2
 	};
 	
-	Image(int imgId):Object(){
+	Image(int imgId): Object(){
 		this->imgId = imgId;
 		length = 4;
 		vertex = NULL;
@@ -27,7 +27,6 @@ public:
 		setBlendMode(ALPHA_NORMAL);
 		setParent(NULL, 0, 0);
 		setFixed(false);
-		setZ(0);
 		go_out = false;
 		onFlag(DRAWABLE);
 	};
@@ -36,6 +35,10 @@ public:
 	};
 
 	virtual ~Image(){
+		if(vertex!=NULL){
+			delete []vertex;
+			vertexBuffer->Release();
+		}
 	};
 
 	void setTexture(float texLeft,float texTop, float texWidth, float texHeight){
@@ -100,7 +103,7 @@ public:
 	}
 
 	void setFixed(bool fixed){
-		this->fixed= fixed;
+		this->fixed = fixed;
 	}
 
 	virtual UINT vertexSize(){
@@ -135,19 +138,18 @@ public:
 	}
 	
 	virtual void draw(Drawer *drawer){
-		if(imgId == -1) return;
+		if(imgId == -1)return;
 		LPDIRECT3DDEVICE9 device = drawer->getDevice();
 		if(vertex == NULL)initVertex(device);
-		void *pVertices = NULL;
+		setVertex();
+		void *pVertices;
 		vertexBuffer->Lock(0, 0, &pVertices, D3DLOCK_DISCARD);
 		memcpy(pVertices, vertex, vertexSize());
 		vertexBuffer->Unlock();
-		
 		device->SetStreamSource(0, vertexBuffer, 0, sizeof(D3DVERTEX));
-		//Ã¸»s¼Ò¦¡
 		if (blendMode == ALPHA_NORMAL){
-			device->SetRenderState(D3DRS_SRCBLEND , D3DBLEND_SRCALPHA);
-			device->SetRenderState(D3DRS_DESTBLEND , D3DBLEND_INVSRCALPHA);
+			device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+			device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 			device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
 			device->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
 			device->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
@@ -156,8 +158,8 @@ public:
 			device->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
 		}
 		else if(blendMode == ALPHA_LIGHT){
-			device->SetRenderState(D3DRS_SRCBLEND , D3DBLEND_SRCALPHA);
-			device->SetRenderState(D3DRS_DESTBLEND , D3DBLEND_ONE );
+			device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+			device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
 			device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
 			device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
 			device->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
@@ -183,7 +185,6 @@ public:
 		
 		float cameraX = drawer->getCameraX();
 		float cameraY = drawer->getCameraY();
-		setVertex();
 		D3DXMATRIX transform, scale, rotate, world;
 		if(fixed){
 			D3DXMatrixTranslation(&transform, x/SCREEN_WIDTH*2-1, y/SCREEN_HEIGHT*2-1, 0);
@@ -343,7 +344,6 @@ public:
 						setAlpha(255*(1 - ratio));
 					}
 					else{
-						setAlpha(0);
 						finish();
 					}
 				}
@@ -369,10 +369,39 @@ public:
 	};
 };
 
-class ImageFan: public Image {
+class ImageFan: public Image{
 public:
-	ImageFan(int length);
-	virtual ~ImageFan();
+	ImageFan(int length){
+		this->length = length;
+		vertex = NULL;
+		fan = new Point[length+1];
+		setTexture(0, 0, 1, 1);
+		setBlendMode(ALPHA_NORMAL);
+		
+		fan[0].x = 20*cosf(0);
+		fan[0].y = 20*sinf(0);
+		fan[0].colorA = 255;
+		fan[0].colorR = 255;
+		fan[0].colorG = 255;
+		fan[0].colorB = 255;
+
+		for(int i = 1; i < length+1; i++){
+			float r = -(float)i*1;
+			fan[i].x = vectorX(300, r);
+			fan[i].y = vectorY(300, r);
+			fan[i].colorA = 255;
+			fan[i].colorR = 255;
+			fan[i].colorG = 255;
+			fan[i].colorB = 255;
+		}
+		imgId = 0;
+		onFlag(DRAWABLE);
+		setZ(0);
+	};
+
+	virtual ~ImageFan(){
+		delete []fan;
+	};
 
 	UINT vertexSize(){
 		return sizeof(D3DVERTEX)*(length+1);
@@ -411,41 +440,26 @@ protected:
 	Point *fan;
 };
 
-ImageFan::ImageFan(int length){
-	this->length = length;
-	vertex = NULL;
-	fan = new Point[length+1];
-	setTexture(0, 0, 1, 1);
-	setBlendMode(ALPHA_NORMAL);
-	
-	fan[0].x = 20*cosf(0);
-	fan[0].y = 20*sinf(0);
-	fan[0].colorA = 255;
-	fan[0].colorR = 255;
-	fan[0].colorG = 255;
-	fan[0].colorB = 255;
 
-	for(int i = 1; i < length+1; i++){
-		float r = -(float)i*1;
-		fan[i].x = vectorX(300, r);
-		fan[i].y = vectorY(300, r);
-		fan[i].colorA = 255;
-		fan[i].colorR = 255;
-		fan[i].colorG = 255;
-		fan[i].colorB = 255;
-	}
-	imgId = 0;
-	onFlag(DRAWABLE);
-	setZ(0);
-};
 
-ImageFan::~ImageFan(){
-};
-
-class ImageStrip: public Image {
+class ImageStrip: public Image{
 public:
-	ImageStrip(int, float, float, float);
-	virtual ~ImageStrip();
+
+	ImageStrip(int length, float len1, float len2, float rad){
+		this->length = length;
+		//vertex = NULL;
+		strip = new Point[length*2+2];
+		//setTexture(0, 0, 1, 1);
+		//onFlag(DRAWABLE);
+		//setFixed(false);
+		//setParent(NULL, 0, 0);
+		//go_out = false;
+		
+	};
+
+	virtual ~ImageStrip(){
+		delete []strip;
+	};
 	
 	UINT vertexSize(){
 		return sizeof(D3DVERTEX)*(length*2+2);
@@ -453,12 +467,11 @@ public:
 	
 	virtual void initVertex(LPDIRECT3DDEVICE9 device){
 		vertex = new D3DVERTEX[length*2+2];
-		device->CreateVertexBuffer(sizeof(D3DVERTEX)*(length*2+2), D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX  , D3DPOOL_DEFAULT ,  &vertexBuffer, NULL);
-		
+		device->CreateVertexBuffer(sizeof(D3DVERTEX)*(length*2+2), D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX, D3DPOOL_DEFAULT, &vertexBuffer, NULL);
 	}
 
 	void setVertex(){
-		for(int i = 0; i < length*2 + 2; i+=2){
+		for(int i=0;i<length*2+2;i+=2){
 			vertex[i].x = strip[i].x;
 			vertex[i].y = strip[i].y;
 			vertex[i].z = 0;
@@ -496,7 +509,7 @@ public:
 		for(int i = length*2+1;i>=num*2;i--){
 			strip[i].setPoint(strip[i-num*2].len, strip[i-num*2].rad, strip[i-num*2].colorA, strip[i-num*2].colorR, strip[i-num*2].colorG, strip[i-num*2].colorB);
 		}
-		for(int i = num*2-1;i>=0;i-=2){
+		for(int i = num*2-1;i>0;i-=2){
 			strip[i-1].setPoint(strip[i+1].len+dLen1, strip[i+1].rad+dRad, strip[i+1].colorA+dAlpha, 255, 255, 255);
 			strip[i].setPoint(strip[i+2].len+dLen2, strip[i+2].rad+dRad, strip[i+2].colorA+dAlpha, 255, 255, 255);
 		}
@@ -506,55 +519,26 @@ protected:
 	Point *strip;
 };
 
-ImageStrip::ImageStrip(int length, float len1, float len2, float rad){
-	this->length = length;
-	vertex = NULL;
-	strip = new Point[length*2+2];
-	setTexture(0, 0, 1, 1);
-	onFlag(DRAWABLE);
-};
-
-ImageStrip::~ImageStrip(){
-};
-
 class SwordShadow: public ImageStrip{
 public:
-	SwordShadow(int length, float len1, float len2, float rad) :
-		ImageStrip(length, len1, len2, rad){
+	SwordShadow(int length, float len1, float len2, float rad): ImageStrip(length, len1, len2, rad){
 		swordLen1 = len1;
 		swordLen2 = len2;
 		setBlend(ALPHA_LIGHT, 3);
-		setAllStrip(swordLen1, swordLen2, 0, 0);
 		imgId = 820;
 		setZ(0.6);
 	}
 	virtual ~SwordShadow(){
 	}
-	virtual void init(){
-		Object::init();
-		wieldTime = 0;
-		setAllStrip(swordLen1, swordLen2, 0, 0);
-	}
 	virtual void wield(int wieldTime, float wieldStart, float wieldEnd){
 		this->wieldTime = wieldTime;
 		this->wieldStart = wieldStart;
 		this->wieldEnd = wieldEnd;
-		time = 0;
-		setAllStrip(swordLen1, swordLen2, wieldStart, 255);
+		setAllStrip(swordLen1, swordLen2, wieldStart, 0);
 	}
 	float getSwordRad(){
 		return swordRad;
 	}
-	virtual void mainProc(){
-		swordRad = wieldStart + (wieldEnd-wieldStart)*(float)time/wieldTime;
-		if(time<=wieldTime){
-			addStrip(5, swordLen1, swordLen2, swordRad, 255);
-		}
-		for(int i=0;i<length*2+2;i++){
-			strip[i].setPoint(strip[i].len, strip[i].rad, strip[i].colorA*0.85, strip[i].colorR*0.9, strip[i].colorG*0.9, strip[i].colorB);
-		}
-	}
-
 protected:
 	float swordLen1;
 	float swordLen2;
@@ -562,6 +546,19 @@ protected:
 	float wieldStart;
 	float wieldEnd;
 	float wieldTime;
+	virtual void mainProc(){
+			
+		swordRad = wieldStart + (wieldEnd-wieldStart)*(float)time/wieldTime;
+		if(time<=wieldTime){
+			addStrip(5, swordLen1, swordLen2, swordRad, 255);
+		}
+		for(int i=0;i<length*2+2;i++){
+			strip[i].setPoint(strip[i].len, strip[i].rad, strip[i].colorA*0.65, strip[i].colorR*0.7, strip[i].colorG*0.7, strip[i].colorB);
+		}
+		if(time>=wieldTime*4||parent->isFinished()){
+			finish();
+		}
+	}
 };
 
 class AnimeBlock: public Image{
@@ -569,6 +566,9 @@ public:
 	AnimeBlock(): Image(){
 		imgId = 500;
 		setAlpha(192);
+		setZ(0.9);
+		setImage(0, 64, (float)time/20*SCREEN_WIDTH, 64, 0);
+		setTexture(0, 0, (float)time/20, 1);
 	}
 
 	virtual ~AnimeBlock(){
@@ -579,16 +579,16 @@ public:
 			setImage(0, 64, (float)time/20*SCREEN_WIDTH, 64, 0);
 			setTexture(0, 0, (float)time/20, 1);
 		}
-		else if (time<60){
+		else if(time<60){
 			setImage(0, 64, SCREEN_WIDTH ,64 ,0);
 			setTexture(0, 0, 1, 1) ;
 		}
-		else if (time<80){
+		else if(time<80){
 			setImage(-((float)time - 60)/20*SCREEN_WIDTH, 64, SCREEN_WIDTH, 64, 0);
 			setTexture((float)(time - 60)/20, 0, 1, 1) ;
 		}
 		else {
-			setAlpha(0);
+			finish();
 		}
 	}
 };

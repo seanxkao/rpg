@@ -10,8 +10,7 @@ using namespace std;
 
 class Object{	//the foundamental game object
 public:
-	static list<Object*> *allObject;
-	static vector<Object*> *drawQueue;
+	static queue<Object*> *createQueue;
 	static const unsigned int RUNNABLE = 1;
 	static const unsigned int DRAWABLE = 2;
 	static const unsigned int INPUTABLE = 4;
@@ -25,8 +24,7 @@ public:
 		finished = false;
 		flag = 0;
 		onFlag(RUNNABLE);
-		Object::allObject->push_back(this);
-		Object::drawQueue->push_back(this);
+		Object::createQueue->push(this);
 	}
 	
 	virtual ~Object(){
@@ -100,7 +98,9 @@ public:
 
 	void finish(){
 		finished = true;
+		onFinish();
 	}
+	
 	
 	bool isFinished(){
 		return finished;
@@ -190,6 +190,8 @@ protected:
 		y += my;
 		time++;
 	}
+	
+	virtual void onFinish(){};
 	
 };
 

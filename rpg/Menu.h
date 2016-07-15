@@ -71,6 +71,7 @@ public:
 		}
 	}
 	
+	
 	virtual void stateStart(){
 		if(state == STATE_DISAPPEAR){
 			for(vector<Image*>::iterator it = image.begin();it!=image.end();++it){
@@ -100,7 +101,6 @@ protected:
 	Button	*button;
 	Button	*btnNow;
 	int		btnPressed;
-	bool	finished;
 	virtual void create(){};
 	virtual void normal(){};
 	virtual void pressed(){};
@@ -197,10 +197,15 @@ public:
 			finish();
 		}
 	}
-
 protected:
 	float distance;
 	bool orientation;	//0 = horizontal, 1 = verticle
+
+	virtual void onFinish(){
+		for(int i=0;i<size;i++){
+			button[i].finish();
+		}
+	}
 };
 
 class MainMenu: public ListMenu{

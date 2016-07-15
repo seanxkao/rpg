@@ -9,12 +9,9 @@ public:
 		bdyEnable = false;
 		atkEnable = false;
 		direction = 90;
-		swordShadow = new SwordShadow(200, 20, 80, 255);
-		swordShadow->setParent(this, 0, 0);
 	}
 
 	virtual ~Body(){
-		swordShadow->finish();
 	}
 
 	enum STATE {
@@ -86,6 +83,9 @@ public:
 		this->hp -= damage;
 		return damage;
 	}
+	
+	virtual int onCreate(){
+	}
 
 	void setHp(int hp, int maxHp){
 		this->hp = hp;
@@ -99,9 +99,6 @@ public:
 		return maxHp;
 	}
 
-	virtual void onCreate(){
-		swordShadow->init();		
-	}
 
 protected:
 	float direction;
@@ -113,7 +110,6 @@ protected:
 	int hp;
 	int maxHp;
 	Status *status;	
-	SwordShadow *swordShadow;
 };
 
 

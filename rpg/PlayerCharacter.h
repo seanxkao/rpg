@@ -2,7 +2,7 @@
 #include "Controller.h"
 
 
-class PlayerCharacter: public Body {
+class PlayerCharacter: public Body{
 public:
 	int revive;
 	PlayerCharacter(Controller*);
@@ -17,13 +17,11 @@ public:
 	}
 	void moveBody(){
 		float direction = controller->getDirection();
-		if	(direction>=0){
+		if(direction>=0){
 			this->direction = direction;
 			Vector2D *velocity = Vector2D::polar(8, direction);
-
 			x += velocity->getX();
 			y += velocity->getY();
-
 		}
 
 		if(x < FRAME_LEFT + 50){
@@ -42,7 +40,6 @@ public:
 
 	virtual void draw(Drawer *drawer){
 		switch(state){
-			
 			case STATE_NORMAL:
 				setImage(50,50,50,50,0);
 				if(time%16 == 0){
@@ -65,7 +62,7 @@ public:
 				if(time<25){
 					imgRad+=17;
 					setAlpha(255-time*10);
-					setImage(30+time*7,30+time*7,30+time*7,30+time*7,imgRad);
+					setImage(30+time*7, 30+time*7, 30+time*7, 30+time*7, imgRad);
 				}
 				else{
 					setAlpha(0);
@@ -80,10 +77,18 @@ public:
 		Body::mainStart();
 	}
 
+	virtual void stateStart(){
+		if(state==0){
+			setSpeed(3, 0, 0);
+		}
+		else if(state==1){
+			setSpeed(3, direction, 1);
+		}
+	}
+	
 	virtual void mainProc(){
 		if(state==0){
 			setBody(BDY_NORMAL, 20);
-			setSpeed(3, 0, 0);
 			moveBody();
 			if(controller->getNormalAtk()){
 				setState(1);
@@ -94,7 +99,8 @@ public:
 		else if(state==1){
 			setBody(BDY_NORMAL, 25);
 			if(time==0){
-				//bulletManager->addBullet(x,y,0,0,0.0,1,1,10,0,1,0);
+				SwordShadow *swordShadow = new SwordShadow(200, 20, 80, 255);
+				swordShadow->setParent(this, 0, 0);
 				if(rand()<RAND_MAX/2){
 					swordShadow->wield(5, direction - 100, direction + 100);
 				}
@@ -105,7 +111,7 @@ public:
 			else if(time==1){
 				status = avatar->getStatus();
 				int atk = randomRange(status->getMinPAtk(), status->getMaxPAtk());
-				setAttack(atk, 0, 10, 100, direction-60, direction+60);
+				setAttack(atk, 0, 4, 100, direction-60, direction+60);
 			}
 			else if(time > 4){
 				setState(0);

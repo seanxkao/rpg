@@ -17,8 +17,9 @@ public:
 	System(){
 		drawer = new Drawer();
 		keyboard= new Keyboard(20, 10);
-		allObject = Object::allObject;
-		drawQueue = Object::drawQueue;
+		createQueue = Object::createQueue;
+		allObject = new list<Object*>;
+		drawQueue = new vector<Object*>;
 	}
 	~System(){
 		delete drawer;
@@ -53,7 +54,16 @@ public:
 		}
 		return menu;
 	}
-
+	
+	virtual void create(){
+		while(!createQueue->empty()){
+			Object *newObject = createQueue->front();
+			if(newObject->isRunnable())allObject->push_back(newObject);
+			if(newObject->isDrawable())drawQueue->push_back(newObject);
+			createQueue->pop();
+		}
+	}
+	
 	virtual void onInput(){
 		keyboard->main();
 		for(auto inputable: *allObject){
@@ -103,6 +113,7 @@ public:
 	}
 
 protected:
+	queue<Object*> *createQueue;
 	list<Object*> *allObject;
 	vector<Object*> *drawQueue;
 	Drawer *drawer;

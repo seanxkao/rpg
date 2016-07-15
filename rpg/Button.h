@@ -192,7 +192,6 @@ public:
 	void pressed(){
 	}
 	void disappear(){
-		if(time>=10)finish();
 	}
 
 };

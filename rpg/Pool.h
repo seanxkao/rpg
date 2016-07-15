@@ -25,15 +25,6 @@ public:
 			}
 		}
 	}
-	void draw(Drawer *drawer){
-		/*
-		for(int i = 0;i < size;i++){
-			if(particle[i].alife()){
-				particle[i].draw(drawer);
-			}
-		}
-		*/
-	}
 
 	void main(){
 		/*

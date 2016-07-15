@@ -9,8 +9,9 @@
 #include <memory.h>
 #include <tchar.h>
 //C++
-#include <list>
 #include <vector>
+#include <queue>
+#include <list>
 #include <string>
 #include <sstream>
 #include <algorithm>

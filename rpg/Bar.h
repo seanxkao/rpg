@@ -42,6 +42,7 @@ public:
 		this->barTop = barTop;
 		this->barWidth = barWidth;
 		this->barHeight = barHeight;
+		valWidth = barWidth;
 	}
 
 	void setFixed(bool fixed){
@@ -55,6 +56,7 @@ protected:
 	float barTop;
 	float barWidth;
 	float barHeight;
+	float valWidth;
 	float value;
 	float max;
 
@@ -65,17 +67,21 @@ protected:
 
 	virtual void mainProc(){
 		if(refer!=NULL){
-			value = (float)(refer->*getValue)();
-			max = (float)(refer->*getMax)();
 			if(refer->isFinished()){
-				bar->finish();
-				frame->finish();
 				finish();
 			}
+			value = (float)(refer->*getValue)();
+			max = (float)(refer->*getMax)();
 		}
-		float valWidth = bound((barWidth+barLeft)*(value/max) - barLeft, -barLeft, barWidth);
+		float nextValWidth = bound((barWidth+barLeft)*(value/max) - barLeft, -barLeft, barWidth);
+		valWidth = (valWidth*2+nextValWidth)/3;
 		bar->setImage(barLeft, barTop, valWidth, barHeight, 0);
 		frame->setImage(barLeft, barTop, barWidth, barHeight, 0);
+	}
+	
+	virtual void onFinish(){
+		bar->finish();
+		frame->finish();
 	}
 };
 

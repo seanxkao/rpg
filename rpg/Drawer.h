@@ -13,14 +13,14 @@ public:
 	};
 
 	~Drawer(){
-		if  (direct3DDevice!=NULL){
+		if(direct3DDevice!=NULL){
 			direct3DDevice->Release();
 		}
-		if  (direct3D != NULL){
+		if(direct3D != NULL){
 			direct3D->Release();
 		}
 		for(int i=0;i<10000;i++){	
-			if  (texture[i]) {
+			if(texture[i]){
 				texture[i]->Release();
 				texture[i] = NULL;
 			}
@@ -29,7 +29,7 @@ public:
 	}
 
 	void drawAll(){
-		if(direct3DDevice->Present( NULL, NULL, NULL, NULL )==D3DERR_DEVICELOST){
+		if(direct3DDevice->Present(NULL, NULL, NULL, NULL)==D3DERR_DEVICELOST){
 		}
 	}
 
@@ -37,9 +37,8 @@ public:
 		direct3DDevice->Clear(0, NULL, D3DCLEAR_TARGET| D3DCLEAR_ZBUFFER, D3DCOLOR_ARGB(255, 0,0,0),1.0f, 0 );
 	}
 
-	void loadTexture(int img, LPCWSTR file)
-	{
-		D3DXCreateTextureFromFileExW(direct3DDevice, file, 0, 0, 0, 0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_FILTER_LINEAR, D3DX_FILTER_LINEAR, D3DCOLOR_XRGB(0, 0, 0), NULL, NULL,&texture[img]);
+	void loadTexture(int img, LPCWSTR file){
+		D3DXCreateTextureFromFileExW(direct3DDevice, file, 0, 0, 0, 0, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_FILTER_LINEAR, D3DX_FILTER_LINEAR, D3DCOLOR_XRGB(0, 0, 0), NULL, NULL,&texture[img]);
 	}
 
 	bool initD3D(HWND hWnd){
@@ -76,14 +75,12 @@ public:
 		}
 		direct3DDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
 		direct3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-		
 		direct3DDevice->SetRenderState(D3DRS_ZENABLE, false);
 
 		//linear
 		direct3DDevice->SetSamplerState( 0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR );
 		direct3DDevice->SetSamplerState( 0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR );
 		direct3DDevice->SetSamplerState( 0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR );
-
 
 		texture = new LPDIRECT3DTEXTURE9[10000];
 
@@ -162,16 +159,11 @@ public:
 		loadTexture(4005, L"image/enemy_bullet_5.bmp"); 
 		loadTexture(4006, L"image/enemy_bullet_6.bmp"); 
 		loadTexture(4007, L"image/enemy_bullet_7.bmp"); 
-		//text
-		//D3DXCreateFont(direct3DDevice, 20, 0, FW_BOLD, 0, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, TEXT("Arial"), &d_text);
 		return true;
 	}
 
 
-
 	void moveCamera(float x, float y){
-		//地圖小於攝影機視野-視角設定在中央
-		//攝影機邊界不能超出地圖邊界
 		float prevX = cameraX;
 		float prevY = cameraY;
 		if(mapWidth < SCREEN_WIDTH){
@@ -192,7 +184,6 @@ public:
 			}
 		}
 		
-
 		if(mapHeight < SCREEN_HEIGHT){
 			cameraY = (SCREEN_HEIGHT - mapHeight)/2;
 		}

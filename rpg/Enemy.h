@@ -7,7 +7,7 @@
 
 class Enemy : public Body{
 public:
-	Enemy():Body(){
+	Enemy(): Body(){
 		setImage(15, 15, 30, 30, 0);
 		setImgId(1000);
 		setHp(100, 100);
@@ -54,7 +54,7 @@ protected:
 
 class EnemySoldier : public Enemy{
 public:
-	EnemySoldier():Enemy(){
+	EnemySoldier(): Enemy(){
 		setImgId(3001);
 		setHp(30, 30);
 		exp = 10;
@@ -68,6 +68,7 @@ public:
 				setImage(40, 40, 40, 40, 0);
 				break;
 			case STATE_DAMAGED:
+				setImage(40, 40, 40, 40, 0);
 				break;
 			case STATE_DISAPPEAR:
 				if(time<25){
@@ -91,6 +92,8 @@ protected:
 			setSpeed(4, 0, 0);
 
 			if(time%50==31){
+				SwordShadow *swordShadow = new SwordShadow(200, 20, 80, 255);
+				swordShadow->setParent(this, 0, 0);
 				swordShadow->wield(4, direction - 100, direction+100);
 
 			}
@@ -108,7 +111,6 @@ protected:
 	virtual void disappear(){
 		if(time>=25){
 			finish();
-			swordShadow->finish();
 		}
 	}
 };
@@ -143,7 +145,6 @@ public:
 				return enemy;
 			}
 		}
-		return NULL;
 	}
 
 protected:

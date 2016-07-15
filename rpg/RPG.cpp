@@ -14,8 +14,7 @@
 
 ////////////////////////////////////////物件設定/////////////////////////////////////////////////////
 
-list<Object*> *Object::allObject = new list<Object*>;
-vector<Object*> *Object::drawQueue = new vector<Object*>;
+queue<Object*> *Object::createQueue = new queue<Object*>;
 
 
 class Game{
@@ -26,14 +25,14 @@ public:
 		time = 0;
 
 		currMenu = NULL;
-		MS = NULL;
+		player = NULL;
 		pool = new Pool(1000);
 		TM = NULL;
 		system = new System();
 		avatar = new Avatar();
 		
-		EBM = new BodySystem(1000);
-		MBM = new BodySystem(1000);
+		enemyManager = new BodySystem(1000);
+		//playerProjManager = new BodySystem(1000);
 	}
 	~Game();
 
@@ -49,32 +48,30 @@ public:
 	Avatar *avatar;
 	Menu *currMenu;
 
-	PlayerCharacter			*MS;
+	PlayerCharacter	*player;
 	MyController	*myController;
-	BodySystem		*EBM;
-	BodySystem		*MBM;
+	BodySystem		*enemyManager;
+	BodySystem		*playerProjManager;
 	Pool			*pool;
 	TextManager		*TM;
 	Map				*map;
 	
 	void training_start(){
 		myController = new MyController();
-		MS = new PlayerCharacter(myController);
-		MS->setAvatar(avatar);
+		player = new PlayerCharacter(myController);
+		player->setAvatar(avatar);
 		
-		Bar *MS_Bar = system->createBar(0, MS, MS);
-		MS_Bar->setParent(0, 70);
-		MS_Bar->setBarSize(50, 10, 50, 10);
+		Bar *playerHpBar = system->createBar(0, player, player);
+		playerHpBar->setParent(0, 70);
+		playerHpBar->setBarSize(50, 10, 50, 10);
 		
 		ID3DXFont *font;
 		D3DXCreateFont(system->getDrawer()->getDevice(), 46, 0, FW_NORMAL, 1, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "Arial", &font);   
 		TM = new TextManager(200, font);
 		
-		PlayerPanel *playerPanel = new PlayerPanel(system->getDrawer(), MS);
+		PlayerPanel *playerPanel = new PlayerPanel(system->getDrawer(), player);
 		playerPanel->setAvatar(avatar);
-		system->getDrawer()->setCamera(SCREEN_WIDTH/3, SCREEN_HEIGHT/4, SCREEN_WIDTH*2/3, SCREEN_HEIGHT/2);
 		
-
 		map = new Map(0, 15, 15);		
 		int **m = new2D(15, 15, int);
 		for(int i=0;i<15;i++){	
@@ -83,84 +80,88 @@ public:
 			}
 		}
 		map->addChip(m);
+		
+		system->getDrawer()->setCamera(SCREEN_WIDTH/3, SCREEN_HEIGHT/4, SCREEN_WIDTH*2/3, SCREEN_HEIGHT/2);
+		system->getDrawer()->setMapSize(map->getAllWidth(), map->getAllHeight());
+
 	}
 
 	void training_running(){
 		if(pool!=NULL)pool->main();
 		
 		//移動攝影機
-		system->getDrawer()->setMapSize(map->getAllWidth(), map->getAllHeight());
-		system->getDrawer()->moveCamera(MS->getX(), MS->getY());
+		system->getDrawer()->moveCamera(player->getX(), player->getY());
 	}
 
 	void training_end(){
 		delete myController;
-		MS->finish();
+		player->finish();
 		delete TM;	
 		map->finish();
 		delete pool;
 	}
 
 	void collide(){
+		/*
 		for(int i=0;i<1000;i++){
 			for(int j=0;j<1000;j++){
-				Body *MB = MBM->getBody(i);
-				Body *EB = EBM->getBody(j);
-				if(MB!=NULL && EB!=NULL){
-					if(Body::crash(MB, EB)){
-						MB->setState(Body::STATE_DAMAGED);
-						EB->onDamaged(MB);
-						float EB_X = EB->getX();
-						float EB_Y = EB->getY();
-						float MB_X = MB->getX();
-						float MB_Y = MB->getY();
-						float x = (MB_X*1 + EB_X*4)/5 + random(0, 20);
-						float y = (MB_Y*1 + EB_Y*4)/5 + random(0, 20);
+				Body *playerProj = playerProjManager->getBody(i);
+				Body *enemy = enemyManager->getBody(j);
+				if(playerProj!=NULL && enemy!=NULL){
+					if(Body::crash(playerProj, enemy)){
+						playerProj->setState(Body::STATE_DAMAGED);
+						enemy->onDamaged(playerProj);
+						float enemyX = enemy->getX();
+						float enemyY = enemy->getY();
+						float playerProjX = playerProj->getX();
+						float playerProjY = playerProj->getY();
+						float x = (playerProjX*1 + enemyX*4)/5 + random(0, 20);
+						float y = (playerProjY*1 + enemyY*4)/5 + random(0, 20);
 						pool->addParticle(4, 1, x, y, 0, 0, 0, 0);
 
-						TM->addText("5", 25, 25, 50, 50 , 255, 255, 0, 0, 0, 0, EB_X, EB_Y + 80, 0, 0, EB_X, EB_Y + 80, 20, 0, EB_X, EB_Y + 130);
+						TM->addText("5", 25, 25, 50, 50 , 255, 255, 0, 0, 0, 0, enemyX, enemyY + 80, 0, 0, enemyX, enemyY + 80, 20, 0, enemyX, enemyY + 130);
 						break;
 					}
 				}
 			}
 		}
-		
+		*/
 		for(int j=0;j<1000;j++){
-			Body *EB = EBM->getBody(j);
-			if(EB!=NULL){
-				if(Body::crash(MS, EB)){
-					int injure = EB->onDamaged(MS);
-					float EB_X = EB->getX();
-					float EB_Y = EB->getY();
-					float MS_X = MS->getX();
-					float MS_Y = MS->getY();
-					float P_X = random((MS_X*1 + EB_X*4)/5, 20);
-					float P_Y = random((MS_Y*1 + EB_Y*4)/5, 20);
+			Body *enemy = enemyManager->getBody(j);
+			if(enemy!=NULL){
+				if(Body::crash(player, enemy)){
+					int injure = enemy->onDamaged(player);
+					float enemyX = enemy->getX();
+					float enemyY = enemy->getY();
+					float playerX = player->getX();
+					float playerY = player->getY();
+					float particleX = random((playerX*1 + enemyX*4)/5, 20);
+					float particleY = random((playerY*1 + enemyY*4)/5, 20);
 
-					pool->addParticle(4, 1, P_X, P_Y, 0, 0, 0, 0);
+					pool->addParticle(4, 1, particleX, particleY, 0, 0, 0, 0);
 					
 					stringstream ss;
 					ss<<injure;
 					string test=ss.str();
 
-					TM->addText(test, 25, 25, 50, 50 , 255, 255, 255, 255, 0, 0, EB_X, EB_Y + 80, 0, 0, EB_X, EB_Y + 80, 20, 0, EB_X, EB_Y + 130);
+					TM->addText(test, 25, 25, 50, 50 , 255, 255, 255, 255, 0, 0, enemyX, enemyY + 80, 0, 0, enemyX, enemyY + 80, 20, 0, enemyX, enemyY + 130);
 				}
 				
-				if(Body::crash(EB, MS)){
-					int injure = MS->onDamaged(EB);
-					float EB_X = EB->getX();
-					float EB_Y = EB->getY();
-					float MS_X = MS->getX();
-					float MS_Y = MS->getY();
-					float P_X = random((MS_X*4 + EB_X*1)/5, 20);
-					float P_Y = random((MS_Y*4 + EB_Y*1)/5, 20);
-					pool->addParticle(4, 1, P_X, P_Y, 0, 0, 0, 0);
+				if(Body::crash(enemy, player)){
+					int injure = player->onDamaged(enemy);
+					float enemyX = enemy->getX();
+					float enemyY = enemy->getY();
+					float playerX = player->getX();
+					float playerY = player->getY();
+					float particleX = random((playerX*4 + enemyX*1)/5, 20);
+					float particleY = random((playerY*4 + enemyY*1)/5, 20);
+					pool->addParticle(4, 1, particleX, particleY, 0, 0, 0, 0);
 
 					stringstream ss;
 					ss<<injure;
 					string test=ss.str();
 
-					TM->addText(test, 25, 25, 50, 50 , 255, 255, 0, 0, 0, 0, MS_X, MS_Y + 80, 0, 0, MS_X, MS_Y + 80, 20, 0, MS_X, MS_Y + 130);
+					TM->addText(test, 25, 25, 50, 50 , 255, 255, 0, 0, 0, 0, playerX, playerY + 80, 0, 0, playerX, playerY + 80, 20, 0, playerX, playerY + 130);
 				}
 			}
 		}
@@ -171,10 +172,8 @@ public:
 	}
 
 	void draw(){
-		Drawer *drawer = system->getDrawer();
-		if(pool!=NULL)pool->draw(drawer);
 		system->draw();
-		drawer->drawAll();
+		system->getDrawer()->drawAll();
 	}
 
 	void stateStart(){
@@ -191,7 +190,7 @@ public:
 			case 100:
 			{
 				training_start();
-				MS->setPosition(SCREEN_WIDTH/2,FRAME_DOWN+50);
+				player->setPosition(SCREEN_WIDTH/2,FRAME_DOWN+50);
 				AnimeBlock *animeBlock = new AnimeBlock;
 				animeBlock->setPosition(0,SCREEN_HEIGHT/2+70);
 				break;
@@ -199,7 +198,7 @@ public:
 			case 101:
 			{
 				training_start();
-				MS->setPosition(SCREEN_WIDTH/2,FRAME_DOWN+50);
+				player->setPosition(SCREEN_WIDTH/2,FRAME_DOWN+50);
 				AnimeBlock *animeBlock = new AnimeBlock;
 				animeBlock->setPosition(0,SCREEN_HEIGHT/2+70);
 				break;
@@ -207,7 +206,7 @@ public:
 			case 102:
 			{
 				training_start();
-				MS->setPosition(SCREEN_WIDTH/2,FRAME_DOWN+50);
+				player->setPosition(SCREEN_WIDTH/2,FRAME_DOWN+50);
 				AnimeBlock *animeBlock = new AnimeBlock;
 				animeBlock -> setPosition(0,SCREEN_HEIGHT/2+70);
 				break;
@@ -228,6 +227,7 @@ public:
 	}
 	bool mainProc(){
 		bool end = false;
+		system->create();
 		if(system!=NULL){
 			system->onInput();
 		}
@@ -292,8 +292,8 @@ public:
 		}
 		else if(state==100){
 			myController->onInput(system->getKeyboard());
-			if (time%35==0){
-				Enemy *enemy = EBM->addEnemySoldier(SCREEN_WIDTH/2, SCREEN_HEIGHT/2,0,0);
+			if (time%60==0){
+				Enemy *enemy = enemyManager->addEnemySoldier(SCREEN_WIDTH/2, SCREEN_HEIGHT/2,0,0);
 				Bar *enemyHpBar = system->createBar(0, enemy, enemy);
 				enemyHpBar->setParent(0, 70);
 				enemyHpBar->setBarSize(50, 10, 50, 10);
@@ -320,22 +320,18 @@ public:
 				*/
 			}
 
-			if(time>=10000){
-				training_end();
-				change_state(10);
-			}
+			//if(time>=10000){
+			//	training_end();
+			//	change_state(10);
+			//}
 			collide();
 			training_running();
 		}
 
 		else if(state==101){
 			if(time<300){
-				if(time%20==0){
-					//EBM->addBullet(SCREEN_WIDTH/2,SCREEN_HEIGHT-200,0, 7,time*7.3, 36 , 1 , 10 , 0 ,1,100);
-				}
 			}
 			else if(time==300){
-				//EBM->clear();
 			}
 			else if(time==400){
 				training_end();
@@ -347,10 +343,6 @@ public:
 
 		else if(state==102){
 			if(time>100 && time<400){
-				if(time%3==0){
-					//EBM->addBullet(SCREEN_WIDTH/2,SCREEN_HEIGHT/2,0,16,MS,3,1,20,0,1,100);
-					//EBM->addBullet(SCREEN_WIDTH/2,SCREEN_HEIGHT/2,0,random(12,10),random(0,360),4,1,90,0,1,100);
-				}
 			}
 			else if(time==400){
 			}
@@ -364,21 +356,21 @@ public:
 		}
 
 
-		system->main();
 		
-		if(EBM!=NULL){
+		if(enemyManager!=NULL){
 			for(int i=0;i<1000;i++){
-				Enemy *enemy = (Enemy*)EBM->getBody(i);
+				Enemy *enemy = (Enemy*)enemyManager->getBody(i);
 				if(enemy!=NULL){
 					if(enemy->isFinished()){
 						int exp = enemy->getExp();
 						avatar->addExp(exp);
-						EBM->removeBody(i);
+						enemyManager->removeBody(i);
 					}
 				}
 			}
 		}
 		
+		system->main();
 		draw();
 		system->garbageCollect();
 		return end;
@@ -396,9 +388,9 @@ public:
 };
 
 Game::~Game(){
-	if(MS != NULL){
-		delete MS;
-		MS = NULL;
+	if(player != NULL){
+		delete player;
+		player = NULL;
 	}
 }
 
