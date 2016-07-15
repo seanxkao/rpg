@@ -174,7 +174,7 @@ public:
 
 		currMenu = NULL;
 		MS = NULL;
-		pool = new Pool(10000);
+		pool = new Pool(1000);
 		TM = NULL;
 		system = new System();
 		avatar = new Avatar();

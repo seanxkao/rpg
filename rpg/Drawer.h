@@ -85,7 +85,7 @@ public:
 		direct3DDevice->SetSamplerState( 0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR );
 
 
-		texture = new LPDIRECT3DTEXTURE9[1000];
+		texture = new LPDIRECT3DTEXTURE9[10000];
 
 		for(int i=0;i<10000;i++){	
 			texture[i] = NULL;

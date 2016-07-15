@@ -103,7 +103,6 @@ public:
 		this->fixed= fixed;
 	}
 
-
 	virtual UINT vertexSize(){
 		return sizeof(D3DVERTEX)*4;
 	}
@@ -384,7 +383,7 @@ public:
 
 	virtual void initVertex(LPDIRECT3DDEVICE9 device){
 		vertex = new D3DVERTEX[length+1];
-		device->CreateVertexBuffer( sizeof(D3DVERTEX)*(length+1), D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX  , D3DPOOL_MANAGED ,  &vertexBuffer, NULL);
+		device->CreateVertexBuffer(sizeof(D3DVERTEX)*(length+1), D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX, D3DPOOL_DEFAULT , &vertexBuffer, NULL);
 	}
 	
 	void setVertex(){
@@ -408,7 +407,7 @@ public:
 	}
 	
 	void drawVertex(LPDIRECT3DDEVICE9 &device){
-		device->DrawPrimitive(D3DPT_TRIANGLEFAN, 0, length-2 );
+		device->DrawPrimitive(D3DPT_TRIANGLEFAN, 0, length-2);
 	}
 	
 protected:
@@ -456,7 +455,8 @@ public:
 	
 	virtual void initVertex(LPDIRECT3DDEVICE9 device){
 		vertex = new D3DVERTEX[length*2+2];
-		device->CreateVertexBuffer(sizeof(D3DVERTEX)*(length*2+2), D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX  , D3DPOOL_MANAGED ,  &vertexBuffer, NULL);
+		device->CreateVertexBuffer(sizeof(D3DVERTEX)*(length*2+2), D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX  , D3DPOOL_DEFAULT ,  &vertexBuffer, NULL);
+		
 	}
 
 	void setVertex(){
