@@ -7,15 +7,13 @@ class Text : public Object{
 
 public:
 	Text(){
-		exist = false;
 		setFixed(false);
 		setWord("");
 		setARGB(255, 255, 255, 255);
 		onFlag(DRAWABLE);
-		setZ(0.6);
+		setZ(0.9);
 	}
 	Text(string word, int colorA, int colorR, int colorG, int colorB){
-		exist = false;
 		setFixed(false);
 		setWord(word);
 		setARGB(colorA, colorR, colorG, colorB);
@@ -64,40 +62,26 @@ public:
 		wordStr = word;
 		this->word = wordStr.c_str();
 	}
-	void setExist(bool exist){
-		this->exist = exist;
-	}
-
-	bool isExist(){
-		return exist;
-	}
-
+	
 	virtual void draw(Drawer *drawer){
 		float cameraX = drawer->getCameraX();
 		float cameraY = drawer->getCameraY();
 		
-		int rectLeft;
-		int rectTop;
-		int rectRight;
-		int rectBottom;
-		if(fixed){
-			rectLeft = (int)((x - textLeft));
-			rectTop = (int)(SCREEN_HEIGHT-(y - textTop));
-			rectRight = (int)((x - textLeft + textWidth));
-			rectBottom = (int)(SCREEN_HEIGHT-(y - textTop + textHeight));
-		}
-		else{
-			rectLeft = (int)((x - textLeft)+cameraX);
-			rectTop = (int)(SCREEN_HEIGHT-(y - textTop)+cameraY);
-			rectRight = (int)((x - textLeft + textWidth)+cameraX);
-			rectBottom = (int)(SCREEN_HEIGHT-(y - textTop + textHeight )+cameraY);
+		int	rectLeft = (int)((x - textLeft));
+		int	rectTop = (int)(SCREEN_HEIGHT-(y - textTop));
+		int	rectRight = (int)((x - textLeft + textWidth));
+		int	rectBottom = (int)(SCREEN_HEIGHT-(y - textTop + textHeight));
+		if(!fixed){
+			rectLeft += cameraX;
+			rectTop += cameraY;
+			rectRight += cameraX;
+			rectBottom += cameraY;
 		}
 		SetRect(&rect, rectLeft, rectTop, rectRight, rectBottom);
 		font->DrawText(NULL, word, -1, &rect, DT_LEFT|DT_NOCLIP, D3DCOLOR_ARGB(colorA, colorR, colorG, colorB));
 	}
 
 protected:
-	bool exist;
 	bool fixed;
 
 	float textLeft;
@@ -223,17 +207,16 @@ public:
 	virtual ~TextManager(){
 	}
 
-	void addText(string word, float left, float top, float width, float height, int colorA, int colorR, int colorG, int colorB, int inTime,int inMode,float inX,float inY, int onTime,int onMode,float onX,float onY, int outTime,int outMode,float outX,float outY){
+	Text* addText(string word, float left, float top, float width, float height, int colorA, int colorR, int colorG, int colorB, int inTime,int inMode,float inX,float inY, int onTime,int onMode,float onX,float onY, int outTime,int outMode,float outX,float outY){
 		AnimeText *text = new AnimeText();
 		text->setFont(font);
-		text->setExist(true);
-		text->init();
 		text->setText(left, top, width, height);
 		text->setWord(word);
 		text->setARGB(colorA, colorR, colorG, colorB);
 		text->setIn(inTime, inMode, inX, inY);
 		text->setOn(onTime, onMode, onX, onY);
 		text->setOut(outTime, outMode, outX, outY);
+		return text;
 	}
 
 protected:

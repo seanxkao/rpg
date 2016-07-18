@@ -76,17 +76,13 @@ public:
 	virtual void draw(){
 		sort(drawQueue->begin(), drawQueue->end(), ZSorter());
 		for(auto drawable: *drawQueue){
-			if(drawable->isDrawable()){
-				drawable->draw(drawer);
-			}
+			drawable->draw(drawer);
 		}
 	}
 
 	virtual void main(){
 		for(auto runnable: *allObject){
-			if(runnable->isRunnable()){
-				runnable->main();
-			}
+			runnable->main();
 		}
 	}
 
@@ -101,9 +97,7 @@ public:
 		}
 		for(auto it = allObject->begin();it!=allObject->end();){
 			if((*it)->isFinished()){
-				if(!(*it)->isZombie()){
-					delete (*it);
-				}
+				delete (*it);
 				it = allObject->erase(it);
 			}
 			else{

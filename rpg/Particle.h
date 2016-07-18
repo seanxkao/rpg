@@ -21,16 +21,16 @@ public:
 	}
 
 	virtual void draw(Drawer *drawer){
+		if(!exist)return;
 		if(kind==0){
 			if(state==0){	
 				imgId = 800;
 				float rate = (float)time/life;
-
 				if(time<life){
-					setARGB(255* (1-rate),172,200,255);
+					setARGB(255*(1-rate), 172, 200, 255);
 					float si = 2+10*rate;
 					setImage(si,si,si,si,0);
-					setBlendMode(ALPHA_LIGHT);
+					setBlend(ALPHA_LIGHT, 3);
 				}
 				//fire
 				/*
@@ -69,6 +69,7 @@ public:
 	}
 
 	virtual void mainProc(){
+		if(!exist)return;
 		if(kind==0){
 			if(state==0){
 				if(time>=life){

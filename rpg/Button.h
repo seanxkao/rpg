@@ -31,16 +31,16 @@ public:
 	}
 
 	void setBtnLink(Button* button_left, Button* button_right, Button* button_up, Button* button_down){
-		this->button_left  = button_left ;
+		this->button_left  = button_left;
 		this->button_right = button_right;
-		this->button_up    = button_up   ;
-		this->button_down  = button_down ;
+		this->button_up    = button_up;
+		this->button_down  = button_down;
 	}
 	
 	void setBtnImg(int imgNormal, int imgOn, int imgPress){
 		this->imgNormal = imgNormal;
-		this->imgOn     = imgOn    ;
-		this->imgPress  = imgPress ;
+		this->imgOn     = imgOn;
+		this->imgPress  = imgPress;
 	}
 
 	void setBtnId(int btnId){
@@ -109,7 +109,6 @@ public:
 			disappear();
 			break;
 		}
-		Image::mainProc();
 	}
 protected:
 	int imgNormal;
@@ -121,11 +120,7 @@ protected:
 	Button *button_up;
 	Button *button_down;
 	bool choosed;
-private:
-	void init(){
-	}
 };
-
 
 
 class MainButton : public Button{

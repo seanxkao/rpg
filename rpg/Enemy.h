@@ -8,7 +8,7 @@
 class Enemy : public Body{
 public:
 	Enemy(): Body(){
-		setImage(15, 15, 30, 30, 0);
+		setImage(30, 30, 30, 30, 0);
 		setImgId(1000);
 		setHp(100, 100);
 		status = new Status(2);

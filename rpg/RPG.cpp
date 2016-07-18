@@ -20,14 +20,17 @@ queue<Object*> *Object::createQueue = new queue<Object*>;
 class Game{
 public:
 	Game(){
+
 		state = 0;
 		nextState = 0;
 		time = 0;
 
 		currMenu = NULL;
 		player = NULL;
-		pool = new Pool(1000);
+		pool = new Pool(3000);
 		TM = NULL;
+		
+		
 		system = new System();
 		avatar = new Avatar();
 		
@@ -144,7 +147,7 @@ public:
 					ss<<injure;
 					string test=ss.str();
 
-					TM->addText(test, 25, 25, 50, 50 , 255, 255, 255, 255, 0, 0, enemyX, enemyY + 80, 0, 0, enemyX, enemyY + 80, 20, 0, enemyX, enemyY + 130);
+					Text *text = TM->addText(test, 25, 25, 50, 50 , 255, 255, 255, 255, 0, 0, enemyX, enemyY+130, 0, 0, enemyX, enemyY+130, 20, 0, enemyX, enemyY+200);
 				}
 				
 				if(Body::crash(enemy, player)){
@@ -298,25 +301,24 @@ public:
 				enemyHpBar->setParent(0, 70);
 				enemyHpBar->setBarSize(50, 10, 50, 10);
 			}
-			for(int i=0;i<200;i++){
+			for(int i=0;i<40;i++){
 				// BOX 1
 				/*
 				float r = random(0,360);
 				float rr = random(0,10);
 				float l = random(50,80);
 				float s = random(l/30,l/18);
-				float a = random(s/5,s/3);
-				pool->addParticle(45,0,SCREEN_WIDTH/2 + vectorX(l,r) , SCREEN_HEIGHT/2 + vectorY(l,r),vectorX(s,r+90+rr) ,vectorY(s,r+90+rr),vectorX(a,r+180+rr) ,vectorY(a,r+180+rr));
+				float a = random(s*s/l*0.5,s*s/l*1.2);
+				pool->addParticle(35,0,SCREEN_WIDTH/2 + vectorX(l,r) , SCREEN_HEIGHT/2 + vectorY(l,r),vectorX(s,r+90+rr) ,vectorY(s,r+90+rr),vectorX(a,r+180+rr) ,vectorY(a,r+180+rr));
 				*/
-
 				// BOX 2
 				/*
 				float r = random(0,360);
-				float rr = random(0,20);
-				float l = random(150,300);
-				float s = random(l/20,l/12);
+				float rr = random(0,10);
+				float l = random(150,300)*random(150,300)/300;
+				float s = random(l/40,l/24);
 				float a = random(s/60,s/40);
-				pool->addParticle(30,0, SCREEN_WIDTH/2 + vectorX(l,r) ,  SCREEN_HEIGHT/2 + vectorY(l,r),vectorX(s,r+rr) ,vectorY(s,r+rr),vectorX(a,r+180+rr) ,vectorY(a,r+180+rr));
+				pool->addParticle(30,0, SCREEN_WIDTH/2 + vectorX(l,r) ,  SCREEN_HEIGHT/2 + vectorY(l,r),vectorX(s,r+90+rr) ,vectorY(s,r+90+rr),vectorX(a,r+180+rr) ,vectorY(a,r+180+rr));
 				*/
 			}
 
@@ -355,8 +357,6 @@ public:
 
 		}
 
-
-		
 		if(enemyManager!=NULL){
 			for(int i=0;i<1000;i++){
 				Enemy *enemy = (Enemy*)enemyManager->getBody(i);
@@ -407,8 +407,6 @@ Game game;
 
 int WINAPI WinMain(HINSTANCE hCurInst, HINSTANCE hPrevInst, LPSTR lpsCmdLine, int nCmdShow)
 {
-
-////////////////////////////////////////視窗變數宣告/////////////////////////////////////////////////
 
 HWND hWnd;
 WNDCLASSEX wc;

@@ -27,27 +27,20 @@ public:
 	}
 
 	void main(){
-		/*
-		for(int i = 0;i < size;i++){
-			if(particle[i].isExist()){
-				particle[i].main();
-			}
-		}
-		*/
 	}
 
 };
 
 Pool::Pool(int size){
+	
 	this->size = size;
 	particle = new Particle[size];
+	
 	for(int i = 0; i < size; i++){
 		particle[i].setExist(false);
-		particle[i].offFlag(Object::RUNNABLE | Object::DRAWABLE);
 		particle[i].init();
 	}
 }
 
 Pool::~Pool(){
-	//delete []particle;
 }

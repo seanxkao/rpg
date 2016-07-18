@@ -22,7 +22,6 @@ public:
 		for(int i=0;i<10000;i++){	
 			if(texture[i]){
 				texture[i]->Release();
-				texture[i] = NULL;
 			}
 		}
 		delete []texture;
@@ -70,7 +69,7 @@ public:
 		d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
 		d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
 		d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8; 
-		if(FAILED(direct3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &direct3DDevice))){
+		if(FAILED(direct3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_HARDWARE_VERTEXPROCESSING, &d3dpp, &direct3DDevice))){
 			return false;
 		}
 		direct3DDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
@@ -78,9 +77,9 @@ public:
 		direct3DDevice->SetRenderState(D3DRS_ZENABLE, false);
 
 		//linear
-		direct3DDevice->SetSamplerState( 0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR );
-		direct3DDevice->SetSamplerState( 0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR );
-		direct3DDevice->SetSamplerState( 0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR );
+		direct3DDevice->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR );
+		direct3DDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR );
+		direct3DDevice->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR );
 
 		texture = new LPDIRECT3DTEXTURE9[10000];
 
@@ -159,6 +158,7 @@ public:
 		loadTexture(4005, L"image/enemy_bullet_5.bmp"); 
 		loadTexture(4006, L"image/enemy_bullet_6.bmp"); 
 		loadTexture(4007, L"image/enemy_bullet_7.bmp"); 
+		
 		return true;
 	}
 

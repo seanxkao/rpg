@@ -20,7 +20,7 @@ public:
 		init();
 		setSpeed(0, 0, 0);
 		setAccel(0, 0);
-		parent = NULL;
+		setParent(NULL, 0, 0);
 		finished = false;
 		flag = 0;
 		onFlag(RUNNABLE);
@@ -71,6 +71,11 @@ public:
 	void setParent(float parentX, float parentY){
 		setParent(parent, parentX, parentY);
 	}
+	
+	Object* getParent(){
+		return parent;
+	}
+	
 
 	void setZ(float imgZ){
 		this->imgZ = imgZ;
@@ -100,7 +105,6 @@ public:
 		finished = true;
 		onFinish();
 	}
-	
 	
 	bool isFinished(){
 		return finished;
@@ -166,7 +170,7 @@ protected:
 
 	virtual void mainStart(){
 		//use parent coordinate
-		if(parent != NULL){
+		if(parent!=NULL){
 			x = parent->getX() + parentX;
 			y = parent->getY() + parentY;
 		}

@@ -93,7 +93,7 @@ public:
 		else if(state == STATE_DISAPPEAR){
 			disappear();
 		}
-		if(cooldown > 0)cooldown--;
+		if(cooldown>0)cooldown--;
 	}
 protected:
 	int		size;
@@ -185,10 +185,10 @@ public:
 			for(int i=0;i<size;i++){
 				if(time >= i * 3  && time < i*3 +10 ){
 					if(orientation == HORIZONTAL){
-						button[i].setPosition( button[i].getX() ,y - (time-i*3) * distance / 10 ); 
+						button[i].setPosition(button[i].getX() ,y - (time-i*3) * distance / 10 ); 
 					}
 					else {
-						button[i].setPosition( x + (time-i*3) * distance / 10,button[i].getY() ); 
+						button[i].setPosition(x + (time-i*3) * distance / 10,button[i].getY() ); 
 					}
 				}
 			}
@@ -236,7 +236,7 @@ public:
 
 class TrainingMenu: public ListMenu{
 public:
-	TrainingMenu(): ListMenu(SCREEN_WIDTH/2, SCREEN_HEIGHT/2 -10 , 1000, 100, 5,10,0, VERTICLE){
+	TrainingMenu(): ListMenu(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-10, 1000, 100, 5, 10, 0, VERTICLE){
 		button[0].setBtnImg(30,31,31);
 		button[1].setBtnImg(32,33,33);
 		button[2].setBtnImg(34,35,35);

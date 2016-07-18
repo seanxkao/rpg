@@ -21,7 +21,6 @@ public:
 	int imgOn;
 	int imgOut;
 
-
 	virtual void draw(Drawer *drawer){
 		if(kind == 0){
 			if(state == STATE_CREATE){

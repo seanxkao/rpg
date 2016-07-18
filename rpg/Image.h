@@ -25,7 +25,6 @@ public:
 		setTexture(0, 0, 1, 1);
 		setARGB(255, 255, 255, 255);
 		setBlendMode(ALPHA_NORMAL);
-		setParent(NULL, 0, 0);
 		setFixed(false);
 		go_out = false;
 		onFlag(DRAWABLE);
@@ -440,20 +439,12 @@ protected:
 	Point *fan;
 };
 
-
-
 class ImageStrip: public Image{
 public:
 
 	ImageStrip(int length, float len1, float len2, float rad){
 		this->length = length;
-		//vertex = NULL;
 		strip = new Point[length*2+2];
-		//setTexture(0, 0, 1, 1);
-		//onFlag(DRAWABLE);
-		//setFixed(false);
-		//setParent(NULL, 0, 0);
-		//go_out = false;
 		
 	};
 
@@ -475,14 +466,14 @@ public:
 			vertex[i].x = strip[i].x;
 			vertex[i].y = strip[i].y;
 			vertex[i].z = 0;
-			vertex[i].tu = texLeft + (texWidth)*(float)i/(float)length/2;
+			vertex[i].tu = texLeft + (texWidth)*(float)i/(float)(length*2);
 			vertex[i].tv = texHeight;
 			vertex[i].specular = strip[i].getColor();
 			vertex[i].diffuse= strip[i].getColor();
 			vertex[i+1].x = strip[i+1].x;
 			vertex[i+1].y = strip[i+1].y;
 			vertex[i+1].z = 0;
-			vertex[i+1].tu = texLeft + (texWidth)*(float)i/(float)length/2;
+			vertex[i+1].tu = texLeft + (texWidth)*(float)i/(float)(length*2);
 			vertex[i+1].tv = texTop;
 			vertex[i+1].specular = strip[i+1].getColor();
 			vertex[i+1].diffuse= strip[i+1].getColor();
@@ -547,16 +538,16 @@ protected:
 	float wieldEnd;
 	float wieldTime;
 	virtual void mainProc(){
-			
 		swordRad = wieldStart + (wieldEnd-wieldStart)*(float)time/wieldTime;
 		if(time<=wieldTime){
-			addStrip(5, swordLen1, swordLen2, swordRad, 255);
+			addStrip(6, swordLen1, swordLen2, swordRad, 255);
 		}
-		for(int i=0;i<length*2+2;i++){
-			strip[i].setPoint(strip[i].len, strip[i].rad, strip[i].colorA*0.65, strip[i].colorR*0.7, strip[i].colorG*0.7, strip[i].colorB);
-		}
-		if(time>=wieldTime*4||parent->isFinished()){
+		else if(time>=wieldTime*4){
 			finish();
+		}
+		for(int i=0;i<length*2+2;i+=2){
+			strip[i].setPoint(strip[i].len, strip[i].rad, strip[i].colorA*0.65, strip[i].colorR*0.7, strip[i].colorG*0.7, strip[i].colorB);
+			strip[i+1].setPoint(strip[i+1].len, strip[i+1].rad, strip[i+1].colorA*0.75, strip[i+1].colorR*0.7, strip[i+1].colorG*0.7, strip[i+1].colorB);
 		}
 	}
 };
